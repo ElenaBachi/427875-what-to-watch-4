@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Елена Бачи](https://up.htmlacademy.ru/react/4/user/427875).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Черкасов](https://htmlacademy.ru/profile/id385743).
 
 ---
 
