@@ -5,7 +5,7 @@ import App from "./components/app/app.jsx";
 const FilmData = {
   TITLE: `The Grand Budapest Hotel`,
   GENRE: `Drama`,
-  RELEASE_DATE: `2014`,
+  RELEASE_DATE: 2014,
 };
 
 ReactDOM.render(
