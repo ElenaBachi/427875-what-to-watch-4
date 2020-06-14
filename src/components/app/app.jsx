@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 
+const filmTitleClickHandler = () => {};
+
 const App = (props) => {
   const {filmTitle, filmGenre, filmReleaseDate, filmCardTitles} = props;
 
@@ -11,6 +13,7 @@ const App = (props) => {
       filmTitle={filmTitle}
       filmGenre={filmGenre}
       filmReleaseDate={filmReleaseDate}
+      onFilmTitleClick={filmTitleClickHandler}
     />
   );
 };
