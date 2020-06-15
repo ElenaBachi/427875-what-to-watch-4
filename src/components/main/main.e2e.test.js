@@ -26,10 +26,10 @@ describe(`Main E2E test`, () => {
         />
     );
 
-    const movieCardTitles = main.find(`small-movie-card__title`);
-    movieCardTitles.forEach((movieCardTitle) => {
-      movieCardTitle.simulate(`click`);
-      expect(onFilmTitleClick.mock.calls.length).toBe(1);
-    });
+    const movieCardTitles = main.find(`h3.small-movie-card__title`);
+
+    movieCardTitles.forEach((movieCardTitle) => movieCardTitle.simulate(`click`));
+
+    expect(onFilmTitleClick.mock.calls.length).toBe(cardTitles.length);
   });
 });
