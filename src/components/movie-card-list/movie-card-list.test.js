@@ -1,12 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-// import MovieCardList from "../movie-card-list/movie-card-list.jsx";
+import MovieCardList from "./movie-card-list.jsx";
 
-const title = `Some movie`;
-const genre = `Family`;
-const releaseDate = 2020;
-const cardTitles = [`Movie 1`, `Movie 2`, `Movie 3`, `Movie 4`, `Movie 5`];
 const films = [
   {
     title: `Pulp Fiction`,
@@ -35,18 +30,12 @@ const films = [
   }
 ];
 
-describe(`Render Main component`, () => {
-  it(`Should render Main correctly`, () => {
-    const tree = renderer
-      .create(<Main
-        filmCardTitles={cardTitles}
-        filmTitle={title}
-        filmGenre={genre}
-        filmReleaseDate={releaseDate}
+it(`MovieCardList should render correctly`, () => {
+  const tree = renderer.create(
+      <MovieCardList
         films={films}
-      />)
-      .toJSON();
+      />
+  ).toJSON();
 
-    expect(tree).toMatchSnapshot();
-  });
+  expect(tree).toMatchSnapshot();
 });
