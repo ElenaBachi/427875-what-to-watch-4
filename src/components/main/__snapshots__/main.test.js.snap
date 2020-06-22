@@ -259,14 +259,16 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="{filmCardTitle}"
+              alt="Pulp Fiction"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="img/pulp-fiction.jpg"
               width="280"
             />
           </div>
@@ -278,20 +280,22 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Movie 1
+              Pulp Fiction
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="{filmCardTitle}"
+              alt="No Country for Old Men"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="img/no-country-for-old-men.jpg"
               width="280"
             />
           </div>
@@ -303,20 +307,22 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Movie 2
+              No Country for Old Men
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="{filmCardTitle}"
+              alt="Snatch"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="img/snatch.jpg"
               width="280"
             />
           </div>
@@ -328,20 +334,22 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Movie 3
+              Snatch
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="{filmCardTitle}"
+              alt="Moonrise Kingdom"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="img/moonrise-kingdom.jpg"
               width="280"
             />
           </div>
@@ -353,20 +361,22 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Movie 4
+              Moonrise Kingdom
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
             <img
-              alt="{filmCardTitle}"
+              alt="Seven Years in Tibet"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="img/seven-years-in-tibet.jpg"
               width="280"
             />
           </div>
@@ -378,10 +388,92 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Movie 5
+              Seven Years in Tibet
             </a>
           </h3>
         </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="Midnight Special"
+              height="175"
+              src="img/midnight-special.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+            onClick={[Function]}
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+            >
+              Midnight Special
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="War of the Worlds"
+              height="175"
+              src="img/war-of-the-worlds.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+            onClick={[Function]}
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+            >
+              War of the Worlds
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="Dardjeeling Limited"
+              height="175"
+              src="img/dardjeeling-limited.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+            onClick={[Function]}
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+            >
+              Dardjeeling Limited
+            </a>
+          </h3>
+        </article>
+        ;
       </div>
       <div
         className="catalog__more"
