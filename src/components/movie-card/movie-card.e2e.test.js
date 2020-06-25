@@ -11,22 +11,21 @@ describe(`MovieCard E2E test`, () => {
   it(``, () => {
     const onMouseEnter = jest.fn();
     const onMouseLeave = jest.fn();
-    const onFilmTitleClick = jest.fn();
+    const onFilmImgClick = jest.fn();
 
     const movieCard = shallow(
         <MovieCard
           film={mock}
-          onFilmTitleClick={onFilmTitleClick}
+          onFilmImgClick={onFilmImgClick}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         />
     );
 
     const card = movieCard.find(`.small-movie-card`);
-    const movieCardTitle = movieCard.find(`h3.small-movie-card__title`);
 
-    movieCardTitle.simulate(`click`);
-    expect(onFilmTitleClick.mock.calls.length).toBe(1);
+    card.simulate(`click`);
+    expect(onFilmImgClick.mock.calls.length).toBe(1);
 
     card.simulate(`mouseenter`);
     expect(onMouseEnter).toHaveBeenCalledTimes(1);
