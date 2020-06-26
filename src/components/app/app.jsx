@@ -24,7 +24,6 @@ class App extends PureComponent {
 
   _renderMain() {
     const {filmTitle, filmGenre, filmReleaseDate, films} = this.props;
-    const {film} = this.props;
 
     return (
       <Main
@@ -32,7 +31,7 @@ class App extends PureComponent {
         filmGenre={filmGenre}
         filmReleaseDate={filmReleaseDate}
         films={films}
-        onFilmImgClick={() => this.handleFilmImgClick(film)}
+        onFilmImgClick={this.handleFilmImgClick}
       />
     );
   }
