@@ -8,7 +8,7 @@ const MovieCard = (props) => {
     <article className="small-movie-card catalog__movies-card"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={onFilmImgClick}
+      onClick={() => onFilmImgClick(film)}
     >
       <div className="small-movie-card__image">
         <img src={film.img} alt={film.title} width="280" height="175" />
