@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 
 const MovieCardList = (props) => {
-  const {films} = props;
-  const onFilmTitleClick = () => {};
+  const {films, onFilmImgClick} = props;
   const onMouseEnter = () => {};
   const onMouseLeave = () => {};
+
 
   return (
     <div className="catalog__movies-list">
@@ -14,7 +14,7 @@ const MovieCardList = (props) => {
         <MovieCard
           key={film.title}
           film={film}
-          onFilmTitleClick={onFilmTitleClick}
+          onFilmImgClick={onFilmImgClick}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         />
@@ -29,6 +29,7 @@ MovieCardList.propTypes = {
         title: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
       })).isRequired,
+  onFilmImgClick: PropTypes.func.isRequired,
 };
 
 export default MovieCardList;

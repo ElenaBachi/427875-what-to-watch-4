@@ -1,7 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
-// import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 
 const title = `Some movie`;
 const genre = `Family`;
@@ -37,6 +36,8 @@ const films = [
 
 describe(`Render Main component`, () => {
   it(`Should render Main correctly`, () => {
+    const onFilmImgClick = () => {};
+
     const tree = renderer
       .create(<Main
         filmCardTitles={cardTitles}
@@ -44,6 +45,7 @@ describe(`Render Main component`, () => {
         filmGenre={genre}
         filmReleaseDate={releaseDate}
         films={films}
+        onFilmImgClick={onFilmImgClick}
       />)
       .toJSON();
 

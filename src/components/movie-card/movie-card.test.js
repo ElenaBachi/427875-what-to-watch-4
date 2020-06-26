@@ -6,7 +6,7 @@ const film = {
   title: `Shutter Island`,
   img: `img/shutter-island.jpg`,
 };
-const onFilmTitleClick = () => {};
+const onFilmImgClick = () => {};
 const onMouseEnter = () => {};
 const onMouseLeave = () => {};
 
@@ -14,7 +14,7 @@ it(`MovieCard should render correctly`, () => {
   const tree = renderer.create(
       <MovieCard
         film={film}
-        onFilmTitleClick={onFilmTitleClick}
+        onFilmImgClick={onFilmImgClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       />

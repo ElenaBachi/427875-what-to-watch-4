@@ -31,9 +31,12 @@ const films = [
 ];
 
 it(`MovieCardList should render correctly`, () => {
+  const onFilmImgClick = () => {};
+
   const tree = renderer.create(
       <MovieCardList
         films={films}
+        onFilmImgClick={onFilmImgClick}
       />
   ).toJSON();
 
