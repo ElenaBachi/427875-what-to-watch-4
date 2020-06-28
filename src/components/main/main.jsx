@@ -135,6 +135,7 @@ Main.propTypes = {
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
       })).isRequired,
   onFilmImgClick: PropTypes.func.isRequired,
 };

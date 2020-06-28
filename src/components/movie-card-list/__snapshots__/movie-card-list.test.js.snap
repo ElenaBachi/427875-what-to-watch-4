@@ -13,10 +13,11 @@ exports[`MovieCardList should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Pulp Fiction"
+      <video
+        autoPlay={false}
         height="175"
-        src="img/pulp-fiction.jpg"
+        loop={true}
+        poster="img/pulp-fiction.jpg"
         width="280"
       />
     </div>
@@ -40,10 +41,11 @@ exports[`MovieCardList should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="No Country for Old Men"
+      <video
+        autoPlay={false}
         height="175"
-        src="img/no-country-for-old-men.jpg"
+        loop={true}
+        poster="img/no-country-for-old-men.jpg"
         width="280"
       />
     </div>
@@ -67,10 +69,11 @@ exports[`MovieCardList should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Snatch"
+      <video
+        autoPlay={false}
         height="175"
-        src="img/snatch.jpg"
+        loop={true}
+        poster="img/snatch.jpg"
         width="280"
       />
     </div>
@@ -94,10 +97,11 @@ exports[`MovieCardList should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Moonrise Kingdom"
+      <video
+        autoPlay={false}
         height="175"
-        src="img/moonrise-kingdom.jpg"
+        loop={true}
+        poster="img/moonrise-kingdom.jpg"
         width="280"
       />
     </div>
@@ -121,10 +125,11 @@ exports[`MovieCardList should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Seven Years in Tibet"
+      <video
+        autoPlay={false}
         height="175"
-        src="img/seven-years-in-tibet.jpg"
+        loop={true}
+        poster="img/seven-years-in-tibet.jpg"
         width="280"
       />
     </div>
@@ -148,10 +153,11 @@ exports[`MovieCardList should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Midnight Special"
+      <video
+        autoPlay={false}
         height="175"
-        src="img/midnight-special.jpg"
+        loop={true}
+        poster="img/midnight-special.jpg"
         width="280"
       />
     </div>
@@ -175,10 +181,11 @@ exports[`MovieCardList should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="War of the Worlds"
+      <video
+        autoPlay={false}
         height="175"
-        src="img/war-of-the-worlds.jpg"
+        loop={true}
+        poster="img/war-of-the-worlds.jpg"
         width="280"
       />
     </div>
@@ -202,10 +209,11 @@ exports[`MovieCardList should render correctly 1`] = `
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="Dardjeeling Limited"
+      <video
+        autoPlay={false}
         height="175"
-        src="img/dardjeeling-limited.jpg"
+        loop={true}
+        poster="img/dardjeeling-limited.jpg"
         width="280"
       />
     </div>

@@ -4,9 +4,6 @@ import MovieCard from "../movie-card/movie-card.jsx";
 
 const MovieCardList = (props) => {
   const {films, onFilmImgClick} = props;
-  const onMouseEnter = () => {};
-  const onMouseLeave = () => {};
-
 
   return (
     <div className="catalog__movies-list">
@@ -15,8 +12,6 @@ const MovieCardList = (props) => {
           key={film.title}
           film={film}
           onFilmImgClick={onFilmImgClick}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
         />
       )};
     </div>
@@ -28,6 +23,7 @@ MovieCardList.propTypes = {
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
       })).isRequired,
   onFilmImgClick: PropTypes.func.isRequired,
 };

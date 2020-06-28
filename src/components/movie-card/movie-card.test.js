@@ -5,6 +5,7 @@ import MovieCard from "./movie-card.jsx";
 const film = {
   title: `Shutter Island`,
   img: `img/shutter-island.jpg`,
+  src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
 };
 const onFilmImgClick = () => {};
 const onMouseEnter = () => {};
@@ -17,8 +18,12 @@ it(`MovieCard should render correctly`, () => {
         onFilmImgClick={onFilmImgClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-      />
-  ).toJSON();
+        isPlaying={false}
+      />, {
+        createNodeMock: () => {
+          return {};
+        }
+      }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

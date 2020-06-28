@@ -10,10 +10,11 @@ exports[`MovieCard should render correctly 1`] = `
   <div
     className="small-movie-card__image"
   >
-    <img
-      alt="Shutter Island"
+    <video
+      autoPlay={false}
       height="175"
-      src="img/shutter-island.jpg"
+      loop={true}
+      poster="img/shutter-island.jpg"
       width="280"
     />
   </div>

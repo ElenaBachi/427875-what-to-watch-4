@@ -16,32 +16,41 @@ const mock = {
     {
       title: `Film1`,
       img: `img/img-1.jpg`,
+      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     }, {
       title: `Film2`,
       img: `img/img-2.jpg`,
+      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     }, {
       title: `Film3`,
       img: `img/img-3.jpg`,
+      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     }, {
       title: `Film4`,
       img: `img/img-4.jpg`,
+      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     }, {
       title: `Film-5`,
       img: `img/img-5.jpg`,
+      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     }, {
       title: `Film6`,
       img: `img/img-6.jpg`,
+      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     }, {
       title: `Film7`,
       img: `img/img-7.jpg`,
+      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     }, {
       title: `Film8`,
       img: `img/img-8.jpg`,
+      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     }
   ],
   selectedFilm: {
     title: `Film1`,
     img: `img/img-1.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   }
 };
 

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VideoPlayer should render correctly 1`] = `
+<video
+  autoPlay={false}
+  height="175"
+  loop={true}
+  poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+  width="280"
+/>
+`;
