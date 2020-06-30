@@ -15,8 +15,16 @@ it(`VideoPlayer should render correctly`, () => {
     poster={img}
     isPlaying={false}
   />, {
-    createNodeMock: () => {
-      return {};
+    createNodeMock: (element) => {
+      if (element.type === `video`) {
+        return {
+          load: () => {
+            return true;
+          }
+        };
+      }
+
+      return null;
     }
   }).toJSON();
 

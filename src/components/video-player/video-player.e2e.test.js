@@ -1,5 +1,5 @@
 import React from "react";
-import {configure, shallow} from "enzyme";
+import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import VideoPlayer from "./video-player.jsx";
 
@@ -14,7 +14,7 @@ describe(`VideoPlayer E2E test`, () => {
   it(`Video player has play state`, () => {
     const isPlaying = false;
 
-    const videoPlayer = shallow(
+    const videoPlayer = mount(
         <VideoPlayer
           src={mock.src}
           poster={mock.img}
@@ -28,7 +28,7 @@ describe(`VideoPlayer E2E test`, () => {
   it(`Video player has pause state`, () => {
     const isPlaying = true;
 
-    const videoPlayer = shallow(
+    const videoPlayer = mount(
         <VideoPlayer
           src={mock.src}
           poster={mock.img}

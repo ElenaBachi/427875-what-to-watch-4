@@ -15,14 +15,18 @@ describe(`MovieCard E2E test`, () => {
   const onFilmImgClick = jest.fn();
   const handleMouseEnter = () => movieCard.setState({isPlaying: true});
   const handleMouseLeave = () => movieCard.setState({isPlaying: false});
+  const renderPlayer = jest.fn();
 
   const movieCard = mount(
       <MovieCard
         film={mock}
         onFilmImgClick={onFilmImgClick}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         isPlaying={false}
+        renderPlayer={renderPlayer}
       />
   );
 

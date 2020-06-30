@@ -19,6 +19,7 @@ it(`MovieCard should render correctly`, () => {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         isPlaying={false}
+        renderPlayer={() => {}}
       />, {
         createNodeMock: () => {
           return {};
