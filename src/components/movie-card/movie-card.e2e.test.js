@@ -13,8 +13,8 @@ const mock = {
 
 describe(`MovieCard E2E test`, () => {
   const onFilmImgClick = jest.fn();
-  const handleMouseEnter = () => movieCard.setState({isPlaying: true});
-  const handleMouseLeave = () => movieCard.setState({isPlaying: false});
+  const handleMouseEnter = jest.fn(() => true);
+  const handleMouseLeave = jest.fn(() => false);
   const renderPlayer = jest.fn();
 
   const movieCard = mount(
@@ -23,8 +23,6 @@ describe(`MovieCard E2E test`, () => {
         onFilmImgClick={onFilmImgClick}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         isPlaying={false}
         renderPlayer={renderPlayer}
       />
@@ -38,15 +36,15 @@ describe(`MovieCard E2E test`, () => {
     expect(onFilmImgClick.mock.calls.length).toBe(1);
   });
 
-  it(`Mouse entering should change the state`, () => {
+  it(`Mouse entering should call function`, () => {
     card.simulate(`mouseenter`);
 
-    expect(movieCard.state()).toStrictEqual({isPlaying: true});
+    expect(handleMouseEnter.mock.calls.length).toBe(1);
   });
 
-  it(`Mouse leaving should change the state`, () => {
+  it(`Mouse leaving should call function`, () => {
     card.simulate(`mouseleave`);
 
-    expect(movieCard.state()).toStrictEqual({isPlaying: false});
+    expect(handleMouseLeave.mock.calls.length).toBe(1);
   });
 });
