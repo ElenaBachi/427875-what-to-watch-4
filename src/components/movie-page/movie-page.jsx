@@ -33,11 +33,15 @@ class MoviePage extends PureComponent {
           film={film}
         />;
       case TABS.DETAILS:
-        return <MoviePageDetails/>;
+        return <MoviePageDetails
+          film={film}
+        />;
       case TABS.REVIEWS:
         return <MoviePageReviews/>;
       default:
-        return <MoviePageOverview/>;
+        return <MoviePageOverview
+          film={film}
+        />;
     }
   }
 

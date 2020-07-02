@@ -162,6 +162,7 @@ Array [
             >
               <li
                 className="movie-nav__item movie-nav__item--active"
+                onClick={[Function]}
               >
                 <a
                   className="movie-nav__link"
@@ -171,7 +172,8 @@ Array [
                 </a>
               </li>
               <li
-                className="movie-nav__item"
+                className="movie-nav__item "
+                onClick={[Function]}
               >
                 <a
                   className="movie-nav__link"
@@ -181,7 +183,8 @@ Array [
                 </a>
               </li>
               <li
-                className="movie-nav__item"
+                className="movie-nav__item "
+                onClick={[Function]}
               >
                 <a
                   className="movie-nav__link"
@@ -262,9 +265,9 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
+              alt="Pulp Fiction"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="img/pulp-fiction.jpg"
               width="280"
             />
           </div>
@@ -275,7 +278,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Fantastic Beasts: The Crimes of Grindelwald
+              Pulp Fiction
             </a>
           </h3>
         </article>
@@ -286,9 +289,9 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Bohemian Rhapsody"
+              alt="No Country for Old Men"
               height="175"
-              src="img/bohemian-rhapsody.jpg"
+              src="img/no-country-for-old-men.jpg"
               width="280"
             />
           </div>
@@ -299,7 +302,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Bohemian Rhapsody
+              No Country for Old Men
             </a>
           </h3>
         </article>
@@ -310,9 +313,9 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Macbeth"
+              alt="Snatch"
               height="175"
-              src="img/macbeth.jpg"
+              src="img/snatch.jpg"
               width="280"
             />
           </div>
@@ -323,7 +326,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Macbeth
+              Snatch
             </a>
           </h3>
         </article>
@@ -334,9 +337,9 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Aviator"
+              alt="Moonrise Kingdom"
               height="175"
-              src="img/aviator.jpg"
+              src="img/moonrise-kingdom.jpg"
               width="280"
             />
           </div>
@@ -347,7 +350,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Aviator
+              Moonrise Kingdom
             </a>
           </h3>
         </article>

@@ -14,4 +14,6 @@ export default {
   },
   director: `Director: Wes Andreson`,
   actorList: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
+  fullActorList: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`, `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`, `Owen Wilkinson`, `Adrien Brody`, `Ralph Fiennes`, `Jeff Goldblum`],
+  runTime: `1h 39m`,
 };

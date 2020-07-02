@@ -16,12 +16,49 @@ const film = {
   },
   director: `Wes Andreson`,
   actorList: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
+  fullActorList: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`, `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`, `Owen Wilkinson`, `Adrien Brody`, `Ralph Fiennes`, `Jeff Goldblum`],
+  runTime: `1h 39m`,
 };
+
+const films = [
+  {
+    genre: `Genre`,
+    title: `Pulp Fiction`,
+    img: `img/pulp-fiction.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  }, {
+    genre: `Genre`,
+    title: `No Country for Old Men`,
+    img: `img/no-country-for-old-men.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  }, {
+    genre: `Genre`,
+    title: `Snatch`,
+    img: `img/snatch.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  }, {
+    genre: `Genre`,
+    title: `Moonrise Kingdom`,
+    img: `img/moonrise-kingdom.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  }, {
+    genre: `Genre`,
+    title: `Seven Years in Tibet`,
+    img: `img/seven-years-in-tibet.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  }, {
+    genre: `Genre`,
+    title: `Midnight Special`,
+    img: `img/midnight-special.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  },
+];
 
 it(`MoviePage should render correctly`, () => {
   const tree = renderer.create(
       <MoviePage
         film={film}
+        films={films}
       />
   ).toJSON();
 
