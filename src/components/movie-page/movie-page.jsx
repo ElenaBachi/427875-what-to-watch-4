@@ -7,6 +7,7 @@ import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
 
 import {TABS} from "../../consts/consts.js";
+import {filterFilmsByGenre} from "../../utils/utils.js";
 
 class MoviePage extends PureComponent {
   constructor(props) {
@@ -41,9 +42,10 @@ class MoviePage extends PureComponent {
   }
 
   render() {
-    const {film} = this.props;
+    const {films, film} = this.props;
     const {title, genre, year, poster, cover} = film;
     const {activeTab} = this.state;
+    const filmListByGenre = filterFilmsByGenre(films);
 
     return (
       <React.Fragment>
@@ -122,41 +124,18 @@ class MoviePage extends PureComponent {
             <h2 className="catalog__title">More like this</h2>
 
             <div className="catalog__movies-list">
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-                </h3>
-              </article>
+              {filmListByGenre[genre].slice(0, 4).map((it) => {
+                return (
+                  <article key={it.title} className="small-movie-card catalog__movies-card">
+                    <div className="small-movie-card__image">
+                      <img src={it.img} alt={it.title} width="280" height="175" />
+                    </div>
+                    <h3 className="small-movie-card__title">
+                      <a className="small-movie-card__link" href="movie-page.html">{it.title}</a>
+                    </h3>
+                  </article>
+                );
+              })}
             </div>
           </section>
 
@@ -187,6 +166,11 @@ MoviePage.propTypes = {
     poster: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
   }).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+      })).isRequired,
 };
 
 export default MoviePage;
