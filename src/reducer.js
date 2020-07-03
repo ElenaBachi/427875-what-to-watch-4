@@ -2,7 +2,7 @@ import {extend} from "./utils/utils.js";
 import films from "./mocks/films.js";
 
 const initialState = {
-  genre: `All genres`,
+  currentGenre: `All genres`,
   filmList: films,
 };
 
@@ -11,11 +11,31 @@ const ActionType = {
   FILMS_BY_GENRE: `FILMS_BY_GENRE`,
 };
 
+const ActionCreator = {
+  getCurrentGenre: (genre) => ({
+    type: ActionType.GET_CURRENT_GENRE,
+    payload: genre,
+  }),
+
+  getFilmsByGenre: (genre) => {
+    let filteredFilms = films;
+
+    if (genre !== initialState.currentGenre) {
+      filteredFilms = films.filter((film) => film.genre);
+    }
+
+    return {
+      type: ActionType.FILMS_BY_GENRE,
+      payload: filteredFilms,
+    };
+  },
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.GET_CURRENT_GENRE:
       return extend(state, {
-        genre: action.payload,
+        currentGenre: action.payload,
       });
 
     case ActionType.FILMS_BY_GENRE:
@@ -27,4 +47,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionType};
+export {reducer, ActionType, ActionCreator};
