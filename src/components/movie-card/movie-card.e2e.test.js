@@ -1,36 +1,50 @@
 import React from "react";
-import {configure, shallow} from "enzyme";
+import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import MovieCard from "./movie-card.jsx";
 
 configure({adapter: new Adapter()});
 
-const mock = {title: `Film 1`, img: `img/img-1.jpg`};
+const mock = {
+  title: `Film 1`,
+  img: `img/img-1.jpg`,
+  src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+};
 
 describe(`MovieCard E2E test`, () => {
-  it(``, () => {
-    const onMouseEnter = jest.fn();
-    const onMouseLeave = jest.fn();
-    const onFilmImgClick = jest.fn();
+  const onFilmImgClick = jest.fn();
+  const handleMouseEnter = jest.fn(() => true);
+  const handleMouseLeave = jest.fn(() => false);
+  const renderPlayer = jest.fn();
 
-    const movieCard = shallow(
-        <MovieCard
-          film={mock}
-          onFilmImgClick={onFilmImgClick}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        />
-    );
+  const movieCard = mount(
+      <MovieCard
+        film={mock}
+        onFilmImgClick={onFilmImgClick}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+        isPlaying={false}
+        renderPlayer={renderPlayer}
+      />
+  );
 
-    const card = movieCard.find(`.small-movie-card`);
+  const card = movieCard.find(`.small-movie-card`);
 
+  it(`Testing on image click function`, () => {
     card.simulate(`click`);
+
     expect(onFilmImgClick.mock.calls.length).toBe(1);
+  });
 
+  it(`Mouse entering should call function`, () => {
     card.simulate(`mouseenter`);
-    expect(onMouseEnter).toHaveBeenCalledTimes(1);
 
+    expect(handleMouseEnter.mock.calls.length).toBe(1);
+  });
+
+  it(`Mouse leaving should call function`, () => {
     card.simulate(`mouseleave`);
-    expect(onMouseLeave).toHaveBeenCalledTimes(1);
+
+    expect(handleMouseLeave.mock.calls.length).toBe(1);
   });
 });

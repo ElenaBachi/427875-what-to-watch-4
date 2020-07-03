@@ -37,10 +37,11 @@ class App extends PureComponent {
   }
 
   _renderFilmPage() {
-    const {film} = this.props;
+    const {films, film} = this.props;
 
     return (
       <MoviePage
+        films={films}
         film={film}
       />
     );
