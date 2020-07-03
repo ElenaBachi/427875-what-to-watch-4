@@ -10,4 +10,8 @@ const filterFilmsByGenre = (movies) => {
   }, {});
 };
 
-export {filterFilmsByGenre};
+const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
+
+export {filterFilmsByGenre, extend};
