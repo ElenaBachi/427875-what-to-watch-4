@@ -7,21 +7,21 @@ const initialState = {
 };
 
 const ActionType = {
-  GET_CURRENT_GENRE: `GET_CURRENT_GENRE`,
+  SET_CURRENT_GENRE: `SET_CURRENT_GENRE`,
   FILMS_BY_GENRE: `FILMS_BY_GENRE`,
 };
 
 const ActionCreator = {
-  getCurrentGenre: (genre) => ({
-    type: ActionType.GET_CURRENT_GENRE,
+  setCurrentGenre: (genre) => ({
+    type: ActionType.SET_CURRENT_GENRE,
     payload: genre,
   }),
 
-  getFilmsByGenre: (genre) => {
+  getFilmsByGenre: (genre = `All genres`) => {
     let filteredFilms = films;
 
-    if (genre !== initialState.currentGenre) {
-      filteredFilms = films.filter((film) => film.genre);
+    if (genre !== `All genres`) {
+      filteredFilms = films.filter((film) => film.genre === genre);
     }
 
     return {
@@ -33,7 +33,7 @@ const ActionCreator = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.GET_CURRENT_GENRE:
+    case ActionType.SET_CURRENT_GENRE:
       return extend(state, {
         currentGenre: action.payload,
       });
