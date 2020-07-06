@@ -1,8 +1,9 @@
 import {extend} from "./utils/utils.js";
+import {CURRENT_GENRE} from "./consts/consts.js";
 import films from "./mocks/films.js";
 
 const initialState = {
-  currentGenre: `All genres`,
+  currentGenre: CURRENT_GENRE,
   filmList: films,
 };
 
@@ -17,10 +18,10 @@ const ActionCreator = {
     payload: genre,
   }),
 
-  getFilmsByGenre: (genre = `All genres`) => {
+  getFilmsByGenre: (genre = CURRENT_GENRE) => {
     let filteredFilms = films;
 
-    if (genre !== `All genres`) {
+    if (genre !== CURRENT_GENRE) {
       filteredFilms = films.filter((film) => film.genre === genre);
     }
 

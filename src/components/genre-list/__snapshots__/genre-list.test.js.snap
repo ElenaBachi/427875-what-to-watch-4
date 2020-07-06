@@ -23,7 +23,7 @@ exports[`GenreList should render correctly 1`] = `
       className="catalog__genres-link"
       href="#"
     >
-      Comedies
+      Drama
     </a>
   </li>
   <li
@@ -56,18 +56,7 @@ exports[`GenreList should render correctly 1`] = `
       className="catalog__genres-link"
       href="#"
     >
-      Dramas
-    </a>
-  </li>
-  <li
-    className="catalog__genres-item "
-    onClick={[Function]}
-  >
-    <a
-      className="catalog__genres-link"
-      href="#"
-    >
-      Horror
+      Comedie
     </a>
   </li>
 </ul>

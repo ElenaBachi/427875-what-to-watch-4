@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
+import {ActionCreator} from "../../reducer.js";
 
 import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
-
-import {getFilmGenres} from "../../utils/utils.js";
 
 const Main = (props) => {
   const {
@@ -16,8 +17,6 @@ const Main = (props) => {
     onFilterCLick,
     currentGenre
   } = props;
-
-  const genres = getFilmGenres(filmList);
 
   return (
     <React.Fragment>
@@ -81,9 +80,9 @@ const Main = (props) => {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenreList
-            genres={genres}
             onFilterCLick={onFilterCLick}
             currentGenre={currentGenre}
+            filmList={filmList}
           />
 
           <MovieCardList
@@ -129,4 +128,17 @@ Main.propTypes = {
   currentGenre: PropTypes.string.isRequired,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  currentGenre: state.currentGenre,
+  filmList: state.filmList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFilterCLick(genre) {
+    dispatch(ActionCreator.getFilmsByGenre(genre));
+    dispatch(ActionCreator.setCurrentGenre(genre));
+  },
+});
+
+export {Main};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
