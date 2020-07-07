@@ -6,6 +6,7 @@ import {ActionCreator} from "../../reducer.js";
 
 import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
+import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
 const Main = (props) => {
   const {
@@ -15,7 +16,9 @@ const Main = (props) => {
     filmList,
     onFilmImgClick,
     onFilterCLick,
-    currentGenre
+    currentGenre,
+    onShowMoreBtnClick,
+    filmCount,
   } = props;
 
   return (
@@ -88,11 +91,12 @@ const Main = (props) => {
           <MovieCardList
             filmList={filmList}
             onFilmImgClick={onFilmImgClick}
+            filmCount={filmCount}
           />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMoreButton
+            onShowMoreBtnClick={onShowMoreBtnClick}
+          />
         </section>
 
         <footer className="page-footer">
@@ -125,18 +129,25 @@ Main.propTypes = {
       })).isRequired,
   onFilmImgClick: PropTypes.func.isRequired,
   onFilterCLick: PropTypes.func.isRequired,
+  onShowMoreBtnClick: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
+  filmCount: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentGenre: state.currentGenre,
   filmList: state.filmList,
+  filmCount: state.filmCount
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFilterCLick(genre) {
     dispatch(ActionCreator.getFilmsByGenre(genre));
     dispatch(ActionCreator.setCurrentGenre(genre));
+  },
+
+  onShowMoreBtnClick() {
+    dispatch(ActionCreator.downloadFilmCard());
   },
 });
 

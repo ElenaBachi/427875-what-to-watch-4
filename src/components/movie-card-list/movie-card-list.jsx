@@ -8,13 +8,13 @@ const MovieCardWrapped = withVideoPlayer(MovieCard);
 
 
 const MovieCardList = (props) => {
-  const {filmList, onFilmImgClick} = props;
+  const {filmList, onFilmImgClick, filmCount} = props;
 
   return (
     <div className="catalog__movies-list">
-      {filmList.map((film) =>
+      {filmList.slice(0, filmCount).map((film, i) =>
         <MovieCardWrapped
-          key={film.title}
+          key={film.title + i}
           film={film}
           onFilmImgClick={onFilmImgClick}
         />
@@ -31,6 +31,7 @@ MovieCardList.propTypes = {
         src: PropTypes.string.isRequired,
       })).isRequired,
   onFilmImgClick: PropTypes.func.isRequired,
+  filmCount: PropTypes.number.isRequired,
 };
 
 export default MovieCardList;
