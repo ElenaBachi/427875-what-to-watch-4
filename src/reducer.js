@@ -11,7 +11,7 @@ const initialState = {
 const ActionType = {
   SET_CURRENT_GENRE: `SET_CURRENT_GENRE`,
   FILMS_BY_GENRE: `FILMS_BY_GENRE`,
-  DOWNLOAD_MORE_FILM_CARDS: `DOWNLOAD_MORE_FILM_CARDS`,
+  INCREASE_FILM_CARD_COUNT: `INCREASE_FILM_CARD_COUNT`,
 };
 
 const ActionCreator = {
@@ -34,7 +34,7 @@ const ActionCreator = {
   },
 
   downloadFilmCard: () => ({
-    type: ActionType.DOWNLOAD_MORE_FILM_CARDS,
+    type: ActionType.INCREASE_FILM_CARD_COUNT,
     payload: 8,
   }),
 };
@@ -51,7 +51,7 @@ const reducer = (state = initialState, action) => {
         filmList: action.payload,
       });
 
-    case ActionType.DOWNLOAD_MORE_FILM_CARDS:
+    case ActionType.INCREASE_FILM_CARD_COUNT:
       return extend(state, {
         filmCount: state.filmCount + action.payload,
       });

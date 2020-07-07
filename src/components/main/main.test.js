@@ -63,6 +63,7 @@ describe(`Render Main component`, () => {
     const store = mockStore({
       currentGenre: `All genres`,
       filmList: mock.films,
+      filmCount: 8,
     });
 
     const onFilmImgClick = () => {};

@@ -53,6 +53,7 @@ it(`MovieCardList should render correctly`, () => {
       <MovieCardList
         filmList={filmList}
         onFilmImgClick={onFilmImgClick}
+        filmCount={8}
       />, {
         createNodeMock: ()=>{
           return {};

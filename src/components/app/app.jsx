@@ -92,12 +92,6 @@ App.propTypes = {
     director: PropTypes.string.isRequired,
     actorList: PropTypes.string.isRequired,
   }).isRequired,
-  currentGenre: PropTypes.string.isRequired,
-  filmList: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-      })).isRequired,
 };
 
 const mapStateToProps = (state) => ({
