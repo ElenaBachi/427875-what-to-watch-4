@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
@@ -94,10 +93,4 @@ App.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre,
-  filmList: state.filmList,
-});
-
-export {App};
-export default connect(mapStateToProps)(App);
+export default App;
