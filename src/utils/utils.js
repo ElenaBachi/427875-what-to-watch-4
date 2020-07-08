@@ -10,4 +10,15 @@ const filterFilmsByGenre = (movies) => {
   }, {});
 };
 
-export {filterFilmsByGenre};
+const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
+
+const getFilmGenres = (films) => {
+  const filmGenres = films.map((it) => it.genre);
+  let set = new Set(filmGenres);
+
+  return [`All genres`, ...set];
+};
+
+export {filterFilmsByGenre, extend, getFilmGenres};

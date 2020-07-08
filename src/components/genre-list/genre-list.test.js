@@ -1,18 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Provider} from 'react-redux';
-import configureStore from 'redux-mock-store';
-
-import Main from "./main.jsx";
-
-const mockStore = configureStore([]);
+import GenreList from "./genre-list.jsx";
 
 const mock = {
-  filmData: {
-    title: `Some movie`,
-    genre: `Family`,
-    year: 2020,
-  },
+  genres: [`All genres`, `Comedies`, `Crime`, `Documentary`, `Dramas`, `Horror`],
   films: [
     {
       genre: `Drama`,
@@ -58,29 +49,14 @@ const mock = {
   ],
 };
 
-describe(`Render Main component`, () => {
-  it(`Should render Main correctly`, () => {
-    const store = mockStore({
-      currentGenre: `All genres`,
-      filmList: mock.films,
-    });
+it(`GenreList should render correctly`, () => {
+  const tree = renderer.create(
+      <GenreList
+        filmList={mock.films}
+        onFilterCLick={() => {}}
+        currentGenre={mock.genres[0]}
+      />
+  ).toJSON();
 
-    const onFilmImgClick = () => {};
-
-    const tree = renderer.create(
-        <Provider store={store}>
-          <Main
-            filmTitle={mock.filmData.title}
-            filmGenre={mock.filmData.genre}
-            filmReleaseDate={mock.filmData.year}
-            onFilmImgClick={onFilmImgClick}
-          />
-        </Provider>, {
-          createNodeMock: () => {
-            return {};
-          }
-        }).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
+  expect(tree).toMatchSnapshot();
 });
