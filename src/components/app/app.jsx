@@ -24,13 +24,14 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {filmTitle, filmGenre, filmReleaseDate} = this.props;
+    const {filmTitle, filmGenre, filmReleaseDate, films} = this.props;
 
     return (
       <Main
         filmTitle={filmTitle}
         filmGenre={filmGenre}
         filmReleaseDate={filmReleaseDate}
+        films={films}
         onFilmImgClick={this.handleFilmImgClick}
       />
     );

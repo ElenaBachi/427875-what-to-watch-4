@@ -8,18 +8,23 @@ import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
+import {getFilmGenres} from "../../utils/utils.js";
+
 const Main = (props) => {
   const {
     filmTitle,
     filmGenre,
     filmReleaseDate,
     filmList,
+    films,
     onFilmImgClick,
     onFilterCLick,
     currentGenre,
     onShowMoreBtnClick,
     filmCount,
   } = props;
+
+  const genres = getFilmGenres(films);
 
   return (
     <React.Fragment>
@@ -85,7 +90,7 @@ const Main = (props) => {
           <GenreList
             onFilterCLick={onFilterCLick}
             currentGenre={currentGenre}
-            filmList={filmList}
+            genres={genres}
           />
 
           <MovieCardList
@@ -126,6 +131,12 @@ Main.propTypes = {
   filmGenre: PropTypes.string.isRequired,
   filmReleaseDate: PropTypes.number.isRequired,
   filmList: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+      })).isRequired,
+  films: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,

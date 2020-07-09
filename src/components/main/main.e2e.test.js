@@ -85,6 +85,7 @@ describe(`Main E2E test`, () => {
           filmReleaseDate={mock.filmData.year}
           onFilmImgClick={onFilmImgClick}
           onFilterCLick={onFilterCLick}
+          films={mock.films}
           filmList={mock.films}
           currentGenre={`All genres`}
           filmCount={8}

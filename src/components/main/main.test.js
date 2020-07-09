@@ -74,6 +74,7 @@ describe(`Render Main component`, () => {
             filmTitle={mock.filmData.title}
             filmGenre={mock.filmData.genre}
             filmReleaseDate={mock.filmData.year}
+            films={mock.films}
             onFilmImgClick={onFilmImgClick}
           />
         </Provider>, {
