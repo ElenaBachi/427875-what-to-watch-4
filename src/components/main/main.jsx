@@ -94,9 +94,13 @@ const Main = (props) => {
             filmCount={filmCount}
           />
 
-          <ShowMoreButton
-            onShowMoreBtnClick={onShowMoreBtnClick}
-          />
+          <div className="catalog__more">
+            {filmCount < filmList.length &&
+              <ShowMoreButton
+                onShowMoreBtnClick={onShowMoreBtnClick}
+              />
+            }
+          </div>
         </section>
 
         <footer className="page-footer">
@@ -121,6 +125,11 @@ Main.propTypes = {
   filmTitle: PropTypes.string.isRequired,
   filmGenre: PropTypes.string.isRequired,
   filmReleaseDate: PropTypes.number.isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+      })).isRequired,
   filmList: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
