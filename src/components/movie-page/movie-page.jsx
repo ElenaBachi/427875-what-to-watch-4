@@ -5,9 +5,13 @@ import Tabs from "../tabs/tabs.jsx";
 import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../movie-page-details/movie-page-details.jsx";
 import MoviePageReviews from "../movie-page-reviews/movie-page-reviews.jsx";
+import MovieCard from "../movie-card/movie-card.jsx";
 
 import {TABS} from "../../consts/consts.js";
 import {filterFilmsByGenre} from "../../utils/utils.js";
+
+import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
+const MovieCardWrapped = withVideoPlayer(MovieCard);
 
 class MoviePage extends PureComponent {
   constructor(props) {
@@ -128,16 +132,13 @@ class MoviePage extends PureComponent {
             <h2 className="catalog__title">More like this</h2>
 
             <div className="catalog__movies-list">
-              {filmListByGenre[genre].slice(0, 4).map((it) => {
+              {filmListByGenre[genre].slice(0, 4).map((it, i) => {
                 return (
-                  <article key={it.title} className="small-movie-card catalog__movies-card">
-                    <div className="small-movie-card__image">
-                      <img src={it.img} alt={it.title} width="280" height="175" />
-                    </div>
-                    <h3 className="small-movie-card__title">
-                      <a className="small-movie-card__link" href="movie-page.html">{it.title}</a>
-                    </h3>
-                  </article>
+                  <MovieCardWrapped
+                    key={it.title + i}
+                    film={it}
+                    onFilmImgClick={() => {}}
+                  />
                 );
               })}
             </div>
@@ -174,6 +175,7 @@ MoviePage.propTypes = {
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
       })).isRequired,
 };
 
