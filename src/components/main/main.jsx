@@ -6,6 +6,9 @@ import {ActionCreator} from "../../reducer.js";
 
 import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
+import ShowMoreButton from "../show-more-button/show-more-button.jsx";
+
+import {getFilmGenres} from "../../utils/utils.js";
 
 const Main = (props) => {
   const {
@@ -13,10 +16,15 @@ const Main = (props) => {
     filmGenre,
     filmReleaseDate,
     filmList,
+    films,
     onFilmImgClick,
     onFilterCLick,
-    currentGenre
+    currentGenre,
+    onShowMoreBtnClick,
+    filmCount,
   } = props;
+
+  const genres = getFilmGenres(films);
 
   return (
     <React.Fragment>
@@ -82,16 +90,21 @@ const Main = (props) => {
           <GenreList
             onFilterCLick={onFilterCLick}
             currentGenre={currentGenre}
-            filmList={filmList}
+            genres={genres}
           />
 
           <MovieCardList
             filmList={filmList}
             onFilmImgClick={onFilmImgClick}
+            filmCount={filmCount}
           />
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            {filmCount < filmList.length &&
+              <ShowMoreButton
+                onShowMoreBtnClick={onShowMoreBtnClick}
+              />
+            }
           </div>
         </section>
 
@@ -123,20 +136,33 @@ Main.propTypes = {
         img: PropTypes.string.isRequired,
         src: PropTypes.string.isRequired,
       })).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+      })).isRequired,
   onFilmImgClick: PropTypes.func.isRequired,
   onFilterCLick: PropTypes.func.isRequired,
+  onShowMoreBtnClick: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
+  filmCount: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentGenre: state.currentGenre,
   filmList: state.filmList,
+  filmCount: state.filmCount
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFilterCLick(genre) {
     dispatch(ActionCreator.getFilmsByGenre(genre));
     dispatch(ActionCreator.setCurrentGenre(genre));
+  },
+
+  onShowMoreBtnClick() {
+    dispatch(ActionCreator.downloadFilmCard());
   },
 });
 

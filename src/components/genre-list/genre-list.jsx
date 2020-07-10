@@ -1,10 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {getFilmGenres} from "../../utils/utils.js";
 
 const GenreList = (props) => {
-  const {filmList, onFilterCLick, currentGenre} = props;
-  const genres = getFilmGenres(filmList);
+  const {genres, onFilterCLick, currentGenre} = props;
 
   return (
     <ul className="catalog__genres-list">
@@ -28,12 +26,7 @@ const GenreList = (props) => {
 GenreList.propTypes = {
   onFilterCLick: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
-  filmList: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
-      })).isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string.isRequired),
 };
 
 export default GenreList;

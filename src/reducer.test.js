@@ -6,6 +6,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     currentGenre: `All genres`,
     filmList: films,
+    filmCount: 8,
   });
 });
 
@@ -46,5 +47,25 @@ it(`Reducer should get film list by genre`, () => {
     payload: ActionCreator.getFilmsByGenre(`Crime`),
   })).toEqual({
     filmList: ActionCreator.getFilmsByGenre(`Crime`),
+  });
+});
+
+it(`Reducer should increase film card count`, () => {
+  expect(reducer({
+    filmCount: 8,
+  }, {
+    type: ActionType.INCREASE_FILM_CARD_COUNT,
+    payload: 1,
+  })).toEqual({
+    filmCount: 9,
+  });
+
+  expect(reducer({
+    filmCount: 8,
+  }, {
+    type: ActionType.INCREASE_FILM_CARD_COUNT,
+    payload: 10,
+  })).toEqual({
+    filmCount: 18,
   });
 });

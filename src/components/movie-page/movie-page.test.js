@@ -59,8 +59,10 @@ it(`MoviePage should render correctly`, () => {
       <MoviePage
         film={film}
         films={films}
-      />
-  ).toJSON();
+      />, {
+        createNodeMock: () => {
+          return {};
+        }}).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

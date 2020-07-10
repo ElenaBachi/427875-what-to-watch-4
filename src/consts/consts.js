@@ -4,5 +4,5 @@ export const TABS = {
   REVIEWS: `Reviews`,
 };
 
-export const CURRENT_GENRE = `All genres`;
+export const ALL_GENRES = `All genres`;
 

@@ -260,14 +260,18 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Pulp Fiction"
+            <video
+              autoPlay={false}
               height="175"
-              src="img/pulp-fiction.jpg"
+              loop={true}
+              poster="img/pulp-fiction.jpg"
               width="280"
             />
           </div>
@@ -284,14 +288,18 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="No Country for Old Men"
+            <video
+              autoPlay={false}
               height="175"
-              src="img/no-country-for-old-men.jpg"
+              loop={true}
+              poster="img/no-country-for-old-men.jpg"
               width="280"
             />
           </div>
@@ -308,14 +316,18 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Snatch"
+            <video
+              autoPlay={false}
               height="175"
-              src="img/snatch.jpg"
+              loop={true}
+              poster="img/snatch.jpg"
               width="280"
             />
           </div>
@@ -332,14 +344,18 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Moonrise Kingdom"
+            <video
+              autoPlay={false}
               height="175"
-              src="img/moonrise-kingdom.jpg"
+              loop={true}
+              poster="img/moonrise-kingdom.jpg"
               width="280"
             />
           </div>

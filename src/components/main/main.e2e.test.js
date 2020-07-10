@@ -71,6 +71,7 @@ describe(`Main E2E test`, () => {
   const store = mockStore({
     currentGenre: `All genres`,
     filmList: mock.films,
+    filmCount: 8,
   });
 
   const onFilmImgClick = jest.fn();
@@ -84,8 +85,10 @@ describe(`Main E2E test`, () => {
           filmReleaseDate={mock.filmData.year}
           onFilmImgClick={onFilmImgClick}
           onFilterCLick={onFilterCLick}
+          films={mock.films}
           filmList={mock.films}
           currentGenre={`All genres`}
+          filmCount={8}
         />
       </Provider>
   );

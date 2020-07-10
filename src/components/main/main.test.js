@@ -63,6 +63,7 @@ describe(`Render Main component`, () => {
     const store = mockStore({
       currentGenre: `All genres`,
       filmList: mock.films,
+      filmCount: 8,
     });
 
     const onFilmImgClick = () => {};
@@ -73,6 +74,7 @@ describe(`Render Main component`, () => {
             filmTitle={mock.filmData.title}
             filmGenre={mock.filmData.genre}
             filmReleaseDate={mock.filmData.year}
+            films={mock.films}
             onFilmImgClick={onFilmImgClick}
           />
         </Provider>, {

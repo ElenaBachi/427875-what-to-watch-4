@@ -1,15 +1,17 @@
 import {extend} from "./utils/utils.js";
-import {CURRENT_GENRE} from "./consts/consts.js";
+import {ALL_GENRES} from "./consts/consts.js";
 import films from "./mocks/films.js";
 
 const initialState = {
-  currentGenre: CURRENT_GENRE,
+  currentGenre: ALL_GENRES,
   filmList: films,
+  filmCount: 8,
 };
 
 const ActionType = {
   SET_CURRENT_GENRE: `SET_CURRENT_GENRE`,
   FILMS_BY_GENRE: `FILMS_BY_GENRE`,
+  INCREASE_FILM_CARD_COUNT: `INCREASE_FILM_CARD_COUNT`,
 };
 
 const ActionCreator = {
@@ -18,10 +20,10 @@ const ActionCreator = {
     payload: genre,
   }),
 
-  getFilmsByGenre: (genre = CURRENT_GENRE) => {
+  getFilmsByGenre: (genre = ALL_GENRES) => {
     let filteredFilms = films;
 
-    if (genre !== CURRENT_GENRE) {
+    if (genre !== ALL_GENRES) {
       filteredFilms = films.filter((film) => film.genre === genre);
     }
 
@@ -30,6 +32,11 @@ const ActionCreator = {
       payload: filteredFilms,
     };
   },
+
+  downloadFilmCard: () => ({
+    type: ActionType.INCREASE_FILM_CARD_COUNT,
+    payload: 8,
+  }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -42,6 +49,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.FILMS_BY_GENRE:
       return extend(state, {
         filmList: action.payload,
+      });
+
+    case ActionType.INCREASE_FILM_CARD_COUNT:
+      return extend(state, {
+        filmCount: state.filmCount + action.payload,
       });
   }
 

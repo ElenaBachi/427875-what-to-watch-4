@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 
-import {App} from "./app.jsx";
+import App from "./app.jsx";
 
 const mockStore = configureStore([]);
 
@@ -79,6 +79,7 @@ describe(`Render App`, () => {
     const store = mockStore({
       currentGenre: `All genres`,
       filmList: mock.films,
+      filmCount: 8,
     });
 
     const tree = renderer.create(
