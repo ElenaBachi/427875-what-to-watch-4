@@ -5,6 +5,8 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 
+import {PAGES} from "../../consts/consts.js";
+
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
 
 const MoviePageWrapped = withActiveTab(MoviePage);
@@ -14,17 +16,21 @@ class App extends PureComponent {
 
     this.state = {
       selectedFilm: null,
+      activePage: PAGES.MAIN,
     };
 
     this.handleFilmImgClick = this.handleFilmImgClick.bind(this);
   }
 
   _renderApp() {
-    if (this.state.selectedFilm === null) {
-      return this._renderMain();
+    switch (this.state.activePage) {
+      case PAGES.MAIN:
+        return this._renderMain();
+      case PAGES.FILM_PAGE:
+        return this._renderFilmPage();
+      default:
+        return this._renderMain();
     }
-
-    return this._renderFilmPage();
   }
 
   _renderMain() {
@@ -68,7 +74,10 @@ class App extends PureComponent {
   }
 
   handleFilmImgClick(film) {
-    this.setState({selectedFilm: film});
+    this.setState({
+      selectedFilm: film,
+      activePage: PAGES.FILM_PAGE,
+    });
   }
 }
 
