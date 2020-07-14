@@ -4,6 +4,10 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+
+import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
+
+const MoviePageWrapped = withActiveTab(MoviePage);
 class App extends PureComponent {
   constructor() {
     super();
@@ -41,7 +45,7 @@ class App extends PureComponent {
     const {films, film} = this.props;
 
     return (
-      <MoviePage
+      <MoviePageWrapped
         films={films}
         film={film}
       />
