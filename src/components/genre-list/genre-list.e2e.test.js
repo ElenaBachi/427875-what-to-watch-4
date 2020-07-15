@@ -14,11 +14,11 @@ describe(`GenreList E2E test`, () => {
   const onFilterCLick = jest.fn();
 
   const genreList = mount(
-    <GenreList
-    genres={mock.genres}
-    onFilterCLick={onFilterCLick}
-    currentGenre={mock.genres[0]}
-    />
+      <GenreList
+        genres={mock.genres}
+        onFilterCLick={onFilterCLick}
+        currentGenre={mock.genres[0]}
+      />
   );
 
   const filters = genreList.find(`li.catalog__genres-item`);

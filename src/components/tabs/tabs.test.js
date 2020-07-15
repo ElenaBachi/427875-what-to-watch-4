@@ -15,11 +15,11 @@ it(`Tabs should render correctly`, () => {
   const activeTab = Object.keys(mock.tabList)[0];
 
   const tree = renderer.create(
-    <Tabs
-      tabList={mock.tabList}
-      onTabChange={() => {}}
-      activeTab={activeTab}
-    />).toJSON();
+      <Tabs
+        tabList={mock.tabList}
+        onTabChange={() => {}}
+        activeTab={activeTab}
+      />).toJSON();
 
-expect(tree).toMatchSnapshot();
+  expect(tree).toMatchSnapshot();
 });

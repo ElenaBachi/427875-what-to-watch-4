@@ -18,11 +18,11 @@ describe(`Tabs E2E test`, () => {
   const activeTab = Object.keys(mock.tabList)[0];
 
   const tabs = mount(
-    <Tabs
-      tabList={mock.tabList}
-      onTabChange={onTabChange}
-      activeTab={activeTab}
-    />
+      <Tabs
+        tabList={mock.tabList}
+        onTabChange={onTabChange}
+        activeTab={activeTab}
+      />
   );
 
   const tabList = tabs.find(`li.movie-nav__item`);
