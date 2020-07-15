@@ -1,3 +1,8 @@
+export const PAGES = {
+  MAIN: `main`,
+  FILM_PAGE: `filmPage`,
+};
+
 export const TABS = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,

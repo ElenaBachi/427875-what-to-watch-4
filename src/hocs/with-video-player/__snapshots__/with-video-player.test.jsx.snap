@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withVideoPlayer should render correctly 1`] = `
+<div>
+  <video />
+</div>
+`;

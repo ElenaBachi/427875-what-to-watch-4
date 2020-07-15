@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Tabs = (props) => {
-  const {tabList, onTabClick, activeTab} = props;
+  const {tabList, onTabChange, activeTab} = props;
   const tabs = Object.values(tabList);
 
   return (
@@ -14,7 +14,7 @@ const Tabs = (props) => {
               className={`movie-nav__item ${tab === activeTab ? `movie-nav__item--active` : ``}`}
               onClick={(evt) => {
                 evt.preventDefault();
-                onTabClick(tab);
+                onTabChange(tab);
               }}>
               <a href="#" className="movie-nav__link">{tab}</a>
             </li>
@@ -27,7 +27,7 @@ const Tabs = (props) => {
 
 Tabs.propTypes = {
   tabList: PropTypes.object.isRequired,
-  onTabClick: PropTypes.func.isRequired,
+  onTabChange: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
 };
 

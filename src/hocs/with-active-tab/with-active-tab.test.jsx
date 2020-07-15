@@ -1,6 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MoviePage from "./movie-page.jsx";
+
+import withActiveTab from "./with-active-tab.jsx";
+
+const MockComponent = () => <div />;
+
+const MockComponentWrapped = withActiveTab(MockComponent);
 
 const mock = {
   film: {
@@ -53,28 +58,15 @@ const mock = {
       src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
     },
   ],
-  tabList: {
-    FIRST: `First Tab`,
-    SECOND: `Second Tab`,
-    THIRD: `Third Tab`,
-  },
 };
 
-it(`MoviePage should render correctly`, () => {
-  const activeTab = Object.keys(mock.tabList)[0];
-
-  const tree = renderer.create(
-      <MoviePage
-        film={mock.film}
-        films={mock.films}
-        tabList={mock.tabList}
-        onTabChange={() => {}}
-        onTabClickRender={() => {}}
-        activeTab={activeTab}
-      />, {
-        createNodeMock: () => {
-          return {};
-        }}).toJSON();
+it(`withVideoPlayer should render correctly`, () => {
+  const tree = renderer.create((
+    <MockComponentWrapped
+      films={mock.films}
+      film={mock.film}
+    />
+  )).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
