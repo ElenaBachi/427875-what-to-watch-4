@@ -1,6 +1,7 @@
 export const PAGES = {
   MAIN: `main`,
   FILM_PAGE: `filmPage`,
+  VIDEO_PLAYER: `videoPlayer`,
 };
 
 export const TABS = {

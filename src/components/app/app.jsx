@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import VideoPlayerMain from "../video-player-main/video-player-main.jsx";
 
 import {PAGES} from "../../consts/consts.js";
 
@@ -20,6 +21,7 @@ class App extends PureComponent {
     };
 
     this.handleFilmImgClick = this.handleFilmImgClick.bind(this);
+    this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
   }
 
   _renderApp() {
@@ -28,6 +30,8 @@ class App extends PureComponent {
         return this._renderMain();
       case PAGES.FILM_PAGE:
         return this._renderFilmPage();
+      case PAGES.VIDEO_PLAYER:
+        return <VideoPlayerMain/>;
       default:
         return this._renderMain();
     }
@@ -43,6 +47,7 @@ class App extends PureComponent {
         filmReleaseDate={filmReleaseDate}
         films={films}
         onFilmImgClick={this.handleFilmImgClick}
+        onPlayButtonClick={this.handlePlayButtonClick}
       />
     );
   }
@@ -54,6 +59,7 @@ class App extends PureComponent {
       <MoviePageWrapped
         films={films}
         film={film}
+        onPlayButtonClick={this.handlePlayButtonClick}
       />
     );
   }
@@ -77,6 +83,12 @@ class App extends PureComponent {
     this.setState({
       selectedFilm: film,
       activePage: PAGES.FILM_PAGE,
+    });
+  }
+
+  handlePlayButtonClick() {
+    this.setState({
+      activePage: PAGES.VIDEO_PLAYER,
     });
   }
 }
