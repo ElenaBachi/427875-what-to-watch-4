@@ -1,5 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
+import {ActionCreator} from "../../reducer.js";
+
 import {filterFilmsByGenre} from "../../utils/utils.js";
 
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
@@ -17,9 +21,12 @@ const MoviePage = (props) => {
     onTabChange,
     onTabClickRender,
     activeTab,
-    onPlayButtonClick
+    handleButtonClick,
+    onPlayButtonClick,
   } = props;
+
   const {title, genre, year, poster, cover} = film;
+
   const filmListByGenre = filterFilmsByGenre(films);
 
   return (
@@ -57,9 +64,15 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
+
                 <button className="btn btn--play movie-card__button" type="button"
-                  onClick={onPlayButtonClick}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    onPlayButtonClick();
+                    handleButtonClick(film);
+                  }}
                 >
+
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -152,6 +165,14 @@ MoviePage.propTypes = {
   activeTab: PropTypes.string.isRequired,
   tabList: PropTypes.object.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
+  handleButtonClick: PropTypes.func.isRequired,
 };
 
-export default MoviePage;
+const mapDispatchToProps = (dispatch) => ({
+  handleButtonClick(film) {
+    dispatch(ActionCreator.setFilmToPlay(film));
+  },
+});
+
+export {MoviePage};
+export default connect(null, mapDispatchToProps)(MoviePage);
