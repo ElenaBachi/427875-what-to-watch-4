@@ -68,7 +68,7 @@ const withVideoPlayerMain = (Component) => {
 
     render() {
       const {onExitButtonClick} = this.props;
-      const {isfullScreen} = this.state;
+      const {isPlaying, isfullScreen} = this.state;
 
       return (
         <Component>
@@ -91,11 +91,23 @@ const withVideoPlayerMain = (Component) => {
               <button type="button" className="player__play"
                 onClick={this.handlePlayButtonClick}
               >
+
+                {isPlaying ?
+                <>
+                <svg viewBox="0 0 19 19" width="19" height="19">
+                  <use xlinkHref="#pause"></use>
+                </svg>
+                <span>Play</span>
+                </> :
+                <>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
+                </>}
+
               </button>
+
               <div className="player__name">Transpotting</div>
 
               <button type="button" className="player__full-screen"
