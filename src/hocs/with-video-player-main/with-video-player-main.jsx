@@ -1,6 +1,8 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 
+import {PAGES} from "../../consts/consts.js";
+
 const withVideoPlayerMain = (Component) => {
   class WithVideoPlayerMain extends PureComponent {
     constructor(props) {
@@ -8,7 +10,7 @@ const withVideoPlayerMain = (Component) => {
 
       this.state = {
         isPlaying: false,
-        isfullScreen: false,
+        isFullScreen: false,
         duration: 0,
         currentTime: 0,
       };
@@ -16,8 +18,7 @@ const withVideoPlayerMain = (Component) => {
       this._videoRef = createRef();
 
       this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
-      this.handleFullScreenClick = this.handleFullScreenClick.bind(this);
-      this.handleMiniScreenEsc = this.handleMiniScreenEsc.bind(this);
+      this.handleFullScreen = this.handleFullScreen.bind(this);
     }
 
     handlePlayButtonClick(evt) {
@@ -25,14 +26,13 @@ const withVideoPlayerMain = (Component) => {
       this.setState({isPlaying: !this.state.isPlaying});
     }
 
-    handleFullScreenClick(evt) {
-      evt.preventDefault();
-      this.setState({isfullScreen: !this.state.isfullScreen});
-    }
+    handleFullScreen(evt) {
+      let elem = evt.target;
 
-    handleMiniScreenEsc(evt) {
-      if (evt.key === `Escape`) {
-        this.setState({isfullScreen: false});
+      if (!document.fullscreenElement) {
+        elem.requestFullscreen();
+      } else {
+        document.exitFullscreen();
       }
     }
 
@@ -67,15 +67,19 @@ const withVideoPlayerMain = (Component) => {
     }
 
     render() {
-      const {onExitButtonClick} = this.props;
-      const {isPlaying, isfullScreen} = this.state;
+      const {activeFullVideo} = this.props;
+      const {handleExitButtonClick} = this.props;
+      const {isPlaying, isFullScreen} = this.state;
+      const pageToExit = Object.keys(activeFullVideo).includes(`promo`) ? PAGES.MAIN : PAGES.FILM_PAGE;
 
       return (
         <Component>
           <video className="player__video" ref={this._videoRef} />
 
           <button type="button" className="player__exit"
-            onClick={onExitButtonClick}
+            onClick={() => {
+              handleExitButtonClick(pageToExit);
+            }}
           >Exit</button>
 
           <div className="player__controls">
@@ -111,11 +115,10 @@ const withVideoPlayerMain = (Component) => {
               <div className="player__name">Transpotting</div>
 
               <button type="button" className="player__full-screen"
-                onClick={this.handleFullScreenClick}
-                onKeyDown={this.handleMiniScreenEsc}
+                onClick={this.handleFullScreen}
               >
 
-                {isfullScreen ? `` :
+                {isFullScreen ? `` :
                 <>
                   <svg viewBox="0 0 27 27" width="27" height="27">
                     <use xlinkHref="#full-screen"></use>
@@ -133,7 +136,7 @@ const withVideoPlayerMain = (Component) => {
 
   WithVideoPlayerMain.propTypes = {
     activeFullVideo: PropTypes.object.isRequired,
-    onExitButtonClick: PropTypes.func.isRequired,
+    handleExitButtonClick: PropTypes.func.isRequired,
   };
 
   return WithVideoPlayerMain;
