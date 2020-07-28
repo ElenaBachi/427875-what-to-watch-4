@@ -1,6 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
+
 import MoviePage from "./movie-page.jsx";
+
+const mockStore = configureStore([]);
 
 const mock = {
   film: {
@@ -61,17 +66,25 @@ const mock = {
 };
 
 it(`MoviePage should render correctly`, () => {
+  const store = mockStore({
+    handleButtonClick: () => {},
+  });
+
   const activeTab = Object.keys(mock.tabList)[0];
+  const onPlayButtonClick = () => {};
 
   const tree = renderer.create(
-      <MoviePage
-        film={mock.film}
-        films={mock.films}
-        tabList={mock.tabList}
-        onTabChange={() => {}}
-        onTabClickRender={() => {}}
-        activeTab={activeTab}
-      />, {
+      <Provider store={store}>
+        <MoviePage
+          film={mock.film}
+          films={mock.films}
+          tabList={mock.tabList}
+          onTabChange={() => {}}
+          onTabClickRender={() => {}}
+          activeTab={activeTab}
+          onPlayButtonClick={onPlayButtonClick}
+        />
+      </Provider>, {
         createNodeMock: () => {
           return {};
         }}).toJSON();

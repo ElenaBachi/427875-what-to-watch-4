@@ -5,8 +5,6 @@ import withVideoPlayerMain from "../../hocs/with-video-player-main/with-video-pl
 
 import {connect} from "react-redux";
 
-import {ActionCreator} from "../../reducer.js";
-
 const VideoPlayerMain = (props) => {
   const {children} = props;
 
@@ -32,11 +30,5 @@ const mapStateToProps = (state) => ({
   activeFullVideo: state.activeFullVideo,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onExitButtonClick() {
-    dispatch(ActionCreator.setFilmToPlay(null));
-  },
-});
-
 export {VideoPlayerMain};
-export default connect(mapStateToProps, mapDispatchToProps)(withVideoPlayerMain(VideoPlayerMain));
+export default connect(mapStateToProps)(withVideoPlayerMain(VideoPlayerMain));
