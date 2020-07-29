@@ -8,10 +8,12 @@ import App from "./app.jsx";
 const mockStore = configureStore([]);
 
 const mock = {
-  filmData: {
+  promoFilm: {
+    promo: true,
     title: `Some movie`,
     genre: `Family`,
     year: 2020,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   films: [
     {
@@ -85,9 +87,7 @@ describe(`Render App`, () => {
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            filmTitle={mock.filmData.title}
-            filmGenre={mock.filmData.genre}
-            filmReleaseDate={mock.filmData.year}
+            promoFilm={mock.promoFilm}
             films={mock.films}
             film={mock.film}
           />

@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import VideoPlayerMain from "../video-player-main/video-player-main.jsx";
 
 import {PAGES} from "../../consts/consts.js";
 
@@ -11,8 +12,8 @@ import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
 
 const MoviePageWrapped = withActiveTab(MoviePage);
 class App extends PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       selectedFilm: null,
@@ -20,6 +21,8 @@ class App extends PureComponent {
     };
 
     this.handleFilmImgClick = this.handleFilmImgClick.bind(this);
+    this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
+    this.handleExitButtonClick = this.handleExitButtonClick.bind(this);
   }
 
   _renderApp() {
@@ -28,21 +31,24 @@ class App extends PureComponent {
         return this._renderMain();
       case PAGES.FILM_PAGE:
         return this._renderFilmPage();
+      case PAGES.VIDEO_PLAYER:
+        return <VideoPlayerMain
+          handleExitButtonClick={this.handleExitButtonClick}
+        />;
       default:
         return this._renderMain();
     }
   }
 
   _renderMain() {
-    const {filmTitle, filmGenre, filmReleaseDate, films} = this.props;
+    const {promoFilm, films} = this.props;
 
     return (
       <Main
-        filmTitle={filmTitle}
-        filmGenre={filmGenre}
-        filmReleaseDate={filmReleaseDate}
+        promoFilm={promoFilm}
         films={films}
         onFilmImgClick={this.handleFilmImgClick}
+        onPlayButtonClick={this.handlePlayButtonClick}
       />
     );
   }
@@ -54,6 +60,7 @@ class App extends PureComponent {
       <MoviePageWrapped
         films={films}
         film={film}
+        onPlayButtonClick={this.handlePlayButtonClick}
       />
     );
   }
@@ -68,6 +75,10 @@ class App extends PureComponent {
           <Route exact path="/dev-film">
             {this._renderFilmPage()}
           </Route>
+          <Route exact path="/dev-player">
+            <VideoPlayerMain
+            />;
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -79,12 +90,27 @@ class App extends PureComponent {
       activePage: PAGES.FILM_PAGE,
     });
   }
+
+  handlePlayButtonClick() {
+    this.setState({
+      activePage: PAGES.VIDEO_PLAYER,
+    });
+  }
+
+  handleExitButtonClick(page) {
+    this.setState({
+      activePage: page,
+    });
+  }
 }
 
 App.propTypes = {
-  filmTitle: PropTypes.string.isRequired,
-  filmGenre: PropTypes.string.isRequired,
-  filmReleaseDate: PropTypes.number.isRequired,
+  promoFilm: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    src: PropTypes.string.isRequired,
+  }),
   films: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -106,5 +132,6 @@ App.propTypes = {
     actorList: PropTypes.string.isRequired,
   }).isRequired,
 };
+
 
 export default App;

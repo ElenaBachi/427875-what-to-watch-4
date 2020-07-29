@@ -11,10 +11,12 @@ configure({adapter: new Adapter()});
 const mockStore = configureStore([]);
 
 const mock = {
-  filmData: {
+  promoFilm: {
+    promo: true,
     title: `Some movie`,
     genre: `Family`,
     year: 2020,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   films: [
     {
@@ -76,15 +78,15 @@ describe(`Main E2E test`, () => {
 
   const onFilmImgClick = jest.fn();
   const onFilterCLick = jest.fn();
+  const onPlayButtonClick = jest.fn();
 
   const mainPage = mount(
       <Provider store={store}>
         <Main
-          filmTitle={mock.filmData.title}
-          filmGenre={mock.filmData.genre}
-          filmReleaseDate={mock.filmData.year}
+          promoFilm={mock.promoFilm}
           onFilmImgClick={onFilmImgClick}
           onFilterCLick={onFilterCLick}
+          onPlayButtonClick={onPlayButtonClick}
           films={mock.films}
           filmList={mock.films}
           currentGenre={`All genres`}
@@ -106,5 +108,13 @@ describe(`Main E2E test`, () => {
     firstFilmImg.simulate(`click`);
 
     expect(onFilmImgClick.mock.calls[0][0]).toMatchObject(mock.selectedFilm);
+  });
+
+  it(`Click on play button should open video player`, () => {
+    const playBtn = mainPage.find(`button.btn--play`);
+
+    playBtn.simulate(`click`);
+
+    expect(onPlayButtonClick.mock.calls.length).toBe(1);
   });
 });

@@ -12,9 +12,7 @@ import {getFilmGenres} from "../../utils/utils.js";
 
 const Main = (props) => {
   const {
-    filmTitle,
-    filmGenre,
-    filmReleaseDate,
+    promoFilm,
     filmList,
     films,
     onFilmImgClick,
@@ -22,6 +20,8 @@ const Main = (props) => {
     currentGenre,
     onShowMoreBtnClick,
     filmCount,
+    onPlayButtonClick,
+    handleButtonClick,
   } = props;
 
   const genres = getFilmGenres(films);
@@ -58,14 +58,20 @@ const Main = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{filmTitle}</h2>
+              <h2 className="movie-card__title">{promoFilm.title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{filmGenre}</span>
-                <span className="movie-card__year">{filmReleaseDate}</span>
+                <span className="movie-card__genre">{promoFilm.genre}</span>
+                <span className="movie-card__year">{promoFilm.year}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    onPlayButtonClick();
+                    handleButtonClick(promoFilm);
+                  }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -127,9 +133,12 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  filmTitle: PropTypes.string.isRequired,
-  filmGenre: PropTypes.string.isRequired,
-  filmReleaseDate: PropTypes.number.isRequired,
+  promoFilm: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    src: PropTypes.string.isRequired,
+  }),
   filmList: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -147,6 +156,8 @@ Main.propTypes = {
   onShowMoreBtnClick: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   filmCount: PropTypes.number.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
+  handleButtonClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -163,6 +174,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   onShowMoreBtnClick() {
     dispatch(ActionCreator.downloadFilmCard());
+  },
+
+  handleButtonClick(film) {
+    dispatch(ActionCreator.setFilmToPlay(film));
   },
 });
 

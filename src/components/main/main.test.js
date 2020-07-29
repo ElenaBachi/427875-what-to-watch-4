@@ -8,10 +8,12 @@ import Main from "./main.jsx";
 const mockStore = configureStore([]);
 
 const mock = {
-  filmData: {
+  promoFilm: {
+    promo: true,
     title: `Some movie`,
     genre: `Family`,
     year: 2020,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   films: [
     {
@@ -67,15 +69,15 @@ describe(`Render Main component`, () => {
     });
 
     const onFilmImgClick = () => {};
+    const onPlayButtonClick = () => {};
 
     const tree = renderer.create(
         <Provider store={store}>
           <Main
-            filmTitle={mock.filmData.title}
-            filmGenre={mock.filmData.genre}
-            filmReleaseDate={mock.filmData.year}
+            promoFilm={mock.promoFilm}
             films={mock.films}
             onFilmImgClick={onFilmImgClick}
+            onPlayButtonClick={onPlayButtonClick}
           />
         </Provider>, {
           createNodeMock: () => {

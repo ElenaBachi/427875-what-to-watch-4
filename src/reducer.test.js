@@ -1,12 +1,15 @@
 import {reducer, ActionCreator, ActionType} from "./reducer.js";
 
 import films from "./mocks/films.js";
+import promoFilm from "./mocks/promo-film.js";
+import film from "./mocks/film.js";
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     currentGenre: `All genres`,
     filmList: films,
     filmCount: 8,
+    activeFullVideo: null,
   });
 });
 
@@ -67,5 +70,24 @@ it(`Reducer should increase film card count`, () => {
     payload: 10,
   })).toEqual({
     filmCount: 18,
+  });
+});
+
+it(`Reducer should set activeFullVideo`, () => {
+  expect(reducer({
+    activeFullVideo: null,
+  }, {
+    type: ActionType.OPEN_FULL_VIDEO,
+    payload: promoFilm,
+  })).toEqual({
+    activeFullVideo: promoFilm,
+  });
+
+  expect(reducer({
+    activeFullVideo: null,
+  }, {
+    type: ActionType.OPEN_FULL_VIDEO, payload: film,
+  })).toEqual({
+    activeFullVideo: film,
   });
 });
