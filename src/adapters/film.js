@@ -1,0 +1,40 @@
+export const adaptFilm = (data) => {
+  return {
+    id: data.id,
+    title: data.name,
+    genre: data.genre,
+    year: data.released,
+    img: data.preview_image,
+    poster: data.poster_image,
+    cover: data.background_image,
+    videoSrc: data.video_link,
+    previewVideoSrc: data.preview_video_link,
+    description: data.description,
+    score: data.rating,
+    count: data.scores_count,
+    director: data.director,
+    actorList: data.starring,
+    runTime: data.run_time,
+    isFavorite: data.is_favorite,
+    bgColor: data.background_color,
+  };
+};
+
+export const promoFilm = {
+  id: 1000,
+  title: `The Grand Budapest Hotel`,
+  genre: `Drama`,
+  year: 2014,
+  img: `the-grand-budapest-hotel-poster.jpg`,
+  poster: `the-grand-budapest-hotel-poster.jpg`,
+  cover: `the-grand-budapest-hotel.jpg`,
+  videoLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  previewLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  description: `description`,
+  score: 10,
+  count: 240,
+  director: `director`,
+  actorList: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+  runTime: 99,
+  promo: true,
+};
