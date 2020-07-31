@@ -13,7 +13,6 @@ import {getFilmGenres} from "../../utils/utils.js";
 const Main = (props) => {
   const {
     promoFilm,
-    filmList,
     films,
     onFilmImgClick,
     onFilterCLick,
@@ -100,13 +99,14 @@ const Main = (props) => {
           />
 
           <MovieCardList
-            filmList={filmList}
+            films={films}
+            currentGenre={currentGenre}
             onFilmImgClick={onFilmImgClick}
             filmCount={filmCount}
           />
 
           <div className="catalog__more">
-            {filmCount < filmList.length &&
+            {filmCount < films.length &&
               <ShowMoreButton
                 onShowMoreBtnClick={onShowMoreBtnClick}
               />
@@ -139,12 +139,6 @@ Main.propTypes = {
     year: PropTypes.number.isRequired,
     src: PropTypes.string.isRequired,
   }),
-  filmList: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
-      })).isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -162,7 +156,6 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   currentGenre: state.currentGenre,
-  filmList: state.filmList,
   filmCount: state.filmCount
 });
 
