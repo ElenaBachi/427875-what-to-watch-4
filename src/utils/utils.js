@@ -21,4 +21,19 @@ const getFilmGenres = (films) => {
   return [`All genres`, ...set];
 };
 
-export {filterFilmsByGenre, extend, getFilmGenres};
+const getRatingLevel = (rating) => {
+  if (rating <= 3) {
+    return `Bad`;
+  } else if (rating <= 5) {
+    return `Normal`;
+  } else if (rating <= 8) {
+    return `Good`;
+  } else if (rating <= 10) {
+    return `Very good`;
+  }
+
+  return `Awesome`;
+};
+
+export {filterFilmsByGenre, extend, getFilmGenres, getRatingLevel};
+

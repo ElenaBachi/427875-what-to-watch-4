@@ -25,23 +25,23 @@ const withActiveTab = (Component) => {
     }
 
     handleTabRender() {
-      const {film} = this.props;
+      const {activeFilm} = this.props;
       const {activeTab} = this.state;
 
       switch (activeTab) {
         case TABS.OVERVIEW:
           return (<MoviePageOverview
-            film={film}
+            activeFilm={activeFilm}
           />);
         case TABS.DETAILS:
           return <MoviePageDetails
-            film={film}
+            activeFilm={activeFilm}
           />;
         case TABS.REVIEWS:
           return <MoviePageReviews/>;
         default:
           return (<MoviePageOverview
-            film={film}
+            activeFilm={activeFilm}
           />);
       }
     }
@@ -52,7 +52,6 @@ const withActiveTab = (Component) => {
       return (
         <Component
           {...this.props}
-          tabList={TABS}
           onTabChange={this.handleTabChange}
           onTabClickRender={this.handleTabRender}
           activeTab={activeTab}
@@ -62,7 +61,7 @@ const withActiveTab = (Component) => {
   }
 
   WithActiveTab.propTypes = {
-    film: PropTypes.shape({
+    activeFilm: PropTypes.shape({
       title: PropTypes.string.isRequired,
       genre: PropTypes.string.isRequired,
       year: PropTypes.number.isRequired,

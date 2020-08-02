@@ -4,11 +4,13 @@ import {adaptFilm} from "../../adapters/film.js";
 const initialState = {
   films: [],
   promoFilm: {},
+  activeFilm: null,
 };
 
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
+  SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
 };
 
 const ActionCreator = {
@@ -24,6 +26,10 @@ const ActionCreator = {
       payload: film,
     };
   },
+  setActiveFilm: (film) => ({
+    type: ActionType.SET_ACTIVE_FILM,
+    payload: film,
+  }),
 };
 
 const Operation = {
@@ -58,6 +64,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_PROMO_FILM:
       return extend(state, {
         promoFilm: action.payload,
+      });
+    case ActionType.SET_ACTIVE_FILM:
+      return extend(state, {
+        activeFilm: action.payload,
       });
   }
 

@@ -1,7 +1,5 @@
 import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
@@ -9,9 +7,6 @@ import VideoPlayerMain from "../video-player-main/video-player-main.jsx";
 
 import {PAGES} from "../../consts/consts.js";
 
-import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
-
-const MoviePageWrapped = withActiveTab(MoviePage);
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -42,12 +37,8 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    const {promoFilm, filmList} = this.props;
-
     return (
       <Main
-        promoFilm={promoFilm}
-        films={filmList}
         onFilmImgClick={this.handleFilmImgClick}
         onPlayButtonClick={this.handlePlayButtonClick}
       />
@@ -55,12 +46,8 @@ class App extends PureComponent {
   }
 
   _renderFilmPage() {
-    const {filmList, film} = this.props;
-
     return (
-      <MoviePageWrapped
-        films={filmList}
-        film={film}
+      <MoviePage
         onPlayButtonClick={this.handlePlayButtonClick}
       />
     );
@@ -105,38 +92,4 @@ class App extends PureComponent {
   }
 }
 
-App.propTypes = {
-  promoFilm: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    src: PropTypes.string.isRequired,
-  }),
-  filmList: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-      })).isRequired,
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    rating: PropTypes.shape({
-      score: PropTypes.string.isRequired,
-      level: PropTypes.string.isRequired,
-      count: PropTypes.string.isRequired,
-    }).isRequired,
-    director: PropTypes.string.isRequired,
-    actorList: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  filmList: state.filmList,
-});
-
-export {App};
-export default connect(mapStateToProps)(App);
+export default App;

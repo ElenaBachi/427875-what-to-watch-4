@@ -10,9 +10,9 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  changeFilter: (filter) => ({
+  changeFilter: (currentFilter) => ({
     type: ActionType.SET_CURRENT_FILTER,
-    payload: filter,
+    payload: currentFilter,
   }),
 };
 

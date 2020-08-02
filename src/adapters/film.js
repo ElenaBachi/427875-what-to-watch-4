@@ -20,21 +20,25 @@ export const adaptFilm = (data) => {
   };
 };
 
-export const promoFilm = {
-  id: 1000,
-  title: `The Grand Budapest Hotel`,
-  genre: `Drama`,
-  year: 2014,
-  img: `the-grand-budapest-hotel-poster.jpg`,
-  poster: `the-grand-budapest-hotel-poster.jpg`,
-  cover: `the-grand-budapest-hotel.jpg`,
-  videoLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  previewLink: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  description: `description`,
-  score: 10,
-  count: 240,
-  director: `director`,
-  actorList: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
-  runTime: 99,
-  promo: true,
-};
+/*
+films: PropTypes.arrayOf(
+  PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    img: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    videoSrc: PropTypes.string.isRequired,
+    previewVideoSrc: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    actorList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    runTime: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    bgColor: PropTypes.string.isRequired,
+  })).isRequired,
+*/
