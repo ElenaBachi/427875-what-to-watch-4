@@ -18,7 +18,6 @@ class App extends PureComponent {
 
     this.handleFilmImgClick = this.handleFilmImgClick.bind(this);
     this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
-    this.handleExitButtonClick = this.handleExitButtonClick.bind(this);
   }
 
   _renderApp() {
@@ -28,9 +27,7 @@ class App extends PureComponent {
       case PAGES.FILM_PAGE:
         return this._renderFilmPage();
       case PAGES.VIDEO_PLAYER:
-        return <VideoPlayerMain
-          handleExitButtonClick={this.handleExitButtonClick}
-        />;
+        return <VideoPlayerMain/>;
       default:
         return this._renderMain();
     }
@@ -82,12 +79,6 @@ class App extends PureComponent {
   handlePlayButtonClick() {
     this.setState({
       activePage: PAGES.VIDEO_PLAYER,
-    });
-  }
-
-  handleExitButtonClick(page) {
-    this.setState({
-      activePage: page,
     });
   }
 }

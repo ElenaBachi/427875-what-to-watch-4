@@ -1,3 +1,7 @@
+import moment from "moment";
+import momentDurationFormat from "moment-duration-format";
+momentDurationFormat(moment);
+
 const filterFilmsByGenre = (movies) => {
   return movies.reduce((acc, it) => {
     if (!acc[it.genre]) {
@@ -35,5 +39,9 @@ const getRatingLevel = (rating) => {
   return `Awesome`;
 };
 
-export {filterFilmsByGenre, extend, getFilmGenres, getRatingLevel};
+const getVideoTimeToLeft = (time) => {
+  return moment.duration(time, `seconds`).format(`hh:mm:ss`);
+};
+
+export {filterFilmsByGenre, extend, getFilmGenres, getRatingLevel, getVideoTimeToLeft};
 

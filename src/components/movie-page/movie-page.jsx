@@ -165,8 +165,6 @@ MoviePage.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         bgColor: PropTypes.string.isRequired,
       })).isRequired,
-  onTabClickRender: PropTypes.func.isRequired,
-  tabList: PropTypes.object.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   handlePlayButtonClick: PropTypes.func.isRequired,
 };

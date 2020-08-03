@@ -5,21 +5,35 @@ import configureStore from 'redux-mock-store';
 
 import VideoPlayerMain from "./video-player-main.jsx";
 
+import NameSpace from "../../reducer/name-space.js";
+
 const mockStore = configureStore([]);
 
 const mock = {
-  promoFilm: {
-    promo: true,
-    title: `Some movie`,
-    genre: `Family`,
+  activeFilm: {
+    id: 99,
+    title: `title`,
+    genre: `genre`,
     year: 2020,
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-  }
+    img: `img.jpg`,
+    poster: `poster.jpg`,
+    cover: `cover.jpg`,
+    videoSrc: `video-link`,
+    previewVideoSrc: `preview-video-link`,
+    description: `description`,
+    score: 9,
+    count: 200,
+    director: `director`,
+    actorList: [`Actor1`, `Actor2`, `Actor3`],
+    runTime: 100,
+  },
 };
 
 it(`videoPlayerMain should render correctly`, () => {
   const store = mockStore({
-    activeFullVideo: mock.promoFilm,
+    [NameSpace.VIDEO_PLAYER]: {
+      activeFullVideo: mock.activeFilm,
+    },
   });
 
   const tree = renderer.create(

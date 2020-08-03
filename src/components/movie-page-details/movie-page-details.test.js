@@ -2,18 +2,30 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MoviePageDetails from "./movie-page-details.jsx";
 
-const film = {
-  genre: `Comedy`,
-  year: 2020,
-  director: `Wes Andreson`,
-  fullActorList: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`, `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`, `Owen Wilkinson`, `Adrien Brody`, `Ralph Fiennes`, `Jeff Goldblum`],
-  runTime: `2h 20m`,
+const mock = {
+  activeilm: {
+    id: 99,
+    title: `title`,
+    genre: `genre`,
+    year: 2020,
+    img: `img.jpg`,
+    poster: `poster.jpg`,
+    cover: `cover.jpg`,
+    videoSrc: `video-link`,
+    previewVideoSrc: `preview-video-link`,
+    description: `description`,
+    score: 9,
+    count: 200,
+    director: `director`,
+    actorList: [`Actor1`, `Actor2`, `Actor3`],
+    runTime: 100,
+  },
 };
 
 it(`MoviePageDetails should render correctly`, () => {
   const tree = renderer.create(
       <MoviePageDetails
-        film={film}
+        activeFilm={mock.activeilm}
       />
   ).toJSON();
 

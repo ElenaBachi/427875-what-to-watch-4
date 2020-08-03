@@ -1,7 +1,7 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 
-import {PAGES} from "../../consts/consts.js";
+import {getVideoTimeToLeft} from "../../utils/utils.js";
 
 const withVideoPlayerMain = (Component) => {
   class WithVideoPlayerMain extends PureComponent {
@@ -40,8 +40,8 @@ const withVideoPlayerMain = (Component) => {
       const {activeFullVideo} = this.props;
       const video = this._videoRef.current;
 
-      video.src = activeFullVideo.src;
-      video.poster = activeFullVideo.img;
+      video.src = activeFullVideo.videoSrc;
+      video.poster = activeFullVideo.poster;
 
       video.ontimeupdate = () => {
         this.setState({
@@ -67,19 +67,16 @@ const withVideoPlayerMain = (Component) => {
     }
 
     render() {
-      const {activeFullVideo} = this.props;
       const {handleExitButtonClick} = this.props;
       const {isPlaying, isFullScreen} = this.state;
-      const pageToExit = Object.keys(activeFullVideo).includes(`promo`) ? PAGES.MAIN : PAGES.FILM_PAGE;
+      const duration = getVideoTimeToLeft(this.state.duration);
 
       return (
         <Component>
           <video className="player__video" ref={this._videoRef} />
 
           <button type="button" className="player__exit"
-            onClick={() => {
-              handleExitButtonClick(pageToExit);
-            }}
+            onClick={handleExitButtonClick}
           >Exit</button>
 
           <div className="player__controls">
@@ -88,7 +85,7 @@ const withVideoPlayerMain = (Component) => {
                 <progress className="player__progress" value={this.getTooglerProgress()} max="100"></progress>
                 <div className="player__toggler" style={{left: `${this.getTooglerProgress()}%`}}>Toggler</div>
               </div>
-              <div className="player__time-value">{this.state.duration}</div>
+              <div className="player__time-value">{duration}</div>
             </div>
 
             <div className="player__controls-row">

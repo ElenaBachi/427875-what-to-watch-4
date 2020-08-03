@@ -69,9 +69,9 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="title"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="poster.jpg"
             width="218"
           />
         </div>
@@ -81,7 +81,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            Some movie
+            title
           </h2>
           <p
             className="movie-card__meta"
@@ -89,7 +89,7 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Family
+              genre
             </span>
             <span
               className="movie-card__year"
@@ -173,7 +173,7 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
-            Drama
+            genre1
           </a>
         </li>
         <li
@@ -184,7 +184,7 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
-            Crime
+            genre2
           </a>
         </li>
         <li
@@ -195,18 +195,7 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
-            Documentary
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-          onClick={[Function]}
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Comedie
+            genre3
           </a>
         </li>
       </ul>
@@ -226,7 +215,7 @@ Array [
               autoPlay={false}
               height="175"
               loop={true}
-              poster="img/pulp-fiction.jpg"
+              poster="img-1.jpg"
               width="280"
             />
           </div>
@@ -237,7 +226,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Pulp Fiction
+              title1
             </a>
           </h3>
         </article>
@@ -254,7 +243,7 @@ Array [
               autoPlay={false}
               height="175"
               loop={true}
-              poster="img/no-country-for-old-men.jpg"
+              poster="img-2.jpg"
               width="280"
             />
           </div>
@@ -265,7 +254,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              No Country for Old Men
+              title2
             </a>
           </h3>
         </article>
@@ -282,7 +271,7 @@ Array [
               autoPlay={false}
               height="175"
               loop={true}
-              poster="img/snatch.jpg"
+              poster="img-3.jpg"
               width="280"
             />
           </div>
@@ -293,147 +282,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Snatch
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <video
-              autoPlay={false}
-              height="175"
-              loop={true}
-              poster="img/moonrise-kingdom.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Moonrise Kingdom
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <video
-              autoPlay={false}
-              height="175"
-              loop={true}
-              poster="img/seven-years-in-tibet.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Seven Years in Tibet
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <video
-              autoPlay={false}
-              height="175"
-              loop={true}
-              poster="img/midnight-special.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Midnight Special
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <video
-              autoPlay={false}
-              height="175"
-              loop={true}
-              poster="img/war-of-the-worlds.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              War of the Worlds
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <video
-              autoPlay={false}
-              height="175"
-              loop={true}
-              poster="img/dardjeeling-limited.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Dardjeeling Limited
+              title3
             </a>
           </h3>
         </article>

@@ -10,14 +10,14 @@ import {ActionCreator} from "../../reducer/filter/filter.js";
 
 
 const GenreList = (props) => {
-  const {films, onFilterCLick, currentGenre} = props;
+  const {films, currentFilter, onFilterCLick} = props;
   const genres = getFilmGenres(films);
 
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre) => {
         return (
-          <li key={genre} className={`catalog__genres-item ${genre === currentGenre ? `catalog__genres-item--active` : ``}`}
+          <li key={genre} className={`catalog__genres-item ${genre === currentFilter ? `catalog__genres-item--active` : ``}`}
             onClick={(evt) => {
               evt.preventDefault();
               onFilterCLick(genre);
@@ -30,11 +30,10 @@ const GenreList = (props) => {
   );
 };
 
-//
 
 GenreList.propTypes = {
   onFilterCLick: PropTypes.func.isRequired,
-  currentGenre: PropTypes.string.isRequired,
+  currentFilter: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -59,7 +58,7 @@ GenreList.propTypes = {
 
 const mapStateToProps = (state) => ({
   films: getFilms(state),
-  currentGenre: getActiveFilter(state),
+  currentFilter: getActiveFilter(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

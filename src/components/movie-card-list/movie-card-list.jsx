@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import MovieCard from "../movie-card/movie-card.jsx";
 
 import {getFilmCount} from "../../reducer/films-load-btn/selectors.js";
-import {getActiveFilter} from "../../reducer/filter/selectors.js";
 
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
 
@@ -48,13 +47,11 @@ MovieCardList.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         bgColor: PropTypes.string.isRequired,
       })).isRequired,
-  currentGenre: PropTypes.string.isRequired,
   onFilmImgClick: PropTypes.func.isRequired,
   filmCount: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentGenre: getActiveFilter(state),
   filmCount: getFilmCount(state),
 });
 

@@ -17,7 +17,7 @@ exports[`MovieCardList should render correctly 1`] = `
         autoPlay={false}
         height="175"
         loop={true}
-        poster="img/pulp-fiction.jpg"
+        poster="img-1.jpg"
         width="280"
       />
     </div>
@@ -28,7 +28,7 @@ exports[`MovieCardList should render correctly 1`] = `
         className="small-movie-card__link"
         href="movie-page.html"
       >
-        Pulp Fiction
+        title1
       </a>
     </h3>
   </article>
@@ -45,7 +45,7 @@ exports[`MovieCardList should render correctly 1`] = `
         autoPlay={false}
         height="175"
         loop={true}
-        poster="img/no-country-for-old-men.jpg"
+        poster="img-2.jpg"
         width="280"
       />
     </div>
@@ -56,7 +56,7 @@ exports[`MovieCardList should render correctly 1`] = `
         className="small-movie-card__link"
         href="movie-page.html"
       >
-        No Country for Old Men
+        title2
       </a>
     </h3>
   </article>
@@ -73,7 +73,7 @@ exports[`MovieCardList should render correctly 1`] = `
         autoPlay={false}
         height="175"
         loop={true}
-        poster="img/snatch.jpg"
+        poster="img-3.jpg"
         width="280"
       />
     </div>
@@ -84,147 +84,7 @@ exports[`MovieCardList should render correctly 1`] = `
         className="small-movie-card__link"
         href="movie-page.html"
       >
-        Snatch
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        autoPlay={false}
-        height="175"
-        loop={true}
-        poster="img/moonrise-kingdom.jpg"
-        width="280"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-      >
-        Moonrise Kingdom
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        autoPlay={false}
-        height="175"
-        loop={true}
-        poster="img/seven-years-in-tibet.jpg"
-        width="280"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-      >
-        Seven Years in Tibet
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        autoPlay={false}
-        height="175"
-        loop={true}
-        poster="img/midnight-special.jpg"
-        width="280"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-      >
-        Midnight Special
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        autoPlay={false}
-        height="175"
-        loop={true}
-        poster="img/war-of-the-worlds.jpg"
-        width="280"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-      >
-        War of the Worlds
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        autoPlay={false}
-        height="175"
-        loop={true}
-        poster="img/dardjeeling-limited.jpg"
-        width="280"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-      >
-        Dardjeeling Limited
+        title3
       </a>
     </h3>
   </article>

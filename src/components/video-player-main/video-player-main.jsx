@@ -6,6 +6,8 @@ import {getActiveFullVideo} from "../../reducer/video-player/selectors.js";
 
 import withVideoPlayerMain from "../../hocs/with-video-player-main/with-video-player-main.jsx";
 
+import {ActionCreator} from "../../reducer/video-player/video-player.js";
+
 const VideoPlayerMain = (props) => {
   const {children} = props;
 
@@ -31,5 +33,11 @@ const mapStateToProps = (state) => ({
   activeFullVideo: getActiveFullVideo(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  handleExitButtonClick() {
+    dispatch(ActionCreator.setFilmToPlay(null));
+  },
+});
+
 export {VideoPlayerMain};
-export default connect(mapStateToProps)(withVideoPlayerMain(VideoPlayerMain));
+export default connect(mapStateToProps, mapDispatchToProps)(withVideoPlayerMain(VideoPlayerMain));

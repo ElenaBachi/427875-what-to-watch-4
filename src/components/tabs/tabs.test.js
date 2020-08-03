@@ -16,8 +16,8 @@ it(`Tabs should render correctly`, () => {
 
   const tree = renderer.create(
       <Tabs
-        tabList={mock.tabList}
         onTabChange={() => {}}
+        onTabClickRender={() => {}}
         activeTab={activeTab}
       />).toJSON();
 

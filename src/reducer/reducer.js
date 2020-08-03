@@ -9,7 +9,7 @@ import NameSpace from "./name-space.js";
 export default combineReducers({
   [NameSpace.DATA]: data,
   [NameSpace.USER]: user,
-  [NameSpace.filter]: filter,
+  [NameSpace.FILTER]: filter,
   [NameSpace.VIDEO_PLAYER]: videoPlayer,
   [NameSpace.FILMS_LOAD_BTN]: filmsLoadBtn,
 });

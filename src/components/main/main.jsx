@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {ActionCreator as LoadBtnActionCreator} from "../../reducer/films-load-btn/films-load-btn.js";
 import {ActionCreator as VideoPlayerActionCreator} from "../../reducer/video-player/video-player.js";
 import {getPromoFilm, getFilmsByGenre} from "../../reducer/data/selectors.js";
+import {getFilmCount} from "../../reducer/films-load-btn/selectors.js";
 
 import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
@@ -20,6 +21,8 @@ const Main = (props) => {
     onPlayButtonClick,
     handlePlayButtonClick,
   } = props;
+
+  const {title, genre, year, poster} = promoFilm;
 
   return (
     <React.Fragment>
@@ -49,14 +52,14 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={poster} alt={title} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{promoFilm.title}</h2>
+              <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{promoFilm.genre}</span>
-                <span className="movie-card__year">{promoFilm.year}</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{year}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -123,26 +126,12 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  promoFilm: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        year: PropTypes.number.isRequired,
-        img: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-        cover: PropTypes.string.isRequired,
-        videoSrc: PropTypes.string.isRequired,
-        previewVideoSrc: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        score: PropTypes.number.isRequired,
-        count: PropTypes.number.isRequired,
-        director: PropTypes.string.isRequired,
-        actorList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-        runTime: PropTypes.number.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        bgColor: PropTypes.string.isRequired,
-      })).isRequired,
+  promoFilm: PropTypes.shape({
+    poster: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+  }).isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -173,6 +162,7 @@ Main.propTypes = {
 const mapStateToProps = (state) => ({
   films: getFilmsByGenre(state),
   promoFilm: getPromoFilm(state),
+  filmCount: getFilmCount(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

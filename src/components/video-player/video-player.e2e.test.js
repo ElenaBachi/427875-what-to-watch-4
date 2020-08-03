@@ -7,7 +7,7 @@ configure({adapter: new Adapter()});
 
 const mock = {
   img: `img/img-1.jpg`,
-  src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+  previewVideoSrc: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
 };
 
 describe(`VideoPlayer E2E test`, () => {
@@ -16,7 +16,7 @@ describe(`VideoPlayer E2E test`, () => {
 
     const videoPlayer = mount(
         <VideoPlayer
-          src={mock.src}
+          previewVideoSrc={mock.previewVideoSrc}
           poster={mock.img}
           isPlaying={isPlaying}
         />

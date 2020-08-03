@@ -33,10 +33,10 @@ const MoviePageOverview = (props) => {
 MoviePageOverview.propTypes = {
   activeFilm: PropTypes.shape({
     description: PropTypes.string.isRequired,
-    score: PropTypes.string.isRequired,
-    count: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
-    actorList: PropTypes.string.isRequired,
+    actorList: PropTypes.array.isRequired,
   }).isRequired,
 };
 

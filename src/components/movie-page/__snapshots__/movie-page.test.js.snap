@@ -12,8 +12,8 @@ Array [
         className="movie-card__bg"
       >
         <img
-          alt="Fantastic Beasts"
-          src="img/bg-the-grand-budapest-hotel.jpg"
+          alt="title"
+          src="cover.jpg"
         />
       </div>
       <h1
@@ -72,7 +72,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            Fantastic Beasts
+            title
           </h2>
           <p
             className="movie-card__meta"
@@ -80,7 +80,7 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Genre
+              genre
             </span>
             <span
               className="movie-card__year"
@@ -146,9 +146,9 @@ Array [
           className="movie-card__poster movie-card__poster--big"
         >
           <img
-            alt="Fantastic Beasts"
+            alt="title"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="poster.jpg"
             width="218"
           />
         </div>
@@ -162,14 +162,14 @@ Array [
               className="movie-nav__list"
             >
               <li
-                className="movie-nav__item "
+                className="movie-nav__item movie-nav__item--active"
                 onClick={[Function]}
               >
                 <a
                   className="movie-nav__link"
                   href="#"
                 >
-                  First Tab
+                  Overview
                 </a>
               </li>
               <li
@@ -180,7 +180,7 @@ Array [
                   className="movie-nav__link"
                   href="#"
                 >
-                  Second Tab
+                  Details
                 </a>
               </li>
               <li
@@ -191,11 +191,58 @@ Array [
                   className="movie-nav__link"
                   href="#"
                 >
-                  Third Tab
+                  Reviews
                 </a>
               </li>
             </ul>
           </nav>
+          <div
+            className="movie-rating"
+          >
+            <div
+              className="movie-rating__score"
+            >
+              9
+            </div>
+            <p
+              className="movie-rating__meta"
+            >
+              <span
+                className="movie-rating__level"
+              >
+                Very good
+              </span>
+              <span
+                className="movie-rating__count"
+              >
+                200
+                 ratings
+              </span>
+            </p>
+          </div>
+          <div
+            className="movie-card__text"
+          >
+            description
+            <p
+              className="movie-card__director"
+            >
+              <strong>
+                Director: 
+                director
+              </strong>
+            </p>
+            <p
+              className="movie-card__starring"
+            >
+              <strong>
+                Starring: 
+                Actor1
+                Actor2
+                Actor3
+              </strong>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -227,7 +274,7 @@ Array [
               autoPlay={false}
               height="175"
               loop={true}
-              poster="img/pulp-fiction.jpg"
+              poster="img-1.jpg"
               width="280"
             />
           </div>
@@ -238,7 +285,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Pulp Fiction
+              title1
             </a>
           </h3>
         </article>
@@ -255,7 +302,7 @@ Array [
               autoPlay={false}
               height="175"
               loop={true}
-              poster="img/no-country-for-old-men.jpg"
+              poster="img-2.jpg"
               width="280"
             />
           </div>
@@ -266,7 +313,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              No Country for Old Men
+              title2
             </a>
           </h3>
         </article>
@@ -283,7 +330,7 @@ Array [
               autoPlay={false}
               height="175"
               loop={true}
-              poster="img/snatch.jpg"
+              poster="img-3.jpg"
               width="280"
             />
           </div>
@@ -294,35 +341,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
             >
-              Snatch
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <video
-              autoPlay={false}
-              height="175"
-              loop={true}
-              poster="img/moonrise-kingdom.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-            >
-              Moonrise Kingdom
+              title3
             </a>
           </h3>
         </article>
