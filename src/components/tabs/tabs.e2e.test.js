@@ -15,6 +15,7 @@ const mock = {
 
 describe(`Tabs E2E test`, () => {
   const onTabChange = jest.fn();
+  const onTabClickRender = jest.fn();
   const activeTab = Object.keys(mock.tabList)[0];
 
   const tabs = mount(
@@ -22,6 +23,7 @@ describe(`Tabs E2E test`, () => {
         tabList={mock.tabList}
         onTabChange={onTabChange}
         activeTab={activeTab}
+        onTabClickRender={onTabClickRender}
       />
   );
 

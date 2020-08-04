@@ -5,57 +5,77 @@ import configureStore from 'redux-mock-store';
 
 import MoviePage from "./movie-page.jsx";
 
+import NameSpace from "../../reducer/name-space.js";
+
 const mockStore = configureStore([]);
 
 const mock = {
   film: {
-    title: `Fantastic Beasts`,
-    genre: `Genre`,
+    id: 99,
+    title: `title`,
+    genre: `genre`,
     year: 2020,
-    poster: `img/the-grand-budapest-hotel-poster.jpg`,
-    cover: `img/bg-the-grand-budapest-hotel.jpg`,
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu vitae elementum curabitur vitae nunc sed velit dignissim. Enim praesent elementum facilisis leo. In est ante in nibh mauris cursus mattis. Gravida arcu ac tortor dignissim convallis aenean et. Eleifend donec pretium vulputate sapien nec sagittis.`,
-    rating: {
-      score: `9,9`,
-      level: `Awesome`,
-      count: `999`,
-    },
-    director: `Wes Andreson`,
-    actorList: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
-    fullActorList: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`, `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`, `Owen Wilkinson`, `Adrien Brody`, `Ralph Fiennes`, `Jeff Goldblum`],
-    runTime: `1h 39m`,
+    img: `img.jpg`,
+    poster: `poster.jpg`,
+    cover: `cover.jpg`,
+    videoSrc: `video-link`,
+    previewVideoSrc: `preview-video-link`,
+    description: `description`,
+    score: 9,
+    count: 200,
+    director: `director`,
+    actorList: [`Actor1`, `Actor2`, `Actor3`],
+    runTime: 100,
   },
   films: [
     {
-      genre: `Genre`,
-      title: `Pulp Fiction`,
-      img: `img/pulp-fiction.jpg`,
-      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+      id: 1,
+      title: `title1`,
+      genre: `genre1`,
+      year: 2020,
+      img: `img-1.jpg`,
+      poster: `poster-1.jpg`,
+      cover: `cover-1.jpg`,
+      videoSrc: `video-link-1`,
+      previewVideoSrc: `preview-video-link-1`,
+      description: `description1`,
+      score: 9,
+      count: 200,
+      director: `director1`,
+      actorList: [`Actor1`, `Actor2`, `Actor3`],
+      runTime: 100,
     }, {
-      genre: `Genre`,
-      title: `No Country for Old Men`,
-      img: `img/no-country-for-old-men.jpg`,
-      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+      id: 2,
+      title: `title2`,
+      genre: `genre2`,
+      year: 2019,
+      img: `img-2.jpg`,
+      poster: `poster-2.jpg`,
+      cover: `cover-2.jpg`,
+      videoSrc: `video-link-2`,
+      previewVideoSrc: `preview-video-link-2`,
+      description: `description2`,
+      score: 9,
+      count: 200,
+      director: `director2`,
+      actorList: [`Actor1`, `Actor2`, `Actor3`],
+      runTime: 100,
     }, {
-      genre: `Genre`,
-      title: `Snatch`,
-      img: `img/snatch.jpg`,
-      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    }, {
-      genre: `Genre`,
-      title: `Moonrise Kingdom`,
-      img: `img/moonrise-kingdom.jpg`,
-      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    }, {
-      genre: `Genre`,
-      title: `Seven Years in Tibet`,
-      img: `img/seven-years-in-tibet.jpg`,
-      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    }, {
-      genre: `Genre`,
-      title: `Midnight Special`,
-      img: `img/midnight-special.jpg`,
-      src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+      id: 3,
+      title: `title3`,
+      genre: `genre3`,
+      year: 2018,
+      img: `img-3.jpg`,
+      poster: `poster-3.jpg`,
+      cover: `cover-3.jpg`,
+      videoSrc: `video-link-3`,
+      previewVideoSrc: `preview-video-link-3`,
+      description: `description3`,
+      score: 9,
+      count: 200,
+      director: `director3`,
+      actorList: [`Actor1`, `Actor2`, `Actor3`],
+      runTime: 100,
     },
   ],
   tabList: {
@@ -67,22 +87,22 @@ const mock = {
 
 it(`MoviePage should render correctly`, () => {
   const store = mockStore({
-    handleButtonClick: () => {},
+    [NameSpace.DATA]: {
+      films: mock.films,
+      activeFilm: mock.film,
+    },
+    [NameSpace.FILTER]: {
+      currentFilter: `All genres`,
+    },
   });
-
-  const activeTab = Object.keys(mock.tabList)[0];
+  const handlePlayButtonClick = () => {};
   const onPlayButtonClick = () => {};
 
   const tree = renderer.create(
       <Provider store={store}>
         <MoviePage
-          film={mock.film}
-          films={mock.films}
-          tabList={mock.tabList}
-          onTabChange={() => {}}
-          onTabClickRender={() => {}}
-          activeTab={activeTab}
           onPlayButtonClick={onPlayButtonClick}
+          handlePlayButtonClick={handlePlayButtonClick}
         />
       </Provider>, {
         createNodeMock: () => {

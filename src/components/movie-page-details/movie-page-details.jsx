@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const MoviePageDetails = (props) => {
-  const {film} = props;
-  const {genre, year, director, fullActorList, runTime} = film;
+  const {activeFilm} = props;
+  const {genre, year, director, actorList, runTime} = activeFilm;
   return (
     <React.Fragment>
       <div className="movie-card__text movie-card__row">
@@ -15,7 +15,7 @@ const MoviePageDetails = (props) => {
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Starring</strong>
             <span className="movie-card__details-value">
-              {fullActorList.join(`\n`)}
+              {actorList.join(`\n`)}
             </span>
           </p>
         </div>
@@ -35,19 +35,17 @@ const MoviePageDetails = (props) => {
           </p>
         </div>
       </div>
-
-
     </React.Fragment>
   );
 };
 
 MoviePageDetails.propTypes = {
-  film: PropTypes.shape({
+  activeFilm: PropTypes.shape({
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
-    fullActorList: PropTypes.arrayOf(PropTypes.string).isRequired,
-    runTime: PropTypes.string.isRequired,
+    actorList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    runTime: PropTypes.number.isRequired,
   }).isRequired,
 };
 

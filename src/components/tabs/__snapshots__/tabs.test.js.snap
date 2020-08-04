@@ -1,45 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tabs should render correctly 1`] = `
-<nav
-  className="movie-nav movie-card__nav"
+<div
+  className="movie-card__desc"
 >
-  <ul
-    className="movie-nav__list"
+  <nav
+    className="movie-nav movie-card__nav"
   >
-    <li
-      className="movie-nav__item "
-      onClick={[Function]}
+    <ul
+      className="movie-nav__list"
     >
-      <a
-        className="movie-nav__link"
-        href="#"
+      <li
+        className="movie-nav__item "
+        onClick={[Function]}
       >
-        First Tab
-      </a>
-    </li>
-    <li
-      className="movie-nav__item "
-      onClick={[Function]}
-    >
-      <a
-        className="movie-nav__link"
-        href="#"
+        <a
+          className="movie-nav__link"
+          href="#"
+        >
+          Overview
+        </a>
+      </li>
+      <li
+        className="movie-nav__item "
+        onClick={[Function]}
       >
-        Second Tab
-      </a>
-    </li>
-    <li
-      className="movie-nav__item "
-      onClick={[Function]}
-    >
-      <a
-        className="movie-nav__link"
-        href="#"
+        <a
+          className="movie-nav__link"
+          href="#"
+        >
+          Details
+        </a>
+      </li>
+      <li
+        className="movie-nav__item "
+        onClick={[Function]}
       >
-        Third Tab
-      </a>
-    </li>
-  </ul>
-</nav>
+        <a
+          className="movie-nav__link"
+          href="#"
+        >
+          Reviews
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
 `;

@@ -1,9 +1,12 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
+import {getActiveFullVideo} from "../../reducer/video-player/selectors.js";
 
 import withVideoPlayerMain from "../../hocs/with-video-player-main/with-video-player-main.jsx";
 
-import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/video-player/video-player.js";
 
 const VideoPlayerMain = (props) => {
   const {children} = props;
@@ -27,8 +30,14 @@ VideoPlayerMain.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeFullVideo: state.activeFullVideo,
+  activeFullVideo: getActiveFullVideo(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleExitButtonClick() {
+    dispatch(ActionCreator.setFilmToPlay(null));
+  },
 });
 
 export {VideoPlayerMain};
-export default connect(mapStateToProps)(withVideoPlayerMain(VideoPlayerMain));
+export default connect(mapStateToProps, mapDispatchToProps)(withVideoPlayerMain(VideoPlayerMain));

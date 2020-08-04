@@ -8,7 +8,7 @@ Array [
     <div
       className="movie-rating__score"
     >
-      9,9
+      9
     </div>
     <p
       className="movie-rating__meta"
@@ -16,12 +16,12 @@ Array [
       <span
         className="movie-rating__level"
       >
-        Awesome
+        Very good
       </span>
       <span
         className="movie-rating__count"
       >
-        999
+        200
          ratings
       </span>
     </p>
@@ -29,13 +29,13 @@ Array [
   <div
     className="movie-card__text"
   >
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu vitae elementum curabitur vitae nunc sed velit dignissim. Enim praesent elementum facilisis leo. In est ante in nibh mauris cursus mattis. Gravida arcu ac tortor dignissim convallis aenean et. Eleifend donec pretium vulputate sapien nec sagittis.
+    description
     <p
       className="movie-card__director"
     >
       <strong>
         Director: 
-        Wes Andreson
+        director
       </strong>
     </p>
     <p
@@ -43,7 +43,9 @@ Array [
     >
       <strong>
         Starring: 
-        Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
+        Actor1
+        Actor2
+        Actor3
       </strong>
     </p>
   </div>,

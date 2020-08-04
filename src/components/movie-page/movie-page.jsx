@@ -2,32 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {ActionCreator} from "../../reducer.js";
-
-import {filterFilmsByGenre} from "../../utils/utils.js";
+import {ActionCreator as VideoPlayerActionCreator} from "../../reducer/video-player/video-player.js";
+import NameSpace from "../../reducer/name-space.js";
+import {getFilmsByGenre} from "../../reducer/data/selectors.js";
 
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
+import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
 
 import Tabs from "../tabs/tabs.jsx";
 import MovieCard from "../movie-card/movie-card.jsx";
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
+const TabsWrapped = withActiveTab(Tabs);
 
 const MoviePage = (props) => {
   const {
     films,
-    film,
-    tabList,
-    onTabChange,
-    onTabClickRender,
-    activeTab,
-    handleButtonClick,
+    activeFilm,
+    handlePlayButtonClick,
     onPlayButtonClick,
   } = props;
 
-  const {title, genre, year, poster, cover} = film;
+  const {title, genre, year, poster, cover} = activeFilm;
 
-  const filmListByGenre = filterFilmsByGenre(films);
+  const similarFilms = films.slice(0, 4);
 
   return (
     <React.Fragment>
@@ -69,7 +67,7 @@ const MoviePage = (props) => {
                   onClick={(evt) => {
                     evt.preventDefault();
                     onPlayButtonClick();
-                    handleButtonClick(film);
+                    handlePlayButtonClick(activeFilm);
                   }}
                 >
 
@@ -96,17 +94,10 @@ const MoviePage = (props) => {
               <img src={poster} alt={title} width="218" height="327" />
             </div>
 
-            <div className="movie-card__desc">
+            <TabsWrapped
+              activeFilm={activeFilm}
+            />
 
-              <Tabs
-                tabList={tabList}
-                onTabChange={onTabChange}
-                activeTab={activeTab}
-              />
-
-              {onTabClickRender()}
-
-            </div>
           </div>
         </div>
       </section>
@@ -116,7 +107,7 @@ const MoviePage = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__movies-list">
-            {filmListByGenre[genre].slice(0, 4).map((it, i) => {
+            {similarFilms.map((it, i) => {
               return (
                 <MovieCardWrapped
                   key={it.title + i}
@@ -147,7 +138,7 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  film: PropTypes.shape({
+  activeFilm: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
@@ -156,23 +147,38 @@ MoviePage.propTypes = {
   }).isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        year: PropTypes.number.isRequired,
         img: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        cover: PropTypes.string.isRequired,
+        videoSrc: PropTypes.string.isRequired,
+        previewVideoSrc: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        score: PropTypes.number.isRequired,
+        count: PropTypes.number.isRequired,
+        director: PropTypes.string.isRequired,
+        actorList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+        runTime: PropTypes.number.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        bgColor: PropTypes.string.isRequired,
       })).isRequired,
-  onTabChange: PropTypes.func.isRequired,
-  onTabClickRender: PropTypes.func.isRequired,
-  activeTab: PropTypes.string.isRequired,
-  tabList: PropTypes.object.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
-  handleButtonClick: PropTypes.func.isRequired,
+  handlePlayButtonClick: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  films: getFilmsByGenre(state),
+  activeFilm: state[NameSpace.DATA].activeFilm,
+});
+
 const mapDispatchToProps = (dispatch) => ({
-  handleButtonClick(film) {
-    dispatch(ActionCreator.setFilmToPlay(film));
+  handlePlayButtonClick(film) {
+    dispatch(VideoPlayerActionCreator.setFilmToPlay(film));
   },
 });
 
 export {MoviePage};
-export default connect(null, mapDispatchToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

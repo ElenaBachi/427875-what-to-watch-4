@@ -11,10 +11,10 @@ export default class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const {src} = this.props;
+    const {previewVideoSrc} = this.props;
     const video = this._videoRef.current;
 
-    video.src = src;
+    video.src = previewVideoSrc;
     video.muted = true;
   }
 
@@ -56,7 +56,7 @@ export default class VideoPlayer extends PureComponent {
 }
 
 VideoPlayer.propTypes = {
-  src: PropTypes.string.isRequired,
+  previewVideoSrc: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
 };
