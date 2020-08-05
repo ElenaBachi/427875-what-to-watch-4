@@ -1,11 +1,17 @@
 import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import VideoPlayerMain from "../video-player-main/video-player-main.jsx";
+import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
 
 import {PAGES} from "../../consts/consts.js";
+
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {AuthorizationStatus, Operation as UserOperation} from "../../reducer/user/user.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -34,12 +40,24 @@ class App extends PureComponent {
   }
 
   _renderMain() {
-    return (
-      <Main
-        onFilmImgClick={this.handleFilmImgClick}
-        onPlayButtonClick={this.handlePlayButtonClick}
-      />
-    );
+    const {authorizationStatus, login} = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      return (
+        <SignInScreen
+          onSubmit={login}
+        />
+      );
+    } else if (authorizationStatus === AuthorizationStatus.AUTH) {
+      return (
+        <Main
+          onFilmImgClick={this.handleFilmImgClick}
+          onPlayButtonClick={this.handlePlayButtonClick}
+        />
+      );
+    }
+
+    return null;
   }
 
   _renderFilmPage() {
@@ -64,6 +82,11 @@ class App extends PureComponent {
             <VideoPlayerMain
             />;
           </Route>
+          <Route exact path="dev-sign-in">
+            <SignInScreen
+              onSubmit={() => {}}
+            />
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -83,4 +106,20 @@ class App extends PureComponent {
   }
 }
 
-export default App;
+App.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

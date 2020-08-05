@@ -9,6 +9,7 @@ import {getFilmsByGenre} from "../../reducer/data/selectors.js";
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
 
+import Header from "../header/header.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import MovieCard from "../movie-card/movie-card.jsx";
 
@@ -37,21 +38,7 @@ const MoviePage = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
-          </header>
+          <Header/>
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
