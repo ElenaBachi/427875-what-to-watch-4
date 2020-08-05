@@ -1,3 +1,4 @@
+import {extend} from "../../utils/utils.js";
 import {isValidEmail, iaValidPassword} from "../../utils/validation.js";
 import {ERROR_MESSAGES} from "../../consts/consts.js";
 
@@ -76,12 +77,12 @@ const Operation = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.REQUIRED_AUTHORIZATION:
-      return Object.assign({}, state, {
+      return extend(state, {
         authorizationStatus: action.payload,
       });
     case ActionType.SET_AUTHORIZATION_ERROR_MESSAGE:
-      return Object.assign({}, state, {
-        authorizationStatus: action.payload,
+      return extend(state, {
+        authorizationErrorMessage: action.payload,
       });
   }
 

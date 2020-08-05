@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render App Should render App correctly 1`] = `
+exports[`SignInScreen should render correctly 1`] = `
 <div
   className="user-page"
 >

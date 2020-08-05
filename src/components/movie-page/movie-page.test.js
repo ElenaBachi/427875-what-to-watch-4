@@ -6,6 +6,7 @@ import configureStore from 'redux-mock-store';
 import MoviePage from "./movie-page.jsx";
 
 import NameSpace from "../../reducer/name-space.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const mockStore = configureStore([]);
 
@@ -44,6 +45,8 @@ const mock = {
       director: `director1`,
       actorList: [`Actor1`, `Actor2`, `Actor3`],
       runTime: 100,
+      isFavorite: false,
+      bgColor: `fff`,
     }, {
       id: 2,
       title: `title2`,
@@ -60,6 +63,8 @@ const mock = {
       director: `director2`,
       actorList: [`Actor1`, `Actor2`, `Actor3`],
       runTime: 100,
+      isFavorite: false,
+      bgColor: `fff`,
     }, {
       id: 3,
       title: `title3`,
@@ -76,6 +81,8 @@ const mock = {
       director: `director3`,
       actorList: [`Actor1`, `Actor2`, `Actor3`],
       runTime: 100,
+      isFavorite: false,
+      bgColor: `fff`,
     },
   ],
   tabList: {
@@ -93,6 +100,10 @@ it(`MoviePage should render correctly`, () => {
     },
     [NameSpace.FILTER]: {
       currentFilter: `All genres`,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      authorizationErrorMessage: ``,
     },
   });
   const handlePlayButtonClick = () => {};
