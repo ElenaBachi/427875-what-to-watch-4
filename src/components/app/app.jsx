@@ -7,6 +7,7 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import VideoPlayerMain from "../video-player-main/video-player-main.jsx";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
+import AddReview from "../add-review/add-review.jsx";
 
 import {Screen} from "../../consts/consts.js";
 
@@ -31,6 +32,8 @@ class App extends PureComponent {
       }
 
       return <SignInScreen onSubmit={login} />;
+    } else if (currentScreen === Screen.ADD_REVIEW) {
+      return <AddReview />;
     }
 
     return <Main/>;
@@ -54,6 +57,10 @@ class App extends PureComponent {
 
           <Route exact path="/dev-sign-in">
             <SignInScreen/>
+          </Route>
+
+          <Route exact path="/dev-add-review">
+            <AddReview />
           </Route>
         </Switch>
       </BrowserRouter>

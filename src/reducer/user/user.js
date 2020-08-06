@@ -1,5 +1,5 @@
 import {extend} from "../../utils/utils.js";
-import {isValidEmail, iaValidPassword} from "../../utils/validation.js";
+import {isValidEmail, isValidPassword} from "../../utils/validation.js";
 import {ERROR_MESSAGES} from "../../consts/consts.js";
 
 const AuthorizationStatus = {
@@ -46,7 +46,7 @@ const Operation = {
 
   login: (authData) => (dispatch, getState, api) => {
     const validEmail = isValidEmail(authData.login);
-    const validPassword = iaValidPassword(authData.password);
+    const validPassword = isValidPassword(authData.password);
 
     if (!validEmail) {
       dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.LOGIN));

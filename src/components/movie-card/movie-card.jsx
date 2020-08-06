@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/data/data.js";
+import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews.js";
 
 import {Screen} from "../../consts/consts.js";
 
@@ -53,6 +54,7 @@ MovieCard.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   handleCardClick(film) {
     dispatch(ActionCreator.setActiveFilm(film));
+    dispatch(ReviewsOperation.loadReviews(film.id));
   },
 });
 

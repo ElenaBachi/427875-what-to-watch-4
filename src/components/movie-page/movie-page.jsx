@@ -6,6 +6,7 @@ import {ActionCreator as VideoPlayerActionCreator} from "../../reducer/video-pla
 import NameSpace from "../../reducer/name-space.js";
 import {getFilms} from "../../reducer/data/selectors.js";
 
+
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
 
@@ -81,7 +82,14 @@ const MoviePage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+
+                <a
+                  href={`/dev-add-review`}
+                  className="btn movie-card__button"
+                  onClick={() => {
+                    onScreenChange(Screen.ADD_REVIEW);
+                  }}
+                >Add review</a>
               </div>
             </div>
           </div>

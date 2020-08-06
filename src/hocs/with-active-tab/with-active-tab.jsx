@@ -38,7 +38,7 @@ const withActiveTab = (Component) => {
             activeFilm={activeFilm}
           />;
         case TABS.REVIEWS:
-          return <MoviePageReviews/>;
+          return <MoviePageReviews />;
         default:
           return (<MoviePageOverview
             activeFilm={activeFilm}
