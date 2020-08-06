@@ -1,11 +1,20 @@
-import {AuthorizationStatus} from "../../consts/consts.js";
+import {extend} from "../../utils/utils.js";
+import {isValidEmail, iaValidPassword} from "../../utils/validation.js";
+import {ERROR_MESSAGES} from "../../consts/consts.js";
+
+const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationErrorMessage: ``,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  SET_AUTHORIZATION_ERROR_MESSAGE: `SET_AUTHORIZATION_ERROR_MESSAGE`,
 };
 
 const ActionCreator = {
@@ -15,6 +24,13 @@ const ActionCreator = {
       payload: status,
     };
   },
+
+  setAuthorizationErrorMessage: (errorMessage) => {
+    return {
+      type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
+      payload: errorMessage,
+    };
+  }
 };
 
 const Operation = {
@@ -29,12 +45,31 @@ const Operation = {
   },
 
   login: (authData) => (dispatch, getState, api) => {
+    const validEmail = isValidEmail(authData.login);
+    const validPassword = iaValidPassword(authData.password);
+
+    if (!validEmail) {
+      dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.LOGIN));
+    } else if (!validPassword) {
+      dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.PASSWORD));
+    }
+
     return api.post(`login`, {
       email: authData.login,
       password: authData.password,
     })
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.setAuthorizationErrorMessage(``));
+      })
+      .catch((err) => {
+        if (err.status === 401) {
+          dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.UNRECOGNIZED_DATA));
+        } else if (err.status === 400) {
+          dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.INCOMPLETE_DATA));
+        }
+
+        dispatch(ActionCreator.setAuthorizationErrorMessage(err.data.error));
       });
   },
 };
@@ -42,8 +77,12 @@ const Operation = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.REQUIRED_AUTHORIZATION:
-      return Object.assign({}, state, {
+      return extend(state, {
         authorizationStatus: action.payload,
+      });
+    case ActionType.SET_AUTHORIZATION_ERROR_MESSAGE:
+      return extend(state, {
+        authorizationErrorMessage: action.payload,
       });
   }
 

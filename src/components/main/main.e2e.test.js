@@ -7,6 +7,7 @@ import configureStore from 'redux-mock-store';
 import Main from "./main.jsx";
 
 import NameSpace from "../../reducer/name-space.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 configure({adapter: new Adapter()});
 
@@ -100,6 +101,10 @@ describe(`Main E2E test`, () => {
     },
     [NameSpace.FILMS_LOAD_BTN]: {
       filmCount: 10,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      authorizationErrorMessage: ``,
     },
   });
 

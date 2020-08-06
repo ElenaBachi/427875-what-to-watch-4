@@ -6,6 +6,7 @@ import configureStore from 'redux-mock-store';
 import App from "./app.jsx";
 
 import NameSpace from "../../reducer/name-space.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const mockStore = configureStore([]);
 
@@ -96,7 +97,8 @@ describe(`Render App`, () => {
         activeFilm: mock.films[0],
       },
       [NameSpace.USER]: {
-        authorizationStatus: `NO_AUTH`,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        authorizationErrorMessage: ``,
       },
       [NameSpace.FILTER]: {
         currentFilter: mock.genre,
@@ -110,7 +112,9 @@ describe(`Render App`, () => {
     });
     const tree = renderer.create(
         <Provider store={store}>
-          <App/>
+          <App
+            login={() => {}}
+          />
         </Provider>, {
           createNodeMock: () => {
             return {};
