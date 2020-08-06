@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 import {ActionCreator as VideoPlayerActionCreator} from "../../reducer/video-player/video-player.js";
 import NameSpace from "../../reducer/name-space.js";
-import {getFilmsByGenre} from "../../reducer/data/selectors.js";
+import {getFilms} from "../../reducer/data/selectors.js";
 
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
@@ -16,17 +16,29 @@ import MovieCard from "../movie-card/movie-card.jsx";
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 const TabsWrapped = withActiveTab(Tabs);
 
+import {Screen} from "../../consts/consts.js";
+
+const getSimilarFilms = (currentFilm, filmList) => {
+  const index = filmList.indexOf(currentFilm);
+
+  filmList.splice(index, 1);
+
+  return filmList
+    .filter((film) => film.genre === currentFilm.genre)
+    .slice(0, 4);
+};
+
 const MoviePage = (props) => {
   const {
     films,
     activeFilm,
     handlePlayButtonClick,
-    onPlayButtonClick,
+    onScreenChange,
   } = props;
 
   const {title, genre, year, poster, cover} = activeFilm;
 
-  const similarFilms = films.slice(0, 4);
+  const similarFilms = getSimilarFilms(activeFilm, films.slice());
 
   return (
     <React.Fragment>
@@ -53,8 +65,8 @@ const MoviePage = (props) => {
                 <button className="btn btn--play movie-card__button" type="button"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    onPlayButtonClick();
                     handlePlayButtonClick(activeFilm);
+                    onScreenChange(Screen.VIDEO_PLAYER);
                   }}
                 >
 
@@ -99,7 +111,7 @@ const MoviePage = (props) => {
                 <MovieCardWrapped
                   key={it.title + i}
                   film={it}
-                  onFilmImgClick={() => {}}
+                  onScreenChange={onScreenChange}
                 />
               );
             })}
@@ -152,12 +164,12 @@ MoviePage.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         bgColor: PropTypes.string.isRequired,
       })).isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
   handlePlayButtonClick: PropTypes.func.isRequired,
+  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: getFilmsByGenre(state),
+  films: getFilms(state),
   activeFilm: state[NameSpace.DATA].activeFilm,
 });
 

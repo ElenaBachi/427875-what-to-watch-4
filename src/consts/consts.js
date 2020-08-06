@@ -1,7 +1,8 @@
-export const PAGES = {
+export const Screen = {
   MAIN: `main`,
   FILM_PAGE: `filmPage`,
   VIDEO_PLAYER: `videoPlayer`,
+  SIGN_IN: `signInScreen`,
 };
 
 export const TABS = {

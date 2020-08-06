@@ -4,14 +4,16 @@ import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/data/data.js";
 
+import {Screen} from "../../consts/consts.js";
+
 const MovieCard = (props) => {
   const {
     film,
-    onFilmImgClick,
     handleCardClick,
     renderPlayer,
     handleMouseEnter,
-    handleMouseLeave
+    handleMouseLeave,
+    onScreenChange,
   } = props;
   const {previewVideoSrc, img, title} = film;
 
@@ -21,8 +23,8 @@ const MovieCard = (props) => {
       onMouseLeave={handleMouseLeave}
       onClick={(evt) => {
         evt.preventDefault();
-        onFilmImgClick(film);
         handleCardClick(film);
+        onScreenChange(Screen.FILM_PAGE);
       }}
     >
       <div className="small-movie-card__image">
@@ -41,11 +43,11 @@ MovieCard.propTypes = {
     img: PropTypes.string.isRequired,
     previewVideoSrc: PropTypes.string.isRequired,
   }).isRequired,
-  onFilmImgClick: PropTypes.func.isRequired,
   renderPlayer: PropTypes.func.isRequired,
   handleMouseEnter: PropTypes.func.isRequired,
   handleMouseLeave: PropTypes.func.isRequired,
   handleCardClick: PropTypes.func.isRequired,
+  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
