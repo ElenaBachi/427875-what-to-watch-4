@@ -3,7 +3,11 @@ import renderer from "react-test-renderer";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-import MovieCard from "./movie-card.jsx";
+import AddReview from "./add-review.jsx";
+
+import NameSpace from "../../reducer/name-space.js";
+
+const mockStore = configureStore([]);
 
 const mock = {
   film: {
@@ -22,34 +26,24 @@ const mock = {
     director: `director1`,
     actorList: [`Actor1`, `Actor2`, `Actor3`],
     runTime: 100,
-  },
+    isFavorite: false,
+    bgColor: `fff`,
+  }
 };
 
-const mockStore = configureStore([]);
-
-const onFilmImgClick = () => {};
-const handleMouseEnter = () => {};
-const handleMouseLeave = () => {};
-const handleCardClick = () => {};
-const renderPlayer = () => {};
-const loadReviews = () => {};
-const onScreenChange = () => {};
-
-it(`MovieCard should render correctly`, () => {
-  const store = mockStore({});
+it(`Should render Main correctly`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      activeFilm: mock.activeFilm,
+    },
+    [NameSpace.REVIEWS]: {
+      errorInPostingReview: false,
+    },
+  });
 
   const tree = renderer.create(
       <Provider store={store}>
-        <MovieCard
-          film={mock.film}
-          onFilmImgClick={onFilmImgClick}
-          handleMouseEnter={handleMouseEnter}
-          handleMouseLeave={handleMouseLeave}
-          handleCardClick={handleCardClick}
-          renderPlayer={renderPlayer}
-          loadReviews={loadReviews}
-          onScreenChange={onScreenChange}
-        />
+        <AddReview />
       </Provider>, {
         createNodeMock: () => {
           return {};

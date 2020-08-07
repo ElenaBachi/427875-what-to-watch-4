@@ -8,6 +8,8 @@ import App from "./app.jsx";
 import NameSpace from "../../reducer/name-space.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 
+import {Screen} from "../../consts/consts.js";
+
 const mockStore = configureStore([]);
 
 const mock = {
@@ -85,7 +87,31 @@ const mock = {
     actorList: [`Actor1`, `Actor2`, `Actor3`],
     runTime: 100,
   },
-  genre: `All genres`
+  genre: `All genres`,
+  reviews: [
+    {
+      reviewId: 1,
+      userId: 10,
+      userName: `Name1`,
+      rating: 8.0,
+      comment: `Comment 1`,
+      date: `2019-05-08T14:13:56.569Z`,
+    }, {
+      reviewId: 2,
+      userId: 20,
+      userName: `Name2`,
+      rating: 9.0,
+      comment: `Comment 2`,
+      date: `2019-05-08T14:13:56.569Z`,
+    }, {
+      reviewId: 3,
+      userId: 30,
+      userName: `Name3`,
+      rating: 10.0,
+      comment: `Comment 3`,
+      date: `2019-05-08T14:13:56.569Z`,
+    }
+  ],
 };
 
 describe(`Render App`, () => {
@@ -109,6 +135,14 @@ describe(`Render App`, () => {
       [NameSpace.FILMS_LOAD_BTN]: {
         filmCount: 10,
       },
+      [NameSpace.SCREENS]: {
+        currentScreen: Screen.MAIN,
+      },
+      [NameSpace.REVIEWS]: {
+        reviews: mock.reviews,
+        errorInPostingReview: false,
+        errorStatus: ``,
+      }
     });
     const tree = renderer.create(
         <Provider store={store}>

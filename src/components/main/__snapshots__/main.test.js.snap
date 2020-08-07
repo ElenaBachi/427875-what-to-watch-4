@@ -9,8 +9,8 @@ Array [
       className="movie-card__bg"
     >
       <img
-        alt="The Grand Budapest Hotel"
-        src="img/bg-the-grand-budapest-hotel.jpg"
+        alt="title"
+        src="cover.jpg"
       />
     </div>
     <h1
@@ -52,7 +52,7 @@ Array [
           className="user-block__link"
           href="/sign-in"
         >
-          Sign in
+          Sign in 
         </a>
       </div>
     </header>

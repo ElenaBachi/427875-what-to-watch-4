@@ -21,3 +21,8 @@ export const ERROR_MESSAGES = {
    and password combination. Please try again.`,
   INCOMPLETE_DATA: `You have not complete all the fields. Please try again.`
 };
+
+export const ReviewLength = {
+  MIN: 5,
+  MAX: 400,
+};

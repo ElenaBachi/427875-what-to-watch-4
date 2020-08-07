@@ -23,7 +23,10 @@ class App extends PureComponent {
     if (currentScreen === Screen.MAIN) {
       return <Main onScreenChange={onScreenChange} />;
     } else if (currentScreen === Screen.FILM_PAGE) {
-      return <MoviePage onScreenChange={onScreenChange} />;
+      return <MoviePage
+        onScreenChange={onScreenChange}
+        authorizationStatus={authorizationStatus}
+      />;
     } else if (currentScreen === Screen.VIDEO_PLAYER) {
       return <VideoPlayerMain onScreenChange={onScreenChange} />;
     } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {

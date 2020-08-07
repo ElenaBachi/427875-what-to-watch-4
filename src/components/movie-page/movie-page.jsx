@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {ActionCreator as VideoPlayerActionCreator} from "../../reducer/video-player/video-player.js";
-import NameSpace from "../../reducer/name-space.js";
 import {getFilms} from "../../reducer/data/selectors.js";
+import {getActiveFilm} from "../../reducer/data/selectors.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
@@ -35,6 +36,7 @@ const MoviePage = (props) => {
     activeFilm,
     handlePlayButtonClick,
     onScreenChange,
+    authorizationStatus,
   } = props;
 
   const {title, genre, year, poster, cover} = activeFilm;
@@ -83,13 +85,17 @@ const MoviePage = (props) => {
                   <span>My list</span>
                 </button>
 
-                <a
-                  href={`/dev-add-review`}
-                  className="btn movie-card__button"
-                  onClick={() => {
-                    onScreenChange(Screen.ADD_REVIEW);
-                  }}
-                >Add review</a>
+                {authorizationStatus === AuthorizationStatus.AUTH &&
+                  <a
+                    href={`/dev-add-review`}
+                    className="btn movie-card__button"
+                    onClick={(evt) => {
+                      evt.preventDefault();
+                      onScreenChange(Screen.ADD_REVIEW);
+                    }}
+                  >Add review</a>
+                }
+
               </div>
             </div>
           </div>
@@ -174,11 +180,12 @@ MoviePage.propTypes = {
       })).isRequired,
   handlePlayButtonClick: PropTypes.func.isRequired,
   onScreenChange: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   films: getFilms(state),
-  activeFilm: state[NameSpace.DATA].activeFilm,
+  activeFilm: getActiveFilm(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

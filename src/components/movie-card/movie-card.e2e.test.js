@@ -31,10 +31,11 @@ const mock = {
 const mockStore = configureStore([]);
 
 describe(`MovieCard E2E test`, () => {
-  const onFilmImgClick = jest.fn();
   const handleMouseEnter = jest.fn(() => true);
   const handleMouseLeave = jest.fn(() => false);
   const renderPlayer = jest.fn();
+  const loadReviews = jest.fn();
+  const onScreenChange = jest.fn();
 
   const store = mockStore({});
 
@@ -42,22 +43,16 @@ describe(`MovieCard E2E test`, () => {
       <Provider store={store}>
         <MovieCard
           film={mock.film}
-          onFilmImgClick={onFilmImgClick}
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
           renderPlayer={renderPlayer}
+          loadReviews={loadReviews}
+          onScreenChange={onScreenChange}
         />
       </Provider>
   );
 
   const card = movieCard.find(`.small-movie-card`);
-
-  it(`Testing on image click function`, () => {
-    card.simulate(`click`);
-
-    expect(onFilmImgClick.mock.calls.length).toBe(1);
-  });
-
   it(`Mouse entering should call function`, () => {
     card.simulate(`mouseenter`);
 

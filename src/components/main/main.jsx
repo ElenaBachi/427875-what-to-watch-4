@@ -24,13 +24,13 @@ const Main = (props) => {
     onScreenChange,
   } = props;
 
-  const {title, genre, year, poster} = promoFilm;
+  const {title, genre, year, poster, cover} = promoFilm;
 
   return (
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={cover} alt={title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -116,6 +116,7 @@ const Main = (props) => {
 Main.propTypes = {
   promoFilm: PropTypes.shape({
     poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,

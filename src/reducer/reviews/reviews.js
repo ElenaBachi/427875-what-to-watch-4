@@ -3,10 +3,14 @@ import {adaptReview} from "../../adapters/reviews.js";
 
 const initialState = {
   reviews: [],
+  errorInPostingReview: false,
+  errorStatus: ``,
 };
 
 const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
+  POST_REVIEW: `POST_REVIEW`,
+  CHANGE_POSTING_ERROR_FLAG: `CHANGE_POSTING_ERROR_FLAG`,
 };
 
 const ActionCreator = {
@@ -14,6 +18,18 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_REVIEWS,
       payload: reviews,
+    };
+  },
+  postReview: (errorStatus) => {
+    return {
+      type: ActionType.LOAD_REVIEWS,
+      payload: errorStatus,
+    };
+  },
+  changeErrorFlag: (payload) => {
+    return {
+      type: ActionType.CHANGE_POSTING_ERROR_FLAG,
+      payload,
     };
   },
 };
@@ -29,6 +45,21 @@ const Operation = {
         throw err;
       });
   },
+
+  postReview: (filmId, review) => (dispatch, getState, api) => {
+    return api.post(`/comments/${filmId}`, {
+      rating: review.rating,
+      comment: review.comment
+    })
+      .then((response) => {
+        dispatch(ActionCreator.changeErrorFlag(false));
+        dispatch(ActionCreator.postReview(response.status));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.changeErrorFlag(true));
+        dispatch(ActionCreator.postReview(err));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,6 +67,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS:
       return extend(state, {
         reviews: action.payload,
+      });
+    case ActionType.POST_REVIEW:
+      return extend(state, {
+        errorStatus: action.payload,
       });
   }
 

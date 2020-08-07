@@ -32,8 +32,8 @@ exports[`MoviePageDetails should render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Actor1
-Actor2
+        Actor1, 
+Actor2, 
 Actor3
       </span>
     </p>

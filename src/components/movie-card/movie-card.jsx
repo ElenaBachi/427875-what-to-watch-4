@@ -15,6 +15,7 @@ const MovieCard = (props) => {
     handleMouseEnter,
     handleMouseLeave,
     onScreenChange,
+    loadReviews,
   } = props;
   const {previewVideoSrc, img, title} = film;
 
@@ -25,6 +26,7 @@ const MovieCard = (props) => {
       onClick={(evt) => {
         evt.preventDefault();
         handleCardClick(film);
+        loadReviews(film);
         onScreenChange(Screen.FILM_PAGE);
       }}
     >
@@ -40,6 +42,7 @@ const MovieCard = (props) => {
 
 MovieCard.propTypes = {
   film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
     previewVideoSrc: PropTypes.string.isRequired,
@@ -48,14 +51,17 @@ MovieCard.propTypes = {
   handleMouseEnter: PropTypes.func.isRequired,
   handleMouseLeave: PropTypes.func.isRequired,
   handleCardClick: PropTypes.func.isRequired,
+  loadReviews: PropTypes.func.isRequired,
   onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   handleCardClick(film) {
     dispatch(ActionCreator.setActiveFilm(film));
-    dispatch(ReviewsOperation.loadReviews(film.id));
   },
+  loadReviews(film) {
+    dispatch(ReviewsOperation.loadReviews(film.id));
+  }
 });
 
 export {MovieCard};
