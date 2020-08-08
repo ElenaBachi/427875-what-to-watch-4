@@ -3,7 +3,6 @@ import NameSpace from "../name-space.js";
 import {ALL_GENRES} from "../../consts/consts.js";
 
 export const getFilms = (state) => {
-  console.log(state[NameSpace.DATA].activeFilm);
   return state[NameSpace.DATA].films;
 };
 

@@ -39,6 +39,7 @@ it(`videoPlayerMain should render correctly`, () => {
   const tree = renderer.create(
       <Provider store={store}>
         <VideoPlayerMain
+          onScreenChange={() => {}}
         />
       </Provider>, {
         createNodeMock: () => {

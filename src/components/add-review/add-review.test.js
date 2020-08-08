@@ -10,7 +10,7 @@ import NameSpace from "../../reducer/name-space.js";
 const mockStore = configureStore([]);
 
 const mock = {
-  film: {
+  activeFilm: {
     id: 1,
     title: `title1`,
     genre: `genre1`,
