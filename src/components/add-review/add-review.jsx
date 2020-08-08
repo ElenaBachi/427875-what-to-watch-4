@@ -57,9 +57,7 @@ class AddReview extends React.PureComponent {
     const isError = errorInPostingReview === true;
 
     return (
-      <section
-        className="movie-card movie-card--full"
-      >
+      <section className="movie-card movie-card--full">
 
         {isError &&
           <React.Fragment>

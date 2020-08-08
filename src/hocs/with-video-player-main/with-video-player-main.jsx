@@ -20,12 +20,21 @@ const withVideoPlayerMain = (Component) => {
       this._videoRef = createRef();
 
       this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
+      this.handleExitButtonClick = this.handleExitButtonClick.bind(this);
       this.handleFullScreen = this.handleFullScreen.bind(this);
     }
 
     handlePlayButtonClick(evt) {
       evt.preventDefault();
       this.setState({isPlaying: !this.state.isPlaying});
+    }
+
+    handleExitButtonClick(evt) {
+      const {onScreenChange, activeFullVideo} = this.props;
+      const pageToExit = `isPromoFilm` in activeFullVideo ? Screen.MAIN : Screen.FILM_PAGE;
+
+      evt.preventDefault();
+      onScreenChange(pageToExit);
     }
 
     handleFullScreen(evt) {
@@ -69,7 +78,6 @@ const withVideoPlayerMain = (Component) => {
     }
 
     render() {
-      const {onScreenChange} = this.props;
       const {isPlaying, isFullScreen} = this.state;
       const duration = getVideoTimeToLeft(this.state.duration);
 
@@ -78,9 +86,7 @@ const withVideoPlayerMain = (Component) => {
           <video className="player__video" ref={this._videoRef} />
 
           <button type="button" className="player__exit"
-            onClick={() => {
-              onScreenChange(Screen.MAIN);
-            }}
+            onClick={(evt) => this.handleExitButtonClick(evt)}
           >Exit</button>
 
           <div className="player__controls">

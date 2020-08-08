@@ -88,6 +88,5 @@ exports[`MovieCardList should render correctly 1`] = `
       </a>
     </h3>
   </article>
-  ;
 </div>
 `;

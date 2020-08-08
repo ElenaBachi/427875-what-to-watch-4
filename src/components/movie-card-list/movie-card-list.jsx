@@ -22,7 +22,7 @@ const MovieCardList = (props) => {
           film={film}
           onScreenChange={onScreenChange}
         />
-      )};
+      )}
     </div>
   );
 };
