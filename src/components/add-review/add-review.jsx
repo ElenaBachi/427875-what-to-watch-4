@@ -1,12 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
-import {ReviewLength} from "../../consts/consts.js";
+import {ReviewLength, AppRoute} from "../../consts.js";
+
+import history from "../../history.js";
 
 import NameSpace from "../../reducer/name-space.js";
 import {Operation as ReviewOperation} from "../../reducer/reviews/reviews.js";
-import {getActiveFilm} from "../../reducer/data/selectors.js";
+import {getActiveFilmById} from "../../reducer/data/selectors.js";
+
+import UserLogo from "../user-logo/user-logo.jsx";
 
 class AddReview extends React.PureComponent {
   constructor(props) {
@@ -22,7 +27,7 @@ class AddReview extends React.PureComponent {
   }
 
   handleFormSubmit(evt) {
-    const {activeFilm, postReview, errorInPostingReview} = this.props;
+    const {postReview, postStatus, filmId} = this.props;
 
     const form = evt.target;
     const formElements = form.elements;
@@ -36,14 +41,14 @@ class AddReview extends React.PureComponent {
       comment: formData.get(`review-text`),
     };
 
-    if (!isValidText || errorInPostingReview) {
+    if (!isValidText || postStatus) {
       this.disableElements(formElements);
 
       return false;
     }
 
     this.disableElements(formElements);
-    postReview(activeFilm.id, review);
+    postReview(filmId, review);
     form.querySelector(`.review__submit--success`).classList.remove(`visually-hidden`);
     form.reset();
 
@@ -51,19 +56,16 @@ class AddReview extends React.PureComponent {
   }
 
   render() {
-    const {activeFilm, errorInPostingReview} = this.props;
+    const {getActiveFilm, postStatus, filmId} = this.props;
+
+    const activeFilm = getActiveFilm(filmId);
+
     const ratingStars = [1, 2, 3, 4, 5];
 
-    const isError = errorInPostingReview === true;
+    const isError = postStatus === false;
 
     return (
       <section className="movie-card movie-card--full">
-
-        {isError &&
-          <React.Fragment>
-            <div style={{color: `red`, textAlign: `center`, backgroundColor: `grey`}}> An error occured. Please try again later.</div>
-          </React.Fragment>
-        }
 
         <div className="movie-card__header">
           <div className="movie-card__bg">
@@ -74,17 +76,26 @@ class AddReview extends React.PureComponent {
 
           <header className="page-header">
             <div className="logo">
-              <a href={`/`} className="logo__link">
+              <Link to={AppRoute.ROOT} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href={`/dev-film`} className="breadcrumbs__link">{activeFilm.title}</a>
+                  <a
+                    href="movie-page.html"
+                    className="breadcrumbs__link"
+                    onClick={(evt) => {
+                      evt.preventDefault();
+                      history.goBack();
+                    }}
+                  >
+                    {activeFilm.title}
+                  </a>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -92,11 +103,7 @@ class AddReview extends React.PureComponent {
               </ul>
             </nav>
 
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
+            <UserLogo />
           </header>
 
           <div className="movie-card__poster movie-card__poster--small">
@@ -130,11 +137,17 @@ class AddReview extends React.PureComponent {
               </div>
             </div>
 
-            <React.Fragment>
+            {isError &&
+              <React.Fragment>
+                <div style={{color: `red`, textAlign: `center`, marginBottom: `10px`}}> An error occured. Please try again later.</div>
+              </React.Fragment>
+            }
+
+            {!isError && <React.Fragment>
               <div className="review__submit--success visually-hidden">
                 <p>Thanks for your feedback!</p>
               </div>
-            </React.Fragment>
+            </React.Fragment>}
 
             <div className="add-review__text">
               <textarea
@@ -160,37 +173,20 @@ class AddReview extends React.PureComponent {
 }
 
 AddReview.propTypes = {
-  activeFilm: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    videoSrc: PropTypes.string.isRequired,
-    previewVideoSrc: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    score: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired,
-    director: PropTypes.string.isRequired,
-    actorList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    runTime: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    bgColor: PropTypes.string.isRequired,
-  }).isRequired,
-  errorInPostingReview: PropTypes.bool.isRequired,
+  postStatus: PropTypes.bool.isRequired,
   postReview: PropTypes.func.isRequired,
+  getActiveFilm: PropTypes.func.isRequired,
+  filmId: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  activeFilm: getActiveFilm(state),
-  errorInPostingReview: state[NameSpace.REVIEWS].errorInPostingReview,
+  getActiveFilm: (filmID) => getActiveFilmById(state, filmID),
+  postStatus: state[NameSpace.REVIEWS].postStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  postReview: (film, review) => {
-    dispatch(ReviewOperation.postReview(film.id, review));
+  postReview: (filmID, review) => {
+    dispatch(ReviewOperation.postReview(filmID, review));
   }
 });
 

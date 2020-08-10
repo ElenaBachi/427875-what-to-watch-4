@@ -1,6 +1,6 @@
 import {extend} from "../../utils/utils.js";
 import {isValidEmail, isValidPassword} from "../../utils/validation.js";
-import {ERROR_MESSAGES} from "../../consts/consts.js";
+import {ErrorMessages} from "../../consts.js";
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -49,9 +49,9 @@ const Operation = {
     const validPassword = isValidPassword(authData.password);
 
     if (!validEmail) {
-      dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.LOGIN));
+      dispatch(ActionCreator.setAuthorizationErrorMessage(ErrorMessages.LOGIN));
     } else if (!validPassword) {
-      dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.PASSWORD));
+      dispatch(ActionCreator.setAuthorizationErrorMessage(ErrorMessages.PASSWORD));
     }
 
     return api.post(`login`, {
@@ -64,9 +64,9 @@ const Operation = {
       })
       .catch((err) => {
         if (err.status === 401) {
-          dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.UNRECOGNIZED_DATA));
+          dispatch(ActionCreator.setAuthorizationErrorMessage(ErrorMessages.UNRECOGNIZED_DATA));
         } else if (err.status === 400) {
-          dispatch(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.INCOMPLETE_DATA));
+          dispatch(ActionCreator.setAuthorizationErrorMessage(ErrorMessages.INCOMPLETE_DATA));
         }
 
         dispatch(ActionCreator.setAuthorizationErrorMessage(err.data.error));

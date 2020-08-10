@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
-import {TABS} from "../../consts/consts.js";
+import {TABS} from "../../consts.js";
 
 import MoviePageOverview from "../../components/movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../../components/movie-page-details/movie-page-details.jsx";

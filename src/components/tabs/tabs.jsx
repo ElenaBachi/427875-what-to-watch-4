@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {TABS} from "../../consts/consts.js";
+import {TABS} from "../../consts.js";
 
 const Tabs = (props) => {
   const {onTabChange, activeTab, onTabClickRender} = props;

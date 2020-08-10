@@ -1,24 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
-import {ActionCreator as VideoPlayerActionCreator} from "../../reducer/video-player/video-player.js";
-import {getFilms} from "../../reducer/data/selectors.js";
-import {getActiveFilm} from "../../reducer/data/selectors.js";
+import {AppRoute} from "../../consts.js";
+import history from "../../history.js";
+
+import {Operation as DataOperation} from "../../reducer/data/data.js";
+import {getFilms, getActiveFilmById} from "../../reducer/data/selectors.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
 
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
 
-import Header from "../header/header.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import MovieCard from "../movie-card/movie-card.jsx";
+import UserLogo from "../user-logo/user-logo.jsx";
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 const TabsWrapped = withActiveTab(Tabs);
 
-import {Screen} from "../../consts/consts.js";
+const MyListBtn = {
+  FAVORITE: `1`,
+  NOT_FAVORITE: `0`,
+};
 
 const getSimilarFilms = (currentFilm, filmList) => {
   const index = filmList.indexOf(currentFilm);
@@ -33,15 +40,30 @@ const getSimilarFilms = (currentFilm, filmList) => {
 const MoviePage = (props) => {
   const {
     films,
-    activeFilm,
-    handlePlayButtonClick,
-    onScreenChange,
+    getActiveFilm,
     authorizationStatus,
+    setFavoriteFilm,
+    filmId,
   } = props;
+
+  const activeFilm = getActiveFilm(filmId);
 
   const {title, genre, year, poster, cover} = activeFilm;
 
   const similarFilms = getSimilarFilms(activeFilm, films.slice());
+
+  const handleAddBtnClick = (evt) => {
+    const isFavorite = activeFilm.isFavorite ? MyListBtn.NOT_FAVORITE : MyListBtn.FAVORITE;
+
+    evt.preventDefault();
+
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      history.push(AppRoute.LOGIN);
+      return;
+    }
+
+    setFavoriteFilm(filmId, isFavorite);
+  };
 
   return (
     <React.Fragment>
@@ -53,7 +75,18 @@ const MoviePage = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header/>
+          <header className="page-header movie-card__head">
+            <div className="logo">
+              <Link to={AppRoute.ROOT} className="logo__link">
+                <span className="logo__letter logo__letter--1">W</span>
+                <span className="logo__letter logo__letter--2">T</span>
+                <span className="logo__letter logo__letter--3">W</span>
+              </Link>
+            </div>
+
+            <UserLogo/>
+
+          </header>
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -65,11 +98,12 @@ const MoviePage = (props) => {
 
               <div className="movie-card__buttons">
 
-                <button className="btn btn--play movie-card__button" type="button"
+                <button
+                  className="btn btn--play movie-card__button"
+                  type="button"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    handlePlayButtonClick(activeFilm);
-                    onScreenChange(Screen.VIDEO_PLAYER);
+                    history.push(`/player/${filmId}`);
                   }}
                 >
 
@@ -78,22 +112,35 @@ const MoviePage = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+
+                <button
+                  className="btn btn--list movie-card__button"
+                  type="button"
+                  onClick={(evt) => {
+                    handleAddBtnClick(evt);
+                  }}
+                >
+                  {activeFilm.isFavorite ?
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use href="#in-list"></use>
+                    </svg> :
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  }
                   <span>My list</span>
                 </button>
 
                 {authorizationStatus === AuthorizationStatus.AUTH &&
                   <a
-                    href={`/dev-add-review`}
+                    href="add-review.html"
                     className="btn movie-card__button"
                     onClick={(evt) => {
                       evt.preventDefault();
-                      onScreenChange(Screen.ADD_REVIEW);
+                      history.push(`/films/${filmId}/review`);
                     }}
-                  >Add review</a>
+                  >Add review
+                  </a>
                 }
 
               </div>
@@ -117,28 +164,31 @@ const MoviePage = (props) => {
 
       <div className="page-content">
         <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
+          {similarFilms.length > 0 ?
+            <React.Fragment>
+              <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__movies-list">
-            {similarFilms.map((it, i) => {
-              return (
-                <MovieCardWrapped
-                  key={it.title + i}
-                  film={it}
-                  onScreenChange={onScreenChange}
-                />
-              );
-            })}
-          </div>
+              <div className="catalog__movies-list">
+                {similarFilms.map((it, i) => {
+                  return (
+                    <MovieCardWrapped
+                      key={it.title + i}
+                      film={it}
+                    />
+                  );
+                })}
+              </div>
+            </React.Fragment> : ``
+          }
         </section>
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to={AppRoute.ROOT} className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">
@@ -151,13 +201,6 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  activeFilm: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-  }).isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -178,19 +221,23 @@ MoviePage.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         bgColor: PropTypes.string.isRequired,
       })).isRequired,
-  handlePlayButtonClick: PropTypes.func.isRequired,
-  onScreenChange: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  setFavoriteFilm: PropTypes.func.isRequired,
+  getActiveFilm: PropTypes.func.isRequired,
+  filmId: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   films: getFilms(state),
-  activeFilm: getActiveFilm(state),
+
+  getActiveFilm: (filmID) => getActiveFilmById(state, filmID),
+
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handlePlayButtonClick(film) {
-    dispatch(VideoPlayerActionCreator.setFilmToPlay(film));
+  setFavoriteFilm(filmId, isFavorite) {
+    dispatch(DataOperation.addFilmToList(filmId, isFavorite));
   },
 });
 

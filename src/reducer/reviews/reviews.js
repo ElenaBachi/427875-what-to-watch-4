@@ -1,16 +1,19 @@
 import {extend} from "../../utils/utils.js";
 import {adaptReview} from "../../adapters/reviews.js";
 
+const PostStatus = {
+  FAIL: false,
+  SUCCESS: true,
+};
+
 const initialState = {
   reviews: [],
-  errorInPostingReview: false,
-  errorStatus: ``,
+  postStatus: PostStatus.FAIL,
 };
 
 const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
-  POST_REVIEW: `POST_REVIEW`,
-  CHANGE_POSTING_ERROR_FLAG: `CHANGE_POSTING_ERROR_FLAG`,
+  CHANGE_POSTING_STATUS: `CHANGE_POSTING_STATUS`,
 };
 
 const ActionCreator = {
@@ -20,15 +23,9 @@ const ActionCreator = {
       payload: reviews,
     };
   },
-  postReview: (errorStatus) => {
+  changePostingStatus: (payload) => {
     return {
-      type: ActionType.LOAD_REVIEWS,
-      payload: errorStatus,
-    };
-  },
-  changeErrorFlag: (payload) => {
-    return {
-      type: ActionType.CHANGE_POSTING_ERROR_FLAG,
+      type: ActionType.CHANGE_POSTING_STATUS,
       payload,
     };
   },
@@ -51,13 +48,11 @@ const Operation = {
       rating: review.rating,
       comment: review.comment
     })
-      .then((response) => {
-        dispatch(ActionCreator.changeErrorFlag(false));
-        dispatch(ActionCreator.postReview(response.status));
+      .then(() => {
+        dispatch(ActionCreator.changePostingStatus(PostStatus.SUCCESS));
       })
-      .catch((err) => {
-        dispatch(ActionCreator.changeErrorFlag(true));
-        dispatch(ActionCreator.postReview(err));
+      .catch(() => {
+        dispatch(ActionCreator.changePostingStatus(PostStatus.FAIL));
       });
   },
 };

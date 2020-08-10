@@ -1,18 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+
+import {AppRoute} from "../../consts.js";
+import history from "../../history.js";
 
 import {ActionCreator as LoadBtnActionCreator} from "../../reducer/films-load-btn/films-load-btn.js";
-import {ActionCreator as VideoPlayerActionCreator} from "../../reducer/video-player/video-player.js";
 import {getPromoFilm, getFilmsByGenre} from "../../reducer/data/selectors.js";
 import {getFilmCount} from "../../reducer/films-load-btn/selectors.js";
 
-import Header from "../header/header.jsx";
+import UserLogo from "../user-logo/user-logo.jsx";
 import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-
-import {Screen} from "../../consts/consts.js";
 
 const Main = (props) => {
   const {
@@ -20,8 +21,6 @@ const Main = (props) => {
     films,
     onShowMoreBtnClick,
     filmCount,
-    handlePlayButtonClick,
-    onScreenChange,
   } = props;
 
   const {title, genre, year, poster, cover} = promoFilm;
@@ -35,7 +34,18 @@ const Main = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header/>
+        <header className="page-header movie-card__head">
+          <div className="logo">
+            <Link to={AppRoute.ROOT} className="logo__link">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </Link>
+          </div>
+
+          <UserLogo/>
+
+        </header>
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
@@ -54,8 +64,7 @@ const Main = (props) => {
                 <button className="btn btn--play movie-card__button" type="button"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    handlePlayButtonClick(promoFilm);
-                    onScreenChange(Screen.VIDEO_PLAYER);
+                    history.push(`/player/${promoFilm.id}`);
                   }}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -83,7 +92,6 @@ const Main = (props) => {
 
           <MovieCardList
             films={films}
-            onScreenChange={onScreenChange}
           />
 
           <div className="catalog__more">
@@ -115,6 +123,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   promoFilm: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     poster: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -143,8 +152,6 @@ Main.propTypes = {
       })).isRequired,
   onShowMoreBtnClick: PropTypes.func.isRequired,
   filmCount: PropTypes.number.isRequired,
-  handlePlayButtonClick: PropTypes.func.isRequired,
-  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -156,10 +163,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onShowMoreBtnClick() {
     dispatch(LoadBtnActionCreator.downloadFilmCards());
-  },
-
-  handlePlayButtonClick(film) {
-    dispatch(VideoPlayerActionCreator.setFilmToPlay(film));
   },
 });
 

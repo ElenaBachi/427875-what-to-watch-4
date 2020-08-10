@@ -1,9 +1,12 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 import {getAuthorizationErrorMessage} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 
+import {AppRoute} from "../../consts.js";
 class SignInScreen extends PureComponent {
   constructor(props) {
     super(props);
@@ -32,11 +35,11 @@ class SignInScreen extends PureComponent {
       <div className="user-page">
         <header className="page-header user-page__head">
           <div className="logo">
-            <a href={`/`} className="logo__link">
+            <Link to={AppRoute.ROOT} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <h1 className="page-title user-page__title">Sign in</h1>
@@ -71,11 +74,11 @@ class SignInScreen extends PureComponent {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href={`/`} className="logo__link logo__link--light">
+            <Link to={AppRoute.ROOT}className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">
@@ -89,11 +92,18 @@ class SignInScreen extends PureComponent {
 SignInScreen.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   authorizationErrorMessage: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authorizationErrorMessage: getAuthorizationErrorMessage(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
+});
+
 export {SignInScreen};
-export default connect(mapStateToProps)(SignInScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

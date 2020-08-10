@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import {getVideoTimeToLeft} from "../../utils/utils.js";
 
-import {Screen} from "../../consts/consts.js";
+import history from "../../history.js";
 
 const withVideoPlayerMain = (Component) => {
   class WithVideoPlayerMain extends PureComponent {
@@ -20,21 +20,12 @@ const withVideoPlayerMain = (Component) => {
       this._videoRef = createRef();
 
       this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
-      this.handleExitButtonClick = this.handleExitButtonClick.bind(this);
       this.handleFullScreen = this.handleFullScreen.bind(this);
     }
 
     handlePlayButtonClick(evt) {
       evt.preventDefault();
       this.setState({isPlaying: !this.state.isPlaying});
-    }
-
-    handleExitButtonClick(evt) {
-      const {onScreenChange, activeFullVideo} = this.props;
-      const pageToExit = `isPromoFilm` in activeFullVideo ? Screen.MAIN : Screen.FILM_PAGE;
-
-      evt.preventDefault();
-      onScreenChange(pageToExit);
     }
 
     handleFullScreen(evt) {
@@ -48,11 +39,13 @@ const withVideoPlayerMain = (Component) => {
     }
 
     componentDidMount() {
-      const {activeFullVideo} = this.props;
+      const {getActiveFilm, filmId} = this.props;
+      const activeFilm = getActiveFilm(filmId);
+
       const video = this._videoRef.current;
 
-      video.src = activeFullVideo.videoSrc;
-      video.poster = activeFullVideo.poster;
+      video.src = activeFilm.videoSrc;
+      video.poster = activeFilm.poster;
 
       video.ontimeupdate = () => {
         this.setState({
@@ -85,9 +78,13 @@ const withVideoPlayerMain = (Component) => {
         <Component>
           <video className="player__video" ref={this._videoRef} />
 
-          <button type="button" className="player__exit"
-            onClick={(evt) => this.handleExitButtonClick(evt)}
-          >Exit</button>
+          <button
+            type="button"
+            className="player__exit"
+            onClick={() => history.goBack()}
+          >
+            Exit
+          </button>
 
           <div className="player__controls">
             <div className="player__controls-row">
@@ -142,8 +139,8 @@ const withVideoPlayerMain = (Component) => {
   }
 
   WithVideoPlayerMain.propTypes = {
-    activeFullVideo: PropTypes.object.isRequired,
-    onScreenChange: PropTypes.func.isRequired,
+    getActiveFilm: PropTypes.func.isRequired,
+    filmId: PropTypes.string.isRequired,
   };
 
   return WithVideoPlayerMain;

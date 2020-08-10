@@ -4,13 +4,14 @@ import {adaptFilm} from "../../adapters/film.js";
 const initialState = {
   films: [],
   promoFilm: {},
-  activeFilm: null,
+  favoriteFilms: [],
 };
 
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
-  SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
+  LOAD_FAVORITE_FILMS: `LOAD_FAVORITE_FILMS`,
+  ADD_FILM_TO_LIST: `ADD_FILM_TO_LIST`,
 };
 
 const ActionCreator = {
@@ -23,6 +24,18 @@ const ActionCreator = {
   loadPromoFilm: (film) => {
     return {
       type: ActionType.LOAD_PROMO_FILM,
+      payload: film,
+    };
+  },
+  loadFavoriteFilms: (films) => {
+    return {
+      type: ActionType.LOAD_FAVORITE_FILMS,
+      payload: films,
+    };
+  },
+  addFilmToList: (film) => {
+    return {
+      type: ActionType.ADD_FILM_TO_LIST,
       payload: film,
     };
   },
@@ -54,6 +67,25 @@ const Operation = {
         throw err;
       });
   },
+  loadFavoriteFilms: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const films = response.data.map((it) => adaptFilm(it));
+        dispatch(ActionCreator.loadFavoriteFilms(films));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+  addFilmToList: (filmId, isFavorite) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${filmId}/${isFavorite}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -66,9 +98,13 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         promoFilm: action.payload,
       });
-    case ActionType.SET_ACTIVE_FILM:
+    case ActionType.LOAD_FAVORITE_FILMS:
       return extend(state, {
-        activeFilm: action.payload,
+        favoriteFilms: action.payload,
+      });
+    case ActionType.ADD_FILM_TO_LIST:
+      return extend(state, {
+        films: action.payload,
       });
   }
 

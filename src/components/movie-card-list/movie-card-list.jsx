@@ -12,7 +12,7 @@ import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx"
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 
 const MovieCardList = (props) => {
-  const {films, filmCount, onScreenChange} = props;
+  const {films, filmCount} = props;
 
   return (
     <div className="catalog__movies-list">
@@ -20,7 +20,6 @@ const MovieCardList = (props) => {
         <MovieCardWrapped
           key={film.title + i}
           film={film}
-          onScreenChange={onScreenChange}
         />
       )}
     </div>
@@ -49,7 +48,6 @@ MovieCardList.propTypes = {
         bgColor: PropTypes.string.isRequired,
       })).isRequired,
   filmCount: PropTypes.number.isRequired,
-  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
