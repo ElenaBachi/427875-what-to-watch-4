@@ -14,9 +14,16 @@ export const ErrorMessages = {
   INCOMPLETE_DATA: `You have not complete all the fields. Please try again.`
 };
 
-export const ReviewLength = {
-  MIN: 5,
-  MAX: 400,
+export const Review = {
+  length: {
+    MIN: 5,
+    MAX: 400,
+  },
+  rating: {
+    MIN: 1,
+    MAX: 5,
+    DEFAULT: 3,
+  },
 };
 
 export const AppRoute = {

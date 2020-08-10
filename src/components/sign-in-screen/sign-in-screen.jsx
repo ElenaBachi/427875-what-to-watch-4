@@ -18,11 +18,11 @@ class SignInScreen extends PureComponent {
   }
 
   handleSubmit(evt) {
-    const {onSubmit} = this.props;
+    const {login} = this.props;
 
     evt.preventDefault();
 
-    onSubmit({
+    login({
       login: this.loginRef.current.value,
       password: this.passwordRef.current.value,
     });
@@ -90,7 +90,6 @@ class SignInScreen extends PureComponent {
   }
 }
 SignInScreen.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
   authorizationErrorMessage: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
 };

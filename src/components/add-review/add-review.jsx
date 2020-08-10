@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import {ReviewLength, AppRoute} from "../../consts.js";
+import {Review, AppRoute} from "../../consts.js";
 
 import history from "../../history.js";
 
-import NameSpace from "../../reducer/name-space.js";
-import {Operation as ReviewOperation} from "../../reducer/reviews/reviews.js";
+import {Operation as ReviewOperation, PostStatus} from "../../reducer/reviews/reviews.js";
+import {getPostStatus} from "../../reducer/reviews/selectors.js";
 import {getActiveFilmById} from "../../reducer/data/selectors.js";
 
 import UserLogo from "../user-logo/user-logo.jsx";
@@ -17,42 +17,48 @@ class AddReview extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      rating: Review.rating.DEFAULT,
+      review: ``,
+    };
+
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleRatingChange = this.handleRatingChange.bind(this);
+    this.handleReviewChange = this.handleReviewChange.bind(this);
   }
 
-  disableElements(elements) {
-    [...elements].forEach((elem) => {
-      elem.setAttribute(`disabled`, `disabled`);
+  handleRatingChange(evt) {
+    this.setState({
+      rating: evt.target.value,
+    });
+  }
+
+  handleReviewChange(evt) {
+    this.setState({
+      review: evt.target.value,
     });
   }
 
   handleFormSubmit(evt) {
-    const {postReview, postStatus, filmId} = this.props;
+    const {postReview, filmId} = this.props;
 
     const form = evt.target;
-    const formElements = form.elements;
-    const reviewText = form.querySelector(`.add-review__textarea`).value;
-    const formData = new FormData(form);
-
-    const isValidText = reviewText.length >= ReviewLength.MIN && reviewText.length <= ReviewLength.MAX;
 
     const review = {
-      rating: formData.get(`rating`),
-      comment: formData.get(`review-text`),
+      rating: this.state.rating,
+      comment: this.state.review,
     };
 
-    if (!isValidText || postStatus) {
-      this.disableElements(formElements);
-
-      return false;
-    }
-
-    this.disableElements(formElements);
+    evt.preventDefault();
     postReview(filmId, review);
-    form.querySelector(`.review__submit--success`).classList.remove(`visually-hidden`);
     form.reset();
+  }
 
-    return true;
+  checkValidity() {
+    const isValid = (this.state.review.length >= Review.length.MIN && this.state.review.length <= Review.length.MAX &&
+    this.state.rating >= Review.rating.MIN && this.state.rating <= Review.rating.MAX);
+
+    return isValid;
   }
 
   render() {
@@ -60,9 +66,9 @@ class AddReview extends React.PureComponent {
 
     const activeFilm = getActiveFilm(filmId);
 
-    const ratingStars = [1, 2, 3, 4, 5];
+    const ratingStars = new Array(5).fill(``);
 
-    const isError = postStatus === false;
+    const isDisabled = this.checkValidity();
 
     return (
       <section className="movie-card movie-card--full">
@@ -115,10 +121,7 @@ class AddReview extends React.PureComponent {
           <form
             action="#"
             className="add-review__form"
-            onSubmit={(evt) => {
-              evt.preventDefault();
-              this.handleFormSubmit(evt);
-            }}
+            onSubmit={this.handleFormSubmit}
           >
             <div className="rating">
               <div className="rating__stars">
@@ -128,7 +131,14 @@ class AddReview extends React.PureComponent {
 
                   return (
                     <React.Fragment key={`key${num}`}>
-                      <input className="rating__input" id={`star-${num}`} type="radio" name="rating" value={num} />
+                      <input
+                        className="rating__input"
+                        id={`star-${num}`}
+                        type="radio"
+                        name="rating"
+                        value={num}
+                        onChange={this.handleRatingChange}
+                      />
                       <label className="rating__label" htmlFor={`star-${num}`}>Rating {num}</label>
                     </React.Fragment>
                   );
@@ -137,13 +147,14 @@ class AddReview extends React.PureComponent {
               </div>
             </div>
 
-            {isError &&
+            {postStatus === PostStatus.FAIL &&
               <React.Fragment>
                 <div style={{color: `red`, textAlign: `center`, marginBottom: `10px`}}> An error occured. Please try again later.</div>
               </React.Fragment>
             }
 
-            {!isError && <React.Fragment>
+            {postStatus === PostStatus.SUCCESS &&
+            <React.Fragment>
               <div className="review__submit--success visually-hidden">
                 <p>Thanks for your feedback!</p>
               </div>
@@ -155,13 +166,18 @@ class AddReview extends React.PureComponent {
                 name="review-text"
                 id="review-text"
                 placeholder="Review text"
-                minLength={ReviewLength.MIN}
-                maxLength={ReviewLength.MAX}
+                minLength={Review.length.MIN}
+                maxLength={Review.length.MAX}
+                onChange={this.handleReviewChange}
                 required
               />
 
               <div className="add-review__submit">
-                <button className="add-review__btn" type="submit">Post</button>
+                <button
+                  className="add-review__btn"
+                  type="submit"
+                  disabled={!isDisabled}
+                >Post</button>
               </div>
 
             </div>
@@ -173,7 +189,7 @@ class AddReview extends React.PureComponent {
 }
 
 AddReview.propTypes = {
-  postStatus: PropTypes.bool.isRequired,
+  postStatus: PropTypes.string.isRequired,
   postReview: PropTypes.func.isRequired,
   getActiveFilm: PropTypes.func.isRequired,
   filmId: PropTypes.string.isRequired,
@@ -181,7 +197,7 @@ AddReview.propTypes = {
 
 const mapStateToProps = (state) => ({
   getActiveFilm: (filmID) => getActiveFilmById(state, filmID),
-  postStatus: state[NameSpace.REVIEWS].postStatus,
+  postStatus: getPostStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

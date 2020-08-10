@@ -1,14 +1,14 @@
 import {extend} from "../../utils/utils.js";
 import {adaptReview} from "../../adapters/reviews.js";
 
-const PostStatus = {
-  FAIL: false,
-  SUCCESS: true,
+export const PostStatus = {
+  FAIL: `FAIL`,
+  SUCCESS: `SUCCESS`,
 };
 
 const initialState = {
   reviews: [],
-  postStatus: PostStatus.FAIL,
+  postStatus: ``,
 };
 
 const ActionType = {
@@ -23,10 +23,10 @@ const ActionCreator = {
       payload: reviews,
     };
   },
-  changePostingStatus: (payload) => {
+  changePostingStatus: (status) => {
     return {
       type: ActionType.CHANGE_POSTING_STATUS,
-      payload,
+      payload: status,
     };
   },
 };
@@ -49,10 +49,13 @@ const Operation = {
       comment: review.comment
     })
       .then(() => {
+        dispatch(Operation.loadReviews(filmId));
         dispatch(ActionCreator.changePostingStatus(PostStatus.SUCCESS));
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch(ActionCreator.changePostingStatus(PostStatus.FAIL));
+
+        throw err.status;
       });
   },
 };
@@ -63,9 +66,9 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         reviews: action.payload,
       });
-    case ActionType.POST_REVIEW:
+    case ActionType.CHANGE_POSTING_STATUS:
       return extend(state, {
-        errorStatus: action.payload,
+        postStatus: action.payload,
       });
   }
 

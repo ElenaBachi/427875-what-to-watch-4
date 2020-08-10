@@ -43,7 +43,7 @@ class App extends PureComponent {
             }}
           />
 
-          <Route exact path="/dev-sign-in" render={() => isAuth ? <SignInScreen /> : <Redirect to={AppRoute.ROOT} />}/>
+          <Route exact path={AppRoute.LOGIN} render={() => isAuth ? <SignInScreen /> : <Redirect to={AppRoute.ROOT} />}/>
 
           <PrivateRoute exact path={AppRoute.REVIEW}
             render={(componentProps) => {
