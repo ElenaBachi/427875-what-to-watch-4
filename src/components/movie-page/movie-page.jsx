@@ -27,35 +27,27 @@ const MyListBtn = {
   NOT_FAVORITE: `0`,
 };
 
-const getSimilarFilms = (currentFilm, filmList) => {
-  const index = filmList.indexOf(currentFilm);
+class MoviePage extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  filmList.splice(index, 1);
+    this.handleAddBtnClick = this.handleAddBtnClick.bind(this);
+  }
 
-  return filmList
-    .filter((film) => film.genre === currentFilm.genre)
-    .slice(0, 4);
-};
+  getSimilarFilms(currentFilm, filmList) {
+    const index = filmList.indexOf(currentFilm);
 
-const MoviePage = (props) => {
-  const {
-    films,
-    getActiveFilm,
-    authorizationStatus,
-    setFavoriteFilm,
-    filmId,
-  } = props;
+    filmList.splice(index, 1);
 
-  const activeFilm = getActiveFilm(filmId);
+    return filmList
+      .filter((film) => film.genre === currentFilm.genre)
+      .slice(0, 4);
+  }
 
-  const {title, genre, year, poster, cover} = activeFilm;
+  handleAddBtnClick(filmId, activeFilm) {
+    const {setFavoriteFilm, authorizationStatus} = this.props;
 
-  const similarFilms = getSimilarFilms(activeFilm, films.slice());
-
-  const handleAddBtnClick = (evt) => {
     const isFavorite = activeFilm.isFavorite ? MyListBtn.NOT_FAVORITE : MyListBtn.FAVORITE;
-
-    evt.preventDefault();
 
     if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       history.push(AppRoute.LOGIN);
@@ -63,142 +55,155 @@ const MoviePage = (props) => {
     }
 
     setFavoriteFilm(filmId, isFavorite);
-  };
+  }
 
-  return (
-    <React.Fragment>
-      <section className="movie-card movie-card--full">
-        <div className="movie-card__hero">
-          <div className="movie-card__bg">
-            <img src={cover} alt={title} />
+  render() {
+    const {
+      films,
+      getActiveFilm,
+      authorizationStatus,
+      filmId,
+    } = this.props;
+
+    const activeFilm = getActiveFilm(filmId);
+
+    const {title, genre, year, poster, cover} = activeFilm;
+
+    const similarFilms = this.getSimilarFilms(activeFilm, films.slice());
+
+    return (
+      <React.Fragment>
+        <section className="movie-card movie-card--full">
+          <div className="movie-card__hero">
+            <div className="movie-card__bg">
+              <img src={cover} alt={title} />
+            </div>
+
+            <h1 className="visually-hidden">WTW</h1>
+
+            <header className="page-header movie-card__head">
+              <div className="logo">
+                <Link to={AppRoute.ROOT} className="logo__link">
+                  <span className="logo__letter logo__letter--1">W</span>
+                  <span className="logo__letter logo__letter--2">T</span>
+                  <span className="logo__letter logo__letter--3">W</span>
+                </Link>
+              </div>
+
+              <UserLogo/>
+
+            </header>
+
+            <div className="movie-card__wrap">
+              <div className="movie-card__desc">
+                <h2 className="movie-card__title">{title}</h2>
+                <p className="movie-card__meta">
+                  <span className="movie-card__genre">{genre}</span>
+                  <span className="movie-card__year">{year}</span>
+                </p>
+
+                <div className="movie-card__buttons">
+
+                  <button
+                    className="btn btn--play movie-card__button"
+                    type="button"
+                    onClick={(evt) => {
+                      evt.preventDefault();
+                      history.push(`/player/${filmId}`);
+                    }}
+                  >
+
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"></use>
+                    </svg>
+                    <span>Play</span>
+                  </button>
+
+                  <button
+                    className="btn btn--list movie-card__button"
+                    type="button"
+                    onClick={() => this.handleAddBtnClick(filmId, activeFilm)}
+                  >
+                    {activeFilm.isFavorite ?
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use href="#in-list"></use>
+                      </svg> :
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                    }
+                    <span>My list</span>
+                  </button>
+
+                  {authorizationStatus === AuthorizationStatus.AUTH &&
+                    <a
+                      href="add-review.html"
+                      className="btn movie-card__button"
+                      onClick={(evt) => {
+                        evt.preventDefault();
+                        history.push(`/films/${filmId}/review`);
+                      }}
+                    >Add review
+                    </a>
+                  }
+
+                </div>
+              </div>
+            </div>
           </div>
 
-          <h1 className="visually-hidden">WTW</h1>
+          <div className="movie-card__wrap movie-card__translate-top">
+            <div className="movie-card__info">
+              <div className="movie-card__poster movie-card__poster--big">
+                <img src={poster} alt={title} width="218" height="327" />
+              </div>
 
-          <header className="page-header movie-card__head">
+              <TabsWrapped
+                activeFilm={activeFilm}
+              />
+
+            </div>
+          </div>
+        </section>
+
+        <div className="page-content">
+          <section className="catalog catalog--like-this">
+            {similarFilms.length > 0 ?
+              <React.Fragment>
+                <h2 className="catalog__title">More like this</h2>
+
+                <div className="catalog__movies-list">
+                  {similarFilms.map((it, i) => {
+                    return (
+                      <MovieCardWrapped
+                        key={it.title + i}
+                        film={it}
+                      />
+                    );
+                  })}
+                </div>
+              </React.Fragment> : ``
+            }
+          </section>
+
+          <footer className="page-footer">
             <div className="logo">
-              <Link to={AppRoute.ROOT} className="logo__link">
+              <Link to={AppRoute.ROOT} className="logo__link logo__link--light">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
               </Link>
             </div>
 
-            <UserLogo/>
-
-          </header>
-
-          <div className="movie-card__wrap">
-            <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
-              <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
-              </p>
-
-              <div className="movie-card__buttons">
-
-                <button
-                  className="btn btn--play movie-card__button"
-                  type="button"
-                  onClick={(evt) => {
-                    evt.preventDefault();
-                    history.push(`/player/${filmId}`);
-                  }}
-                >
-
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-
-                <button
-                  className="btn btn--list movie-card__button"
-                  type="button"
-                  onClick={(evt) => {
-                    handleAddBtnClick(evt);
-                  }}
-                >
-                  {activeFilm.isFavorite ?
-                    <svg viewBox="0 0 18 14" width="18" height="14">
-                      <use href="#in-list"></use>
-                    </svg> :
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                  }
-                  <span>My list</span>
-                </button>
-
-                {authorizationStatus === AuthorizationStatus.AUTH &&
-                  <a
-                    href="add-review.html"
-                    className="btn movie-card__button"
-                    onClick={(evt) => {
-                      evt.preventDefault();
-                      history.push(`/films/${filmId}/review`);
-                    }}
-                  >Add review
-                  </a>
-                }
-
-              </div>
+            <div className="copyright">
+              <p>© 2019 What to watch Ltd.</p>
             </div>
-          </div>
+          </footer>
         </div>
-
-        <div className="movie-card__wrap movie-card__translate-top">
-          <div className="movie-card__info">
-            <div className="movie-card__poster movie-card__poster--big">
-              <img src={poster} alt={title} width="218" height="327" />
-            </div>
-
-            <TabsWrapped
-              activeFilm={activeFilm}
-            />
-
-          </div>
-        </div>
-      </section>
-
-      <div className="page-content">
-        <section className="catalog catalog--like-this">
-          {similarFilms.length > 0 ?
-            <React.Fragment>
-              <h2 className="catalog__title">More like this</h2>
-
-              <div className="catalog__movies-list">
-                {similarFilms.map((it, i) => {
-                  return (
-                    <MovieCardWrapped
-                      key={it.title + i}
-                      film={it}
-                    />
-                  );
-                })}
-              </div>
-            </React.Fragment> : ``
-          }
-        </section>
-
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to={AppRoute.ROOT} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
-      </div>
-    </React.Fragment>
-  );
-};
+      </React.Fragment>
+    );
+  }
+}
 
 MoviePage.propTypes = {
   films: PropTypes.arrayOf(

@@ -11,7 +11,7 @@ const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
   LOAD_FAVORITE_FILMS: `LOAD_FAVORITE_FILMS`,
-  ADD_FILM_TO_LIST: `ADD_FILM_TO_LIST`,
+  SET_FAVORITE_FILM: `SET_FAVORITE_FILM`,
 };
 
 const ActionCreator = {
@@ -33,16 +33,6 @@ const ActionCreator = {
       payload: films,
     };
   },
-  addFilmToList: (film) => {
-    return {
-      type: ActionType.ADD_FILM_TO_LIST,
-      payload: film,
-    };
-  },
-  setActiveFilm: (film) => ({
-    type: ActionType.SET_ACTIVE_FILM,
-    payload: film,
-  }),
 };
 
 const Operation = {
@@ -67,6 +57,7 @@ const Operation = {
         throw err;
       });
   },
+
   loadFavoriteFilms: () => (dispatch, getState, api) => {
     return api.get(`/favorite`)
       .then((response) => {
@@ -77,10 +68,13 @@ const Operation = {
         throw err;
       });
   },
+
   addFilmToList: (filmId, isFavorite) => (dispatch, getState, api) => {
     return api.post(`/favorite/${filmId}/${isFavorite}`)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        dispatch(Operation.loadPromoFilm());
+        dispatch(Operation.loadFavoriteFilms());
+        dispatch(Operation.loadFilms());
       })
       .catch((err) => {
         throw err;
@@ -102,9 +96,9 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         favoriteFilms: action.payload,
       });
-    case ActionType.ADD_FILM_TO_LIST:
+    case ActionType.SET_FAVORITE_FILM:
       return extend(state, {
-        films: action.payload,
+        favoriteFilms: action.payload,
       });
   }
 
