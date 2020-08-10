@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import {AppRoute} from "../../consts.js";
+import {AppRoute, MyListBtn} from "../../consts.js";
 import history from "../../history.js";
 
 import {Operation as DataOperation} from "../../reducer/data/data.js";
@@ -21,11 +21,6 @@ import UserLogo from "../user-logo/user-logo.jsx";
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 const TabsWrapped = withActiveTab(Tabs);
-
-const MyListBtn = {
-  FAVORITE: `1`,
-  NOT_FAVORITE: `0`,
-};
 
 class MoviePage extends React.PureComponent {
   constructor(props) {
@@ -109,7 +104,7 @@ class MoviePage extends React.PureComponent {
                     type="button"
                     onClick={(evt) => {
                       evt.preventDefault();
-                      history.push(`/player/${filmId}`);
+                      history.push(`/films/${filmId}/player`);
                     }}
                   >
 

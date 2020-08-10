@@ -8,6 +8,8 @@ import MoviePage from "../movie-page/movie-page.jsx";
 import VideoPlayerMain from "../video-player-main/video-player-main.jsx";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
 import AddReview from "../add-review/add-review.jsx";
+import MyList from "../my-list/my-list.jsx";
+
 import PrivateRoute from "../private-route/private-route.jsx";
 
 import history from "../../history.js";
@@ -49,6 +51,12 @@ class App extends PureComponent {
             render={(componentProps) => {
               const filmId = componentProps.match.params.id;
               return <AddReview filmId={filmId} />;
+            }}
+          />
+
+          <PrivateRoute exact path={AppRoute.MY_LIST}
+            render={() => {
+              return <MyList />;
             }}
           />
 

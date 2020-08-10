@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import UserLogo from "../user-logo/user-logo.js";
-import MovieCardList from "../movie-card-list/movie-card-list.js";
+import UserLogo from "../user-logo/user-logo.jsx";
+import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 
 import {getFavoriteFilms} from "../../reducer/data/selectors.js";
 
@@ -32,7 +32,10 @@ const MyList = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <MovieCardList films={favoriteFilms}/>
+          {favoriteFilms.length > 0 ?
+            <MovieCardList films={favoriteFilms}/>
+            : <p> Your List is empty. Please add at least one movie to favorites.</p>
+          }
 
         </section>
 

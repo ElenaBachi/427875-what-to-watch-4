@@ -26,11 +26,16 @@ export const Review = {
   },
 };
 
+export const MyListBtn = {
+  FAVORITE: `1`,
+  NOT_FAVORITE: `0`,
+};
+
 export const AppRoute = {
   ROOT: `/`,
   LOGIN: `/login`,
   FILM: `/films/:id`,
-  PLAYER: `/player/:id`,
+  PLAYER: `/films/:id/player`,
   REVIEW: `/films/:id/review`,
-  MY_LIST: `my-list`,
+  MY_LIST: `/mylist`,
 };
