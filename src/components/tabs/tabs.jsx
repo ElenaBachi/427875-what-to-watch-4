@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {TABS} from "../../consts.js";
+import {Tab} from "../../consts.js";
 
 const Tabs = (props) => {
   const {onTabChange, activeTab, onTabClickRender} = props;
-  const tabs = Object.values(TABS);
+  const tabs = Object.values(Tab);
 
   return (
     <div className="movie-card__desc">

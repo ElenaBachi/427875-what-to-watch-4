@@ -1,6 +1,6 @@
 import {reducer, ActionType, ActionCreator} from "./filter.js";
 
-const genres = {
+const Filter = {
   ALL_GENRES: `All genres`,
   DRAMA: `Drama`,
   FAMILY: `Family`,
@@ -8,7 +8,7 @@ const genres = {
 
 it(`Reducer without additional parametrs should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    currentFilter: genres.ALL_GENRES,
+    currentFilter: Filter.ALL_GENRES,
   });
 });
 
@@ -17,17 +17,17 @@ it(`Reducer should set new current genre`, () => {
     currentFilter: `All genres`,
   }, {
     type: ActionType.SET_CURRENT_FILTER,
-    payload: genres.DRAMA,
+    payload: Filter.DRAMA,
   })).toEqual({
-    currentFilter: genres.DRAMA,
+    currentFilter: Filter.DRAMA,
   });
 });
 
 it(`Action creator should set filter`, () => {
   expect(
-      ActionCreator.changeFilter(genres.FAMILY))
+      ActionCreator.changeFilter(Filter.FAMILY))
       .toEqual({
         type: ActionType.SET_CURRENT_FILTER,
-        payload: genres.FAMILY,
+        payload: Filter.FAMILY,
       });
 });

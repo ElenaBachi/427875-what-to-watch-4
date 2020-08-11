@@ -33,14 +33,14 @@ class App extends PureComponent {
 
           <Route exact path={AppRoute.PLAYER}
             render={(componentProps) => {
-              const filmId = componentProps.match.params.id;
-              return <VideoPlayerMain filmId={parseInt(filmId, 10)} />;
+              const filmId = parseInt(componentProps.match.params.id, 10);
+              return <VideoPlayerMain filmId={filmId} />;
             }}
           />
 
           <Route exact path={AppRoute.FILM}
             render={(componentProps) => {
-              const filmId = componentProps.match.params.id;
+              const filmId = parseInt(componentProps.match.params.id, 10);
               return <MoviePage filmId={filmId} />;
             }}
           />
@@ -49,7 +49,7 @@ class App extends PureComponent {
 
           <PrivateRoute exact path={AppRoute.REVIEW}
             render={(componentProps) => {
-              const filmId = componentProps.match.params.id;
+              const filmId = parseInt(componentProps.match.params.id, 10);
               return <AddReview filmId={filmId} />;
             }}
           />

@@ -1,5 +1,5 @@
 import {reducer, ActionType, ActionCreator, AuthorizationStatus} from "./user.js";
-import {ErrorMessages} from "../../consts.js";
+import {ErrorMessage} from "../../consts.js";
 
 it(`Reducer without additional parametrs should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
@@ -48,21 +48,21 @@ it(`Reducer should change authorizationStatus by a given value`, () => {
 
 it(`Reducer should set error message`, () => {
   expect(reducer({
-    authorizationErrorMessage: ErrorMessages.INCOMPLETE_DATA,
+    authorizationErrorMessage: ErrorMessage.INCOMPLETE_DATA,
   }, {
     type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
-    payload: ErrorMessages.LOGIN,
+    payload: ErrorMessage.LOGIN,
   })).toEqual({
-    authorizationErrorMessage: ErrorMessages.LOGIN,
+    authorizationErrorMessage: ErrorMessage.LOGIN,
   });
 
   expect(reducer({
-    authorizationErrorMessage: ErrorMessages.LOGIN,
+    authorizationErrorMessage: ErrorMessage.LOGIN,
   }, {
     type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
-    payload: ErrorMessages.PASSWORD,
+    payload: ErrorMessage.PASSWORD,
   })).toEqual({
-    authorizationErrorMessage: ErrorMessages.PASSWORD,
+    authorizationErrorMessage: ErrorMessage.PASSWORD,
   });
 });
 
@@ -82,16 +82,16 @@ describe(`Action Creator work correctly`, () => {
   });
 
   it(`Action creator for setAuthorizationErrorMessage returns correct action`, () => {
-    expect(ActionCreator.setAuthorizationErrorMessage(ErrorMessages.UNRECOGNIZED_DATA))
+    expect(ActionCreator.setAuthorizationErrorMessage(ErrorMessage.UNRECOGNIZED_DATA))
     .toEqual({
       type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
-      payload: ErrorMessages.UNRECOGNIZED_DATA,
+      payload: ErrorMessage.UNRECOGNIZED_DATA,
     });
 
-    expect(ActionCreator.setAuthorizationErrorMessage(ErrorMessages.INCOMPLETE_DATA))
+    expect(ActionCreator.setAuthorizationErrorMessage(ErrorMessage.INCOMPLETE_DATA))
     .toEqual({
       type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
-      payload: ErrorMessages.INCOMPLETE_DATA,
+      payload: ErrorMessage.INCOMPLETE_DATA,
     });
   });
 });

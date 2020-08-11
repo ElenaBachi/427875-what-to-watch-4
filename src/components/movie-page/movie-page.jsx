@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import {AppRoute, MyListBtn} from "../../consts.js";
+import {AppRoute, MyListButtonOption} from "../../consts.js";
 import history from "../../history.js";
 
 import {Operation as DataOperation} from "../../reducer/data/data.js";
@@ -42,7 +42,7 @@ class MoviePage extends React.PureComponent {
   handleAddBtnClick(filmId, activeFilm) {
     const {setFavoriteFilm, authorizationStatus} = this.props;
 
-    const isFavorite = activeFilm.isFavorite ? MyListBtn.NOT_FAVORITE : MyListBtn.FAVORITE;
+    const isFavorite = activeFilm.isFavorite ? MyListButtonOption.NOT_FAVORITE : MyListButtonOption.FAVORITE;
 
     if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       history.push(AppRoute.LOGIN);

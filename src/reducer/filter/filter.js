@@ -1,8 +1,8 @@
 import {extend} from "../../utils/utils.js";
-import {ALL_GENRES} from "../../consts.js";
+import {Filter} from "../../consts.js";
 
 const initialState = {
-  currentFilter: ALL_GENRES,
+  currentFilter: Filter.ALL_GENRES,
 };
 
 const ActionType = {

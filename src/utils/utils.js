@@ -43,5 +43,13 @@ const getVideoTimeToLeft = (time) => {
   return moment.duration(time, `seconds`).format(`hh:mm:ss`);
 };
 
-export {filterFilmsByGenre, extend, getFilmGenres, getRatingLevel, getVideoTimeToLeft};
+const formatRunTime = (runTime) => {
+  const hours = Math.floor(runTime / 60);
+  const minutes = runTime - hours * 60;
+  const isMinutes = minutes === 0 ? `` : `${minutes}m`;
+
+  return `${hours}h ${isMinutes}`;
+};
+
+export {filterFilmsByGenre, extend, getFilmGenres, getRatingLevel, getVideoTimeToLeft, formatRunTime};
 

@@ -1,6 +1,6 @@
 import {createSelector} from "reselect";
 import NameSpace from "../name-space.js";
-import {ALL_GENRES} from "../../consts.js";
+import {Filter} from "../../consts.js";
 
 export const getFilms = (state) => {
   return state[NameSpace.DATA].films;
@@ -22,7 +22,7 @@ export const getFilmsByGenre = createSelector(
     getFilms,
     getActiveFilter,
     (films, filter) => {
-      if (filter !== ALL_GENRES) {
+      if (filter !== Filter.ALL_GENRES) {
         return films.filter((film) => film.genre === filter);
       }
 

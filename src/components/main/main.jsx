@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import {AppRoute, MyListBtn} from "../../consts.js";
+import {AppRoute, MyListButtonOption} from "../../consts.js";
 import history from "../../history.js";
 
 import {Operation as DataOperation} from "../../reducer/data/data.js";
@@ -28,7 +28,7 @@ const Main = (props) => {
   const {title, genre, year, poster, cover} = promoFilm;
 
   const handleAddBtnClick = () => {
-    const isFavorite = promoFilm.isFavorite ? MyListBtn.NOT_FAVORITE : MyListBtn.FAVORITE;
+    const isFavorite = promoFilm.isFavorite ? MyListButtonOption.NOT_FAVORITE : MyListButtonOption.FAVORITE;
 
     setFavoriteFilm(promoFilm.id, isFavorite);
   };
