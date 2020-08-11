@@ -1,4 +1,4 @@
-import React from "react";
+import React, {createRef} from "react";
 import renderer from "react-test-renderer";
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
@@ -88,7 +88,14 @@ it(`videoPlayerMain should render correctly`, () => {
         <Provider store={store}>
           <VideoPlayerMain
             filmId={mock.films[0].id}
-            getActiveFilm={() => {}}
+            getActiveFilm={() => mock.films[0]}
+            videoRef={createRef()}
+            getTooglerProgress={() => {}}
+            duration={0}
+            isPlaying={true}
+            isFullScreen={false}
+            handlePlayButtonClick={() => {}}
+            handleFullScreen={() => {}}
           />
         </Provider>
       </Router>, {

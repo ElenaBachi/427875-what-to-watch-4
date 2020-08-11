@@ -1,5 +1,6 @@
 import {extend} from "../../utils/utils.js";
 import {adaptReview} from "../../adapters/reviews.js";
+import history from "../../history.js";
 
 export const PostStatus = {
   FAIL: `FAIL`,
@@ -51,6 +52,7 @@ const Operation = {
       .then(() => {
         dispatch(Operation.loadReviews(filmId));
         dispatch(ActionCreator.changePostingStatus(PostStatus.SUCCESS));
+        history.goBack();
       })
       .catch((err) => {
         dispatch(ActionCreator.changePostingStatus(PostStatus.FAIL));

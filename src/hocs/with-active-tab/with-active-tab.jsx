@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
-import {TABS} from "../../consts.js";
+import {Tab} from "../../consts.js";
 
 import MoviePageOverview from "../../components/movie-page-overview/movie-page-overview.jsx";
 import MoviePageDetails from "../../components/movie-page-details/movie-page-details.jsx";
@@ -13,7 +13,7 @@ const withActiveTab = (Component) => {
       super(props);
 
       this.state = {
-        activeTab: TABS.OVERVIEW,
+        activeTab: Tab.OVERVIEW,
       };
 
       this.handleTabChange = this.handleTabChange.bind(this);
@@ -29,15 +29,15 @@ const withActiveTab = (Component) => {
       const {activeTab} = this.state;
 
       switch (activeTab) {
-        case TABS.OVERVIEW:
+        case Tab.OVERVIEW:
           return (<MoviePageOverview
             activeFilm={activeFilm}
           />);
-        case TABS.DETAILS:
+        case Tab.DETAILS:
           return <MoviePageDetails
             activeFilm={activeFilm}
           />;
-        case TABS.REVIEWS:
+        case Tab.REVIEWS:
           return <MoviePageReviews />;
         default:
           return (<MoviePageOverview

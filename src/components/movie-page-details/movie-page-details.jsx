@@ -1,9 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import {formatRunTime} from "../../utils/utils.js";
+
 const MoviePageDetails = (props) => {
   const {activeFilm} = props;
   const {genre, year, director, actorList, runTime} = activeFilm;
+
+  const filmRunTime = formatRunTime(runTime);
 
   const starring = actorList.join(`, \n`);
 
@@ -26,7 +30,7 @@ const MoviePageDetails = (props) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{runTime}</span>
+            <span className="movie-card__details-value">{filmRunTime}</span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>

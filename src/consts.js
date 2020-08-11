@@ -1,12 +1,14 @@
-export const TABS = {
+export const Tab = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,
   REVIEWS: `Reviews`,
 };
 
-export const ALL_GENRES = `All genres`;
+export const Filter = {
+  ALL_GENRES: `All genres`,
+};
 
-export const ErrorMessages = {
+export const ErrorMessage = {
   LOGIN: `Please enter a valid email address`,
   PASSWORD: `Please enter a validdata password`,
   UNRECOGNIZED_DATA: `We can’t recognize this email
@@ -26,7 +28,7 @@ export const Review = {
   },
 };
 
-export const MyListBtn = {
+export const MyListButtonOption = {
   FAVORITE: `1`,
   NOT_FAVORITE: `0`,
 };

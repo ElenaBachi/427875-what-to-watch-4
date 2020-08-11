@@ -6,8 +6,12 @@ exports[`videoPlayerMain should render correctly 1`] = `
 >
   <video
     className="player__video"
-    poster="poster-1.jpg"
-    src="video-link-1"
+    style={
+      Object {
+        "height": "100%",
+        "width": "100%",
+      }
+    }
   />
   <button
     className="player__exit"
@@ -28,13 +32,15 @@ exports[`videoPlayerMain should render correctly 1`] = `
         <progress
           className="player__progress"
           max="100"
-          value="NaN"
+          value={[Function]}
         />
         <div
           className="player__toggler"
           style={
             Object {
-              "left": "NaN%",
+              "left": "getTooglerProgress() {
+      return String(this.state.currentTime / this.state.duration * 100);
+    }%",
             }
           }
         >
@@ -75,6 +81,7 @@ exports[`videoPlayerMain should render correctly 1`] = `
       </div>
       <button
         className="player__full-screen"
+        onClick={[Function]}
         type="button"
       >
         <svg
