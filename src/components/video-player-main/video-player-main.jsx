@@ -1,35 +1,61 @@
-import React, {Fragment} from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {getActiveFilmById} from "../../reducer/data/selectors.js";
 
+import history from "../../history.js";
+
 import withVideoPlayerMain from "../../hocs/with-video-player-main/with-video-player-main.jsx";
+class VideoPlayerMain extends PureComponent {
+  constructor(props) {
+    super(props);
 
-const VideoPlayerMain = (props) => {
-  const {children} = props;
+    this.handleFullScreen = this.handleFullScreen.bind(this);
+  }
 
-  return (
-    <Fragment>
-      <Fragment>
-        <div className="player">
-          {children}
-        </div>
-      </Fragment>
-    </Fragment>
-  );
-};
+  handleFullScreen(evt) {
+    let elem = evt.target;
+
+    if (!document.fullscreenElement) {
+      elem.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  render() {
+    const {getActiveFilm, filmId} = this.props;
+    const activeFilm = getActiveFilm(filmId);
+
+    return (
+      <>
+        <video
+          className="player__video"
+          src={activeFilm.videoSrc}
+          poster={activeFilm.poster}
+        />
+
+        <button
+          type="button"
+          className="player__exit"
+          onClick={() => history.goBack()}
+        >
+          Exit
+        </button>
+      </>
+    );
+  }
+}
 
 VideoPlayerMain.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  getActiveFilm: PropTypes.func.isRequired,
+  filmId: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  getActiveFilm: (filmID) => getActiveFilmById(state, filmID),
+  getActiveFilm: (filmId) => getActiveFilmById(state, filmId),
 });
 
 export {VideoPlayerMain};
-export default connect(mapStateToProps)(withVideoPlayerMain(VideoPlayerMain));
+export default connect(mapStateToProps)((withVideoPlayerMain(VideoPlayerMain)));

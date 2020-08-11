@@ -1,7 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from 'react-redux';
+import {Router} from "react-router-dom";
 import configureStore from 'redux-mock-store';
+
+import history from "../../history.js";
 
 import MoviePage from "./movie-page.jsx";
 
@@ -11,23 +14,6 @@ import {AuthorizationStatus} from "../../reducer/user/user.js";
 const mockStore = configureStore([]);
 
 const mock = {
-  film: {
-    id: 99,
-    title: `title`,
-    genre: `genre`,
-    year: 2020,
-    img: `img.jpg`,
-    poster: `poster.jpg`,
-    cover: `cover.jpg`,
-    videoSrc: `video-link`,
-    previewVideoSrc: `preview-video-link`,
-    description: `description`,
-    score: 9,
-    count: 200,
-    director: `director`,
-    actorList: [`Actor1`, `Actor2`, `Actor3`],
-    runTime: 100,
-  },
   films: [
     {
       id: 1,
@@ -96,23 +82,21 @@ it(`MoviePage should render correctly`, () => {
   const store = mockStore({
     [NameSpace.DATA]: {
       films: mock.films,
-      activeFilm: mock.film,
     },
     [NameSpace.USER]: {
       authorizationStatus: AuthorizationStatus.NO_AUTH,
     },
   });
-  const handlePlayButtonClick = () => {};
-  const onScreenChange = () => {};
 
   const tree = renderer.create(
-      <Provider store={store}>
-        <MoviePage
-          handlePlayButtonClick={handlePlayButtonClick}
-          authorizationStatus={AuthorizationStatus.NO_AUTH}
-          onScreenChange={onScreenChange}
-        />
-      </Provider>, {
+      <Router history={history}>
+        <Provider store={store}>
+          <MoviePage
+            setFavoriteFilm={() => {}}
+            filmId={mock.films[0].id}
+          />
+        </Provider>
+      </Router>, {
         createNodeMock: () => {
           return {};
         }}).toJSON();

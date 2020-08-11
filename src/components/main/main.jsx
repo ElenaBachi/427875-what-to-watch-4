@@ -161,7 +161,6 @@ Main.propTypes = {
     actorList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     runTime: PropTypes.number.isRequired,
     isFavorite: PropTypes.bool.isRequired,
-    bgColor: PropTypes.string.isRequired,
   }).isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({

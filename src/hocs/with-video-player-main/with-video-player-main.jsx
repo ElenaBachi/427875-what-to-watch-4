@@ -1,9 +1,6 @@
 import React, {PureComponent, createRef} from "react";
-import PropTypes from "prop-types";
 
 import {getVideoTimeToLeft} from "../../utils/utils.js";
-
-import history from "../../history.js";
 
 const withVideoPlayerMain = (Component) => {
   class WithVideoPlayerMain extends PureComponent {
@@ -20,7 +17,7 @@ const withVideoPlayerMain = (Component) => {
       this._videoRef = createRef();
 
       this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
-      this.handleFullScreen = this.handleFullScreen.bind(this);
+
     }
 
     handlePlayButtonClick(evt) {
@@ -28,46 +25,8 @@ const withVideoPlayerMain = (Component) => {
       this.setState({isPlaying: !this.state.isPlaying});
     }
 
-    handleFullScreen(evt) {
-      let elem = evt.target;
-
-      if (!document.fullscreenElement) {
-        elem.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
-
-    componentDidMount() {
-      const {getActiveFilm, filmId} = this.props;
-      const activeFilm = getActiveFilm(filmId);
-
-      const video = this._videoRef.current;
-
-      video.src = activeFilm.videoSrc;
-      video.poster = activeFilm.poster;
-
-      video.ontimeupdate = () => {
-        this.setState({
-          duration: Math.floor(video.duration - video.currentTime),
-          currentTime: video.currentTime,
-        });
-      };
-    }
-
     getTooglerProgress() {
       return String((this.state.currentTime / this.state.duration) * 100);
-    }
-
-    componentDidUpdate() {
-      const video = this._videoRef.current;
-      const {isPlaying} = this.state;
-
-      if (isPlaying) {
-        video.play();
-      } else {
-        video.pause();
-      }
     }
 
     render() {
@@ -75,32 +34,31 @@ const withVideoPlayerMain = (Component) => {
       const duration = getVideoTimeToLeft(this.state.duration);
 
       return (
-        <Component>
-          <video className="player__video" ref={this._videoRef} />
+        <div className="player">
+          <Component
+            {...this.props}
+            handlePlayButtonClick={this.handlePlayButtonClick}
+            isPlaying={isPlaying}
+            isFullScreen={isFullScreen}
+            ref={this._videoRef}
+          />
 
-          <button
-            type="button"
-            className="player__exit"
-            onClick={() => history.goBack()}
-          >
-            Exit
-          </button>
-
-          <div className="player__controls">
-            <div className="player__controls-row">
-              <div className="player__time">
-                <progress className="player__progress" value={this.getTooglerProgress()} max="100"></progress>
-                <div className="player__toggler" style={{left: `${this.getTooglerProgress()}%`}}>Toggler</div>
+          <React.Fragment>
+            <div className="player__controls">
+              <div className="player__controls-row">
+                <div className="player__time">
+                  <progress className="player__progress" value={this.getTooglerProgress()} max="100"></progress>
+                  <div className="player__toggler" style={{left: `${this.getTooglerProgress()}%`}}>Toggler</div>
+                </div>
+                <div className="player__time-value">{duration}</div>
               </div>
-              <div className="player__time-value">{duration}</div>
-            </div>
 
-            <div className="player__controls-row">
-              <button type="button" className="player__play"
-                onClick={this.handlePlayButtonClick}
-              >
+              <div className="player__controls-row">
+                <button type="button" className="player__play"
+                  onClick={this.handlePlayButtonClick}
+                >
 
-                {isPlaying ?
+                  {isPlaying ?
                 <>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#pause"></use>
@@ -114,34 +72,32 @@ const withVideoPlayerMain = (Component) => {
                 <span>Play</span>
                 </>}
 
-              </button>
+                </button>
 
-              <div className="player__name">Transpotting</div>
+                <div className="player__name">Transpotting</div>
 
-              <button type="button" className="player__full-screen"
-                onClick={this.handleFullScreen}
-              >
+                <button type="button" className="player__full-screen"
+                  onClick={this.handleFullScreen}
+                >
 
-                {isFullScreen ? `` :
+                  {isFullScreen ? `` :
                 <>
                   <svg viewBox="0 0 27 27" width="27" height="27">
                     <use xlinkHref="#full-screen"></use>
                   </svg>
                   <span>Full screen</span>
                 </>}
-              </button>
+                </button>
 
+              </div>
             </div>
-          </div>
-        </Component>
+          </React.Fragment>
+        </div>
       );
     }
   }
 
-  WithVideoPlayerMain.propTypes = {
-    getActiveFilm: PropTypes.func.isRequired,
-    filmId: PropTypes.string.isRequired,
-  };
+  WithVideoPlayerMain.propTypes = {};
 
   return WithVideoPlayerMain;
 };

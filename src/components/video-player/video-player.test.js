@@ -8,25 +8,24 @@ const mock = {
 };
 
 it(`VideoPlayer should render correctly`, () => {
-  const {previewVideoSrc, img} = mock;
-
-  const tree = renderer.create(<VideoPlayer
-    previewVideoSrc={previewVideoSrc}
-    poster={img}
-    isPlaying={false}
-  />, {
-    createNodeMock: (element) => {
-      if (element.type === `video`) {
-        return {
-          load: () => {
-            return true;
+  const tree = renderer.create(
+      <VideoPlayer
+        previewVideoSrc={mock.previewVideoSrc}
+        poster={mock.img}
+        isPlaying={false}
+      />, {
+        createNodeMock: (element) => {
+          if (element.type === `video`) {
+            return {
+              load: () => {
+                return true;
+              }
+            };
           }
-        };
-      }
 
-      return null;
-    }
-  }).toJSON();
+          return null;
+        }
+      }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

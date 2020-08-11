@@ -224,7 +224,7 @@ MoviePage.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   setFavoriteFilm: PropTypes.func.isRequired,
   getActiveFilm: PropTypes.func.isRequired,
-  filmId: PropTypes.string.isRequired,
+  filmId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -30,7 +30,7 @@ describe(`VideoPlayer E2E test`, () => {
 
     const videoPlayer = mount(
         <VideoPlayer
-          src={mock.src}
+          previewVideoSrc={mock.previewVideoSrc}
           poster={mock.img}
           isPlaying={isPlaying}
         />

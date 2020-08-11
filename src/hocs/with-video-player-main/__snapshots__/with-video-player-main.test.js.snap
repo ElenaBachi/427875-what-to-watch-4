@@ -1,17 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`withVideoPlayerMain should render correctly 1`] = `
-<div>
-  <video
-    className="player__video"
-  />
-  <button
-    className="player__exit"
-    onClick={[Function]}
-    type="button"
-  >
-    Exit
-  </button>
+<div
+  className="player"
+>
+  <div />
   <div
     className="player__controls"
   >
@@ -71,7 +64,6 @@ exports[`withVideoPlayerMain should render correctly 1`] = `
       </div>
       <button
         className="player__full-screen"
-        onClick={[Function]}
         type="button"
       >
         <svg

@@ -192,7 +192,7 @@ AddReview.propTypes = {
   postStatus: PropTypes.string.isRequired,
   postReview: PropTypes.func.isRequired,
   getActiveFilm: PropTypes.func.isRequired,
-  filmId: PropTypes.string.isRequired,
+  filmId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({

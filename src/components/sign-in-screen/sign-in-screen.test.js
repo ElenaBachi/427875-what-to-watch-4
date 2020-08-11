@@ -1,7 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from 'react-redux';
+import {Router} from "react-router-dom";
 import configureStore from 'redux-mock-store';
+import history from "../../history.js";
 
 import SignInScreen from "./sign-in-screen.jsx";
 
@@ -17,12 +19,13 @@ it(`SignInScreen should render correctly`, () => {
   });
 
   const tree = renderer.create(
-      <Provider store={store}>
-        <SignInScreen
-          onSubmit={() => {}}
-        />
-      </Provider>
-  ).toJSON();
+      <Router history={history}>
+        <Provider store={store}>
+          <SignInScreen
+            login={() => {}}
+          />
+        </Provider>
+      </Router>).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

@@ -34,7 +34,7 @@ class App extends PureComponent {
           <Route exact path={AppRoute.PLAYER}
             render={(componentProps) => {
               const filmId = componentProps.match.params.id;
-              return <VideoPlayerMain filmId={filmId} />;
+              return <VideoPlayerMain filmId={parseInt(filmId, 10)} />;
             }}
           />
 

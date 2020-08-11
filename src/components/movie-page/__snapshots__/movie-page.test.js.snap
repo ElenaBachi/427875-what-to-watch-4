@@ -12,8 +12,8 @@ Array [
         className="movie-card__bg"
       >
         <img
-          alt="title"
-          src="cover.jpg"
+          alt="title1"
+          src="cover-1.jpg"
         />
       </div>
       <h1
@@ -30,6 +30,7 @@ Array [
           <a
             className="logo__link"
             href="/"
+            onClick={[Function]}
           >
             <span
               className="logo__letter logo__letter--1"
@@ -53,9 +54,10 @@ Array [
         >
           <a
             className="user-block__link"
-            href="/sign-in"
+            href="/login"
+            onClick={[Function]}
           >
-            Sign in 
+            Sign in
           </a>
         </div>
       </header>
@@ -68,7 +70,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            title
+            title1
           </h2>
           <p
             className="movie-card__meta"
@@ -76,7 +78,7 @@ Array [
             <span
               className="movie-card__genre"
             >
-              genre
+              genre1
             </span>
             <span
               className="movie-card__year"
@@ -107,6 +109,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -136,9 +139,9 @@ Array [
           className="movie-card__poster movie-card__poster--big"
         >
           <img
-            alt="title"
+            alt="title1"
             height="327"
-            src="poster.jpg"
+            src="poster-1.jpg"
             width="218"
           />
         </div>
@@ -213,13 +216,13 @@ Array [
           <div
             className="movie-card__text"
           >
-            description
+            description1
             <p
               className="movie-card__director"
             >
               <strong>
                 Director: 
-                director
+                director1
               </strong>
             </p>
             <p
@@ -241,14 +244,7 @@ Array [
     <section
       className="catalog catalog--like-this"
     >
-      <h2
-        className="catalog__title"
-      >
-        More like this
-      </h2>
-      <div
-        className="catalog__movies-list"
-      />
+      
     </section>
     <footer
       className="page-footer"
@@ -258,7 +254,8 @@ Array [
       >
         <a
           className="logo__link logo__link--light"
-          href="main.html"
+          href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"
