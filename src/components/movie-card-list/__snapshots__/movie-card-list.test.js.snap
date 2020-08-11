@@ -26,7 +26,6 @@ exports[`MovieCardList should render correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
       >
         title1
       </a>
@@ -54,7 +53,6 @@ exports[`MovieCardList should render correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
       >
         title2
       </a>
@@ -82,7 +80,6 @@ exports[`MovieCardList should render correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
       >
         title3
       </a>

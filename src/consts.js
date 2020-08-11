@@ -1,11 +1,3 @@
-export const Screen = {
-  MAIN: `MAIN`,
-  FILM_PAGE: `FILM_PAGE`,
-  VIDEO_PLAYER: `VIDEO_PLAYER`,
-  SIGN_IN: `SIGN_IN`,
-  ADD_REVIEW: `ADD_REVIEW`
-};
-
 export const TABS = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,
@@ -14,7 +6,7 @@ export const TABS = {
 
 export const ALL_GENRES = `All genres`;
 
-export const ERROR_MESSAGES = {
+export const ErrorMessages = {
   LOGIN: `Please enter a valid email address`,
   PASSWORD: `Please enter a validdata password`,
   UNRECOGNIZED_DATA: `We can’t recognize this email
@@ -22,7 +14,28 @@ export const ERROR_MESSAGES = {
   INCOMPLETE_DATA: `You have not complete all the fields. Please try again.`
 };
 
-export const ReviewLength = {
-  MIN: 5,
-  MAX: 400,
+export const Review = {
+  length: {
+    MIN: 5,
+    MAX: 400,
+  },
+  rating: {
+    MIN: 1,
+    MAX: 5,
+    DEFAULT: 3,
+  },
+};
+
+export const MyListBtn = {
+  FAVORITE: `1`,
+  NOT_FAVORITE: `0`,
+};
+
+export const AppRoute = {
+  ROOT: `/`,
+  LOGIN: `/login`,
+  FILM: `/films/:id`,
+  PLAYER: `/films/:id/player`,
+  REVIEW: `/films/:id/review`,
+  MY_LIST: `/mylist`,
 };

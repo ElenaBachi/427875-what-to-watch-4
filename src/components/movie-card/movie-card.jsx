@@ -2,19 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {ActionCreator} from "../../reducer/data/data.js";
 import {Operation as ReviewsOperation} from "../../reducer/reviews/reviews.js";
 
-import {Screen} from "../../consts/consts.js";
+import history from "../../history.js";
 
 const MovieCard = (props) => {
   const {
     film,
-    handleCardClick,
     renderPlayer,
     handleMouseEnter,
     handleMouseLeave,
-    onScreenChange,
     loadReviews,
   } = props;
   const {previewVideoSrc, img, title} = film;
@@ -23,18 +20,16 @@ const MovieCard = (props) => {
     <article className="small-movie-card catalog__movies-card"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={(evt) => {
-        evt.preventDefault();
-        handleCardClick(film);
+      onClick={() => {
         loadReviews(film);
-        onScreenChange(Screen.FILM_PAGE);
+        history.push(`/films/${film.id}`);
       }}
     >
       <div className="small-movie-card__image">
         {renderPlayer(previewVideoSrc, img)}
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{title}</a>
+        <a className="small-movie-card__link">{title}</a>
       </h3>
     </article>
   );
@@ -50,15 +45,10 @@ MovieCard.propTypes = {
   renderPlayer: PropTypes.func.isRequired,
   handleMouseEnter: PropTypes.func.isRequired,
   handleMouseLeave: PropTypes.func.isRequired,
-  handleCardClick: PropTypes.func.isRequired,
   loadReviews: PropTypes.func.isRequired,
-  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  handleCardClick(film) {
-    dispatch(ActionCreator.setActiveFilm(film));
-  },
   loadReviews(film) {
     dispatch(ReviewsOperation.loadReviews(film.id));
   }

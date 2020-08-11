@@ -1,18 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
+import {AppRoute, MyListBtn} from "../../consts.js";
+import history from "../../history.js";
+
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {ActionCreator as LoadBtnActionCreator} from "../../reducer/films-load-btn/films-load-btn.js";
-import {ActionCreator as VideoPlayerActionCreator} from "../../reducer/video-player/video-player.js";
 import {getPromoFilm, getFilmsByGenre} from "../../reducer/data/selectors.js";
 import {getFilmCount} from "../../reducer/films-load-btn/selectors.js";
 
-import Header from "../header/header.jsx";
+import UserLogo from "../user-logo/user-logo.jsx";
 import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-
-import {Screen} from "../../consts/consts.js";
 
 const Main = (props) => {
   const {
@@ -20,11 +22,16 @@ const Main = (props) => {
     films,
     onShowMoreBtnClick,
     filmCount,
-    handlePlayButtonClick,
-    onScreenChange,
+    setFavoriteFilm,
   } = props;
 
   const {title, genre, year, poster, cover} = promoFilm;
+
+  const handleAddBtnClick = () => {
+    const isFavorite = promoFilm.isFavorite ? MyListBtn.NOT_FAVORITE : MyListBtn.FAVORITE;
+
+    setFavoriteFilm(promoFilm.id, isFavorite);
+  };
 
   return (
     <React.Fragment>
@@ -35,7 +42,18 @@ const Main = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header/>
+        <header className="page-header movie-card__head">
+          <div className="logo">
+            <Link to={AppRoute.ROOT} className="logo__link">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </Link>
+          </div>
+
+          <UserLogo/>
+
+        </header>
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
@@ -54,8 +72,7 @@ const Main = (props) => {
                 <button className="btn btn--play movie-card__button" type="button"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    handlePlayButtonClick(promoFilm);
-                    onScreenChange(Screen.VIDEO_PLAYER);
+                    history.push(`/films/${promoFilm.id}/player`);
                   }}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -63,10 +80,24 @@ const Main = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+
+                <button
+                  className="btn btn--list movie-card__button"
+                  type="button"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    handleAddBtnClick();
+                  }}
+                >
+                  {promoFilm.isFavorite ?
+                    <svg viewBox="0 0 18 14" width="18" height="14">
+                      <use href="#in-list"></use>
+                    </svg> :
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  }
+
                   <span>My list</span>
                 </button>
               </div>
@@ -83,7 +114,6 @@ const Main = (props) => {
 
           <MovieCardList
             films={films}
-            onScreenChange={onScreenChange}
           />
 
           <div className="catalog__more">
@@ -115,11 +145,22 @@ const Main = (props) => {
 
 Main.propTypes = {
   promoFilm: PropTypes.shape({
-    poster: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
+    img: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    videoSrc: PropTypes.string.isRequired,
+    previewVideoSrc: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    actorList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    runTime: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape({
@@ -143,8 +184,7 @@ Main.propTypes = {
       })).isRequired,
   onShowMoreBtnClick: PropTypes.func.isRequired,
   filmCount: PropTypes.number.isRequired,
-  handlePlayButtonClick: PropTypes.func.isRequired,
-  onScreenChange: PropTypes.func.isRequired,
+  setFavoriteFilm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -158,8 +198,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(LoadBtnActionCreator.downloadFilmCards());
   },
 
-  handlePlayButtonClick(film) {
-    dispatch(VideoPlayerActionCreator.setFilmToPlay(film));
+  setFavoriteFilm(filmId, isFavorite) {
+    dispatch(DataOperation.addFilmToList(filmId, isFavorite));
   },
 });
 

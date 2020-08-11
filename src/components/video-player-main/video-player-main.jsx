@@ -1,43 +1,61 @@
-import React, {Fragment} from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {getActiveFullVideo} from "../../reducer/video-player/selectors.js";
+import {getActiveFilmById} from "../../reducer/data/selectors.js";
+
+import history from "../../history.js";
 
 import withVideoPlayerMain from "../../hocs/with-video-player-main/with-video-player-main.jsx";
+class VideoPlayerMain extends PureComponent {
+  constructor(props) {
+    super(props);
 
-import {ActionCreator} from "../../reducer/video-player/video-player.js";
+    this.handleFullScreen = this.handleFullScreen.bind(this);
+  }
 
-const VideoPlayerMain = (props) => {
-  const {children} = props;
+  handleFullScreen(evt) {
+    let elem = evt.target;
 
-  return (
-    <Fragment>
-      <Fragment>
-        <div className="player">
-          {children}
-        </div>
-      </Fragment>
-    </Fragment>
-  );
-};
+    if (!document.fullscreenElement) {
+      elem.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  render() {
+    const {getActiveFilm, filmId} = this.props;
+    const activeFilm = getActiveFilm(filmId);
+
+    return (
+      <>
+        <video
+          className="player__video"
+          src={activeFilm.videoSrc}
+          poster={activeFilm.poster}
+        />
+
+        <button
+          type="button"
+          className="player__exit"
+          onClick={() => history.goBack()}
+        >
+          Exit
+        </button>
+      </>
+    );
+  }
+}
 
 VideoPlayerMain.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  getActiveFilm: PropTypes.func.isRequired,
+  filmId: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  activeFullVideo: getActiveFullVideo(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  handleExitButtonClick() {
-    dispatch(ActionCreator.setFilmToPlay(null));
-  },
+  getActiveFilm: (filmId) => getActiveFilmById(state, filmId),
 });
 
 export {VideoPlayerMain};
-export default connect(mapStateToProps, mapDispatchToProps)(withVideoPlayerMain(VideoPlayerMain));
+export default connect(mapStateToProps)((withVideoPlayerMain(VideoPlayerMain)));

@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
+import {Router, Route, Switch, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
@@ -8,89 +8,71 @@ import MoviePage from "../movie-page/movie-page.jsx";
 import VideoPlayerMain from "../video-player-main/video-player-main.jsx";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
 import AddReview from "../add-review/add-review.jsx";
+import MyList from "../my-list/my-list.jsx";
 
-import {Screen} from "../../consts/consts.js";
+import PrivateRoute from "../private-route/private-route.jsx";
+
+import history from "../../history.js";
+
+import {AppRoute} from "../../consts.js";
 
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {AuthorizationStatus, Operation as UserOperation} from "../../reducer/user/user.js";
-import {ActionCreator as ScreenActionCreator} from "../../reducer/screens/screens.js";
-import {getActiveScreen} from "../../reducer/screens/selectors.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 class App extends PureComponent {
-  _renderApp() {
-    const {login, authorizationStatus, currentScreen, onScreenChange} = this.props;
-
-    if (currentScreen === Screen.MAIN) {
-      return <Main onScreenChange={onScreenChange} />;
-    } else if (currentScreen === Screen.FILM_PAGE) {
-      return <MoviePage
-        onScreenChange={onScreenChange}
-        authorizationStatus={authorizationStatus}
-      />;
-    } else if (currentScreen === Screen.VIDEO_PLAYER) {
-      return <VideoPlayerMain onScreenChange={onScreenChange} />;
-    } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      if (authorizationStatus === AuthorizationStatus.AUTH) {
-        return <Redirect to={`/`} />;
-      }
-
-      return <SignInScreen onSubmit={login} />;
-    } else if (currentScreen === Screen.ADD_REVIEW) {
-      return <AddReview />;
-    }
-
-    return <Main/>;
-  }
-
   render() {
+    const {authorizationStatus} = this.props;
+    const isAuth = authorizationStatus === AuthorizationStatus.NO_AUTH;
+
     return (
-      <BrowserRouter>
+      <Router
+        history={history}
+      >
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
+          <Route exact path={AppRoute.ROOT} component={Main}/>
 
-          <Route exact path="/dev-film">
-            <MoviePage/>;
-          </Route>
+          <Route exact path={AppRoute.PLAYER}
+            render={(componentProps) => {
+              const filmId = componentProps.match.params.id;
+              return <VideoPlayerMain filmId={parseInt(filmId, 10)} />;
+            }}
+          />
 
-          <Route exact path="/dev-player">
-            <VideoPlayerMain/>;
-          </Route>
+          <Route exact path={AppRoute.FILM}
+            render={(componentProps) => {
+              const filmId = componentProps.match.params.id;
+              return <MoviePage filmId={filmId} />;
+            }}
+          />
 
-          <Route exact path="/dev-sign-in">
-            <SignInScreen/>
-          </Route>
+          <Route exact path={AppRoute.LOGIN} render={() => isAuth ? <SignInScreen /> : <Redirect to={AppRoute.ROOT} />}/>
 
-          <Route exact path="/dev-add-review">
-            <AddReview />
-          </Route>
+          <PrivateRoute exact path={AppRoute.REVIEW}
+            render={(componentProps) => {
+              const filmId = componentProps.match.params.id;
+              return <AddReview filmId={filmId} />;
+            }}
+          />
+
+          <PrivateRoute exact path={AppRoute.MY_LIST}
+            render={() => {
+              return <MyList />;
+            }}
+          />
+
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
 
 App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
-  currentScreen: PropTypes.string.isRequired,
-  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
-  currentScreen: getActiveScreen(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  login(authData) {
-    dispatch(UserOperation.login(authData));
-  },
-  onScreenChange(screen) {
-    dispatch(ScreenActionCreator.setActiveScreen(screen));
-  },
 });
 
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

@@ -27,13 +27,10 @@ const mock = {
 
 const mockStore = configureStore([]);
 
-const onFilmImgClick = () => {};
 const handleMouseEnter = () => {};
 const handleMouseLeave = () => {};
-const handleCardClick = () => {};
 const renderPlayer = () => {};
 const loadReviews = () => {};
-const onScreenChange = () => {};
 
 it(`MovieCard should render correctly`, () => {
   const store = mockStore({});
@@ -42,13 +39,10 @@ it(`MovieCard should render correctly`, () => {
       <Provider store={store}>
         <MovieCard
           film={mock.film}
-          onFilmImgClick={onFilmImgClick}
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
-          handleCardClick={handleCardClick}
           renderPlayer={renderPlayer}
           loadReviews={loadReviews}
-          onScreenChange={onScreenChange}
         />
       </Provider>, {
         createNodeMock: () => {

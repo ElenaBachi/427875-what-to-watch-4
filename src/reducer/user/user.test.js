@@ -1,5 +1,5 @@
 import {reducer, ActionType, ActionCreator, AuthorizationStatus} from "./user.js";
-import {ERROR_MESSAGES} from "../../consts/consts.js";
+import {ErrorMessages} from "../../consts.js";
 
 it(`Reducer without additional parametrs should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
@@ -48,21 +48,21 @@ it(`Reducer should change authorizationStatus by a given value`, () => {
 
 it(`Reducer should set error message`, () => {
   expect(reducer({
-    authorizationErrorMessage: ERROR_MESSAGES.INCOMPLETE_DATA,
+    authorizationErrorMessage: ErrorMessages.INCOMPLETE_DATA,
   }, {
     type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
-    payload: ERROR_MESSAGES.LOGIN,
+    payload: ErrorMessages.LOGIN,
   })).toEqual({
-    authorizationErrorMessage: ERROR_MESSAGES.LOGIN,
+    authorizationErrorMessage: ErrorMessages.LOGIN,
   });
 
   expect(reducer({
-    authorizationErrorMessage: ERROR_MESSAGES.LOGIN,
+    authorizationErrorMessage: ErrorMessages.LOGIN,
   }, {
     type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
-    payload: ERROR_MESSAGES.PASSWORD,
+    payload: ErrorMessages.PASSWORD,
   })).toEqual({
-    authorizationErrorMessage: ERROR_MESSAGES.PASSWORD,
+    authorizationErrorMessage: ErrorMessages.PASSWORD,
   });
 });
 
@@ -82,16 +82,16 @@ describe(`Action Creator work correctly`, () => {
   });
 
   it(`Action creator for setAuthorizationErrorMessage returns correct action`, () => {
-    expect(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.UNRECOGNIZED_DATA))
+    expect(ActionCreator.setAuthorizationErrorMessage(ErrorMessages.UNRECOGNIZED_DATA))
     .toEqual({
       type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
-      payload: ERROR_MESSAGES.UNRECOGNIZED_DATA,
+      payload: ErrorMessages.UNRECOGNIZED_DATA,
     });
 
-    expect(ActionCreator.setAuthorizationErrorMessage(ERROR_MESSAGES.INCOMPLETE_DATA))
+    expect(ActionCreator.setAuthorizationErrorMessage(ErrorMessages.INCOMPLETE_DATA))
     .toEqual({
       type: ActionType.SET_AUTHORIZATION_ERROR_MESSAGE,
-      payload: ERROR_MESSAGES.INCOMPLETE_DATA,
+      payload: ErrorMessages.INCOMPLETE_DATA,
     });
   });
 });

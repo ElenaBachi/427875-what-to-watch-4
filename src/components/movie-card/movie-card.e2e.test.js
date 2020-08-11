@@ -35,7 +35,6 @@ describe(`MovieCard E2E test`, () => {
   const handleMouseLeave = jest.fn(() => false);
   const renderPlayer = jest.fn();
   const loadReviews = jest.fn();
-  const onScreenChange = jest.fn();
 
   const store = mockStore({});
 
@@ -47,7 +46,6 @@ describe(`MovieCard E2E test`, () => {
           handleMouseLeave={handleMouseLeave}
           renderPlayer={renderPlayer}
           loadReviews={loadReviews}
-          onScreenChange={onScreenChange}
         />
       </Provider>
   );

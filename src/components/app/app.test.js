@@ -8,8 +8,6 @@ import App from "./app.jsx";
 import NameSpace from "../../reducer/name-space.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 
-import {Screen} from "../../consts/consts.js";
-
 const mockStore = configureStore([]);
 
 const mock = {
@@ -120,7 +118,7 @@ describe(`Render App`, () => {
       [NameSpace.DATA]: {
         films: mock.films,
         promoFilm: mock.promoFilm,
-        activeFilm: mock.films[0],
+        favoriteFilms: mock.films,
       },
       [NameSpace.USER]: {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -129,26 +127,17 @@ describe(`Render App`, () => {
       [NameSpace.FILTER]: {
         currentFilter: mock.genre,
       },
-      [NameSpace.VIDEO_PLAYER]: {
-        activeFullVideo: mock.films[1],
-      },
       [NameSpace.FILMS_LOAD_BTN]: {
         filmCount: 10,
       },
-      [NameSpace.SCREENS]: {
-        currentScreen: Screen.MAIN,
-      },
       [NameSpace.REVIEWS]: {
         reviews: mock.reviews,
-        errorInPostingReview: false,
-        errorStatus: ``,
+        postStatus: ``,
       }
     });
     const tree = renderer.create(
         <Provider store={store}>
-          <App
-            login={() => {}}
-          />
+          <App />
         </Provider>, {
           createNodeMock: () => {
             return {};

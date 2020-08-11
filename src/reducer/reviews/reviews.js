@@ -1,16 +1,19 @@
 import {extend} from "../../utils/utils.js";
 import {adaptReview} from "../../adapters/reviews.js";
 
+export const PostStatus = {
+  FAIL: `FAIL`,
+  SUCCESS: `SUCCESS`,
+};
+
 const initialState = {
   reviews: [],
-  errorInPostingReview: false,
-  errorStatus: ``,
+  postStatus: ``,
 };
 
 const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
-  POST_REVIEW: `POST_REVIEW`,
-  CHANGE_POSTING_ERROR_FLAG: `CHANGE_POSTING_ERROR_FLAG`,
+  CHANGE_POSTING_STATUS: `CHANGE_POSTING_STATUS`,
 };
 
 const ActionCreator = {
@@ -20,16 +23,10 @@ const ActionCreator = {
       payload: reviews,
     };
   },
-  postReview: (errorStatus) => {
+  changePostingStatus: (status) => {
     return {
-      type: ActionType.LOAD_REVIEWS,
-      payload: errorStatus,
-    };
-  },
-  changeErrorFlag: (payload) => {
-    return {
-      type: ActionType.CHANGE_POSTING_ERROR_FLAG,
-      payload,
+      type: ActionType.CHANGE_POSTING_STATUS,
+      payload: status,
     };
   },
 };
@@ -51,13 +48,14 @@ const Operation = {
       rating: review.rating,
       comment: review.comment
     })
-      .then((response) => {
-        dispatch(ActionCreator.changeErrorFlag(false));
-        dispatch(ActionCreator.postReview(response.status));
+      .then(() => {
+        dispatch(Operation.loadReviews(filmId));
+        dispatch(ActionCreator.changePostingStatus(PostStatus.SUCCESS));
       })
       .catch((err) => {
-        dispatch(ActionCreator.changeErrorFlag(true));
-        dispatch(ActionCreator.postReview(err));
+        dispatch(ActionCreator.changePostingStatus(PostStatus.FAIL));
+
+        throw err.status;
       });
   },
 };
@@ -68,9 +66,9 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         reviews: action.payload,
       });
-    case ActionType.POST_REVIEW:
+    case ActionType.CHANGE_POSTING_STATUS:
       return extend(state, {
-        errorStatus: action.payload,
+        postStatus: action.payload,
       });
   }
 

@@ -1,5 +1,5 @@
 import {extend} from "../../utils/utils.js";
-import {ALL_GENRES} from "../../consts/consts.js";
+import {ALL_GENRES} from "../../consts.js";
 
 const initialState = {
   currentFilter: ALL_GENRES,

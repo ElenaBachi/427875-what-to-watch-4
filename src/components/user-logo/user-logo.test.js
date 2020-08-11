@@ -1,9 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from 'react-redux';
+import {Router} from "react-router-dom";
 import configureStore from 'redux-mock-store';
 
-import Header from "./header.jsx";
+import history from "../../history.js";
+
+import UserLogo from "./user-logo.jsx";
 
 import NameSpace from "../../reducer/name-space.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
@@ -18,9 +21,11 @@ it(`SignInScreen should render correctly`, () => {
   });
 
   const tree = renderer.create(
-      <Provider store={store}>
-        <Header />
-      </Provider>
+      <Router history={history}>
+        <Provider store={store}>
+          <UserLogo />
+        </Provider>
+      </Router>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

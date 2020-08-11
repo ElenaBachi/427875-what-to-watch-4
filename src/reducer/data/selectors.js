@@ -1,6 +1,6 @@
 import {createSelector} from "reselect";
 import NameSpace from "../name-space.js";
-import {ALL_GENRES} from "../../consts/consts.js";
+import {ALL_GENRES} from "../../consts.js";
 
 export const getFilms = (state) => {
   return state[NameSpace.DATA].films;
@@ -8,6 +8,10 @@ export const getFilms = (state) => {
 
 export const getPromoFilm = (state) => {
   return state[NameSpace.DATA].promoFilm;
+};
+
+export const getFavoriteFilms = (state) => {
+  return state[NameSpace.DATA].favoriteFilms;
 };
 
 const getActiveFilter = (state) => {
@@ -26,6 +30,16 @@ export const getFilmsByGenre = createSelector(
     }
 );
 
-export const getActiveFilm = (state) => {
-  return state[NameSpace.DATA].activeFilm;
+const getFilmId = (state, filmId) => {
+  return parseInt(filmId, 10);
 };
+
+export const getActiveFilmById = createSelector(
+    getFilmId,
+    getFilms,
+    (filmId, films) => {
+      return films.find((film) => film.id === filmId);
+    }
+);
+
+

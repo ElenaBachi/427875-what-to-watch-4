@@ -4,13 +4,14 @@ import {adaptFilm} from "../../adapters/film.js";
 const initialState = {
   films: [],
   promoFilm: {},
-  activeFilm: null,
+  favoriteFilms: [],
 };
 
 const ActionType = {
   LOAD_FILMS: `LOAD_FILMS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
-  SET_ACTIVE_FILM: `SET_ACTIVE_FILM`,
+  LOAD_FAVORITE_FILMS: `LOAD_FAVORITE_FILMS`,
+  SET_FAVORITE_FILM: `SET_FAVORITE_FILM`,
 };
 
 const ActionCreator = {
@@ -26,10 +27,12 @@ const ActionCreator = {
       payload: film,
     };
   },
-  setActiveFilm: (film) => ({
-    type: ActionType.SET_ACTIVE_FILM,
-    payload: film,
-  }),
+  loadFavoriteFilms: (films) => {
+    return {
+      type: ActionType.LOAD_FAVORITE_FILMS,
+      payload: films,
+    };
+  },
 };
 
 const Operation = {
@@ -47,8 +50,31 @@ const Operation = {
   loadPromoFilm: () => (dispatch, getState, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
-        const promoFilm = Object.assign({}, adaptFilm(response.data), {isPromoFilm: true});
+        const promoFilm = adaptFilm(response.data);
         dispatch(ActionCreator.loadPromoFilm(promoFilm));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+
+  loadFavoriteFilms: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const films = response.data.map((it) => adaptFilm(it));
+        dispatch(ActionCreator.loadFavoriteFilms(films));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+
+  addFilmToList: (filmId, isFavorite) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${filmId}/${isFavorite}`)
+      .then(() => {
+        dispatch(Operation.loadPromoFilm());
+        dispatch(Operation.loadFavoriteFilms());
+        dispatch(Operation.loadFilms());
       })
       .catch((err) => {
         throw err;
@@ -66,9 +92,13 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         promoFilm: action.payload,
       });
-    case ActionType.SET_ACTIVE_FILM:
+    case ActionType.LOAD_FAVORITE_FILMS:
       return extend(state, {
-        activeFilm: action.payload,
+        favoriteFilms: action.payload,
+      });
+    case ActionType.SET_FAVORITE_FILM:
+      return extend(state, {
+        favoriteFilms: action.payload,
       });
   }
 

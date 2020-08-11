@@ -1,7 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from 'react-redux';
+import {Router} from "react-router-dom";
 import configureStore from 'redux-mock-store';
+
+import history from "../../history.js";
 
 import Main from "./main.jsx";
 
@@ -107,17 +110,16 @@ describe(`Render Main component`, () => {
     });
 
     const onShowMoreBtnClick = () => {};
-    const handlePlayButtonClick = () => {};
-    const onScreenChange = () => {};
 
     const tree = renderer.create(
-        <Provider store={store}>
-          <Main
-            onShowMoreBtnClick={onShowMoreBtnClick}
-            handlePlayButtonClick={handlePlayButtonClick}
-            onScreenChange={onScreenChange}
-          />
-        </Provider>, {
+        <Router history={history}>
+          <Provider store={store}>
+            <Main
+              onShowMoreBtnClick={onShowMoreBtnClick}
+              setFavoriteFilm={() => {}}
+            />
+          </Provider>
+        </Router>, {
           createNodeMock: () => {
             return {};
           }
