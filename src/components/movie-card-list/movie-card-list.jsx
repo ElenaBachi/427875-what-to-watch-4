@@ -5,13 +5,14 @@ import {connect} from "react-redux";
 import MovieCard from "../movie-card/movie-card.jsx";
 
 import {getFilmCount} from "../../reducer/films-load-btn/selectors.js";
+import {ActionCreator} from "../../reducer/data/data.js";
 
 import withVideoPlayer from "../../hocs/with-video-player/with-video-player.jsx";
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 
 const MovieCardList = (props) => {
-  const {films, onFilmImgClick, filmCount} = props;
+  const {films, filmCount, onScreenChange} = props;
 
   return (
     <div className="catalog__movies-list">
@@ -19,9 +20,9 @@ const MovieCardList = (props) => {
         <MovieCardWrapped
           key={film.title + i}
           film={film}
-          onFilmImgClick={onFilmImgClick}
+          onScreenChange={onScreenChange}
         />
-      )};
+      )}
     </div>
   );
 };
@@ -47,13 +48,19 @@ MovieCardList.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         bgColor: PropTypes.string.isRequired,
       })).isRequired,
-  onFilmImgClick: PropTypes.func.isRequired,
   filmCount: PropTypes.number.isRequired,
+  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filmCount: getFilmCount(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  handleCardClick(film) {
+    dispatch(ActionCreator.setActiveFilm(film));
+  },
+});
+
 export {MovieCardList};
-export default connect(mapStateToProps)(MovieCardList);
+export default connect(mapStateToProps, mapDispatchToProps)(MovieCardList);

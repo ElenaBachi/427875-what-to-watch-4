@@ -9,6 +9,8 @@ const MoviePageOverview = (props) => {
 
   const level = getRatingLevel(score);
 
+  const starring = actorList.join(`, `);
+
   return (
     <React.Fragment>
       <div className="movie-rating">
@@ -24,7 +26,7 @@ const MoviePageOverview = (props) => {
 
         <p className="movie-card__director"><strong>Director: {director}</strong></p>
 
-        <p className="movie-card__starring"><strong>Starring: {actorList}</strong></p>
+        <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
       </div>
     </React.Fragment>
   );

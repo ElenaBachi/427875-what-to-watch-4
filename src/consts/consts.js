@@ -1,7 +1,9 @@
-export const PAGES = {
-  MAIN: `main`,
-  FILM_PAGE: `filmPage`,
-  VIDEO_PLAYER: `videoPlayer`,
+export const Screen = {
+  MAIN: `MAIN`,
+  FILM_PAGE: `FILM_PAGE`,
+  VIDEO_PLAYER: `VIDEO_PLAYER`,
+  SIGN_IN: `SIGN_IN`,
+  ADD_REVIEW: `ADD_REVIEW`
 };
 
 export const TABS = {
@@ -18,4 +20,9 @@ export const ERROR_MESSAGES = {
   UNRECOGNIZED_DATA: `We can’t recognize this email
    and password combination. Please try again.`,
   INCOMPLETE_DATA: `You have not complete all the fields. Please try again.`
+};
+
+export const ReviewLength = {
+  MIN: 5,
+  MAX: 400,
 };

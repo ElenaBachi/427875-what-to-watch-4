@@ -12,24 +12,25 @@ import MovieCardList from "../movie-card-list/movie-card-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
+import {Screen} from "../../consts/consts.js";
+
 const Main = (props) => {
   const {
     promoFilm,
     films,
-    onFilmImgClick,
     onShowMoreBtnClick,
     filmCount,
-    onPlayButtonClick,
     handlePlayButtonClick,
+    onScreenChange,
   } = props;
 
-  const {title, genre, year, poster} = promoFilm;
+  const {title, genre, year, poster, cover} = promoFilm;
 
   return (
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={cover} alt={title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -53,8 +54,8 @@ const Main = (props) => {
                 <button className="btn btn--play movie-card__button" type="button"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    onPlayButtonClick();
                     handlePlayButtonClick(promoFilm);
+                    onScreenChange(Screen.VIDEO_PLAYER);
                   }}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -82,7 +83,7 @@ const Main = (props) => {
 
           <MovieCardList
             films={films}
-            onFilmImgClick={onFilmImgClick}
+            onScreenChange={onScreenChange}
           />
 
           <div className="catalog__more">
@@ -115,6 +116,7 @@ const Main = (props) => {
 Main.propTypes = {
   promoFilm: PropTypes.shape({
     poster: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
@@ -139,11 +141,10 @@ Main.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         bgColor: PropTypes.string.isRequired,
       })).isRequired,
-  onFilmImgClick: PropTypes.func.isRequired,
   onShowMoreBtnClick: PropTypes.func.isRequired,
   filmCount: PropTypes.number.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
   handlePlayButtonClick: PropTypes.func.isRequired,
+  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

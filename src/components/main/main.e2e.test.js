@@ -108,42 +108,26 @@ describe(`Main E2E test`, () => {
     },
   });
 
-  const onFilmImgClick = jest.fn();
-  const onPlayButtonClick = jest.fn();
+
   const onShowMoreBtnClick = jest.fn();
   const handlePlayButtonClick = jest.fn();
+  const onScreenChange = jest.fn();
 
   const mainPage = mount(
       <Provider store={store}>
         <Main
-          onFilmImgClick={onFilmImgClick}
-          onPlayButtonClick={onPlayButtonClick}
           onShowMoreBtnClick={onShowMoreBtnClick}
           handlePlayButtonClick={handlePlayButtonClick}
+          onScreenChange={onScreenChange}
         />
       </Provider>
   );
-
-  it(`Click on film card image should open film page`, () => {
-    const filmImages = mainPage.find(`div.small-movie-card__image`);
-
-    filmImages.forEach((img) => img.simulate(`click`));
-
-    expect(onFilmImgClick.mock.calls.length).toBe(mock.films.length);
-  });
-
-  it(`Data of clicked film should match whith first film`, () => {
-    const firstFilmImg = mainPage.find(`div.small-movie-card__image`).at(0);
-    firstFilmImg.simulate(`click`);
-
-    expect(onFilmImgClick.mock.calls[0][0]).toMatchObject(mock.films[0]);
-  });
 
   it(`Click on play button should open video player`, () => {
     const playBtn = mainPage.find(`button.btn--play`);
 
     playBtn.simulate(`click`);
 
-    expect(onPlayButtonClick.mock.calls.length).toBe(1);
+    expect(onScreenChange.mock.calls.length).toBe(1);
   });
 });

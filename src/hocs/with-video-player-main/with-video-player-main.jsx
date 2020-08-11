@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import {getVideoTimeToLeft} from "../../utils/utils.js";
 
+import {Screen} from "../../consts/consts.js";
+
 const withVideoPlayerMain = (Component) => {
   class WithVideoPlayerMain extends PureComponent {
     constructor(props) {
@@ -18,12 +20,21 @@ const withVideoPlayerMain = (Component) => {
       this._videoRef = createRef();
 
       this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
+      this.handleExitButtonClick = this.handleExitButtonClick.bind(this);
       this.handleFullScreen = this.handleFullScreen.bind(this);
     }
 
     handlePlayButtonClick(evt) {
       evt.preventDefault();
       this.setState({isPlaying: !this.state.isPlaying});
+    }
+
+    handleExitButtonClick(evt) {
+      const {onScreenChange, activeFullVideo} = this.props;
+      const pageToExit = `isPromoFilm` in activeFullVideo ? Screen.MAIN : Screen.FILM_PAGE;
+
+      evt.preventDefault();
+      onScreenChange(pageToExit);
     }
 
     handleFullScreen(evt) {
@@ -67,7 +78,6 @@ const withVideoPlayerMain = (Component) => {
     }
 
     render() {
-      const {handleExitButtonClick} = this.props;
       const {isPlaying, isFullScreen} = this.state;
       const duration = getVideoTimeToLeft(this.state.duration);
 
@@ -76,7 +86,7 @@ const withVideoPlayerMain = (Component) => {
           <video className="player__video" ref={this._videoRef} />
 
           <button type="button" className="player__exit"
-            onClick={handleExitButtonClick}
+            onClick={(evt) => this.handleExitButtonClick(evt)}
           >Exit</button>
 
           <div className="player__controls">
@@ -133,7 +143,7 @@ const withVideoPlayerMain = (Component) => {
 
   WithVideoPlayerMain.propTypes = {
     activeFullVideo: PropTypes.object.isRequired,
-    handleExitButtonClick: PropTypes.func.isRequired,
+    onScreenChange: PropTypes.func.isRequired,
   };
 
   return WithVideoPlayerMain;

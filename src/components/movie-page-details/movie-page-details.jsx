@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 const MoviePageDetails = (props) => {
   const {activeFilm} = props;
   const {genre, year, director, actorList, runTime} = activeFilm;
+
+  const starring = actorList.join(`, \n`);
+
   return (
     <React.Fragment>
       <div className="movie-card__text movie-card__row">
@@ -15,7 +18,7 @@ const MoviePageDetails = (props) => {
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Starring</strong>
             <span className="movie-card__details-value">
-              {actorList.join(`\n`)}
+              {starring}
             </span>
           </p>
         </div>

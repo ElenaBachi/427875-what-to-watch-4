@@ -77,12 +77,14 @@ it(`MovieCardList should render correctly`, () => {
     },
   });
   const onFilmImgClick = () => {};
+  const onScreenChange = () => {};
 
   const tree = renderer.create(
       <Provider store={store}>
         <MovieCardList
           films={mock.films}
           onFilmImgClick={onFilmImgClick}
+          onScreenChange={onScreenChange}
         />
       </Provider>, {
         createNodeMock: ()=>{

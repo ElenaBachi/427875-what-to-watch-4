@@ -45,6 +45,7 @@ it(`withVideoPlayerMain should render correctly`, () => {
     <MockComponentWrapped
       activeFullVideo={mock.film}
       handleExitButtonClick={() => {}}
+      onScreenChange={() => {}}
     />
   ), {
     createNodeMock() {

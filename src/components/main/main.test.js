@@ -106,18 +106,16 @@ describe(`Render Main component`, () => {
       },
     });
 
-    const onFilmImgClick = () => {};
-    const onPlayButtonClick = () => {};
     const onShowMoreBtnClick = () => {};
     const handlePlayButtonClick = () => {};
+    const onScreenChange = () => {};
 
     const tree = renderer.create(
         <Provider store={store}>
           <Main
-            onFilmImgClick={onFilmImgClick}
-            onPlayButtonClick={onPlayButtonClick}
             onShowMoreBtnClick={onShowMoreBtnClick}
             handlePlayButtonClick={handlePlayButtonClick}
+            onScreenChange={onScreenChange}
           />
         </Provider>, {
           createNodeMock: () => {

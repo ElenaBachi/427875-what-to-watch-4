@@ -47,7 +47,8 @@ const Operation = {
   loadPromoFilm: () => (dispatch, getState, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
-        dispatch(ActionCreator.loadPromoFilm(adaptFilm(response.data)));
+        const promoFilm = Object.assign({}, adaptFilm(response.data), {isPromoFilm: true});
+        dispatch(ActionCreator.loadPromoFilm(promoFilm));
       })
       .catch((err) => {
         throw err;

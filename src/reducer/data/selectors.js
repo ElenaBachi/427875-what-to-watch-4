@@ -26,4 +26,6 @@ export const getFilmsByGenre = createSelector(
     }
 );
 
-
+export const getActiveFilm = (state) => {
+  return state[NameSpace.DATA].activeFilm;
+};

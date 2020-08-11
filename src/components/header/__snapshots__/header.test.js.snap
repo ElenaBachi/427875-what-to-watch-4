@@ -35,7 +35,7 @@ exports[`SignInScreen should render correctly 1`] = `
       className="user-block__link"
       href="/sign-in"
     >
-      Sign in
+      Sign in 
     </a>
   </div>
 </header>

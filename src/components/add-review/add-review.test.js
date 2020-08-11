@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-import VideoPlayerMain from "./video-player-main.jsx";
+import AddReview from "./add-review.jsx";
 
 import NameSpace from "../../reducer/name-space.js";
 
@@ -11,36 +11,39 @@ const mockStore = configureStore([]);
 
 const mock = {
   activeFilm: {
-    id: 99,
-    title: `title`,
-    genre: `genre`,
+    id: 1,
+    title: `title1`,
+    genre: `genre1`,
     year: 2020,
-    img: `img.jpg`,
-    poster: `poster.jpg`,
-    cover: `cover.jpg`,
-    videoSrc: `video-link`,
-    previewVideoSrc: `preview-video-link`,
-    description: `description`,
+    img: `img-1.jpg`,
+    poster: `poster-1.jpg`,
+    cover: `cover-1.jpg`,
+    videoSrc: `video-link-1`,
+    previewVideoSrc: `preview-video-link-1`,
+    description: `description1`,
     score: 9,
     count: 200,
-    director: `director`,
+    director: `director1`,
     actorList: [`Actor1`, `Actor2`, `Actor3`],
     runTime: 100,
-  },
+    isFavorite: false,
+    bgColor: `fff`,
+  }
 };
 
-it(`videoPlayerMain should render correctly`, () => {
+it(`Should render Main correctly`, () => {
   const store = mockStore({
-    [NameSpace.VIDEO_PLAYER]: {
-      activeFullVideo: mock.activeFilm,
+    [NameSpace.DATA]: {
+      activeFilm: mock.activeFilm,
+    },
+    [NameSpace.REVIEWS]: {
+      errorInPostingReview: false,
     },
   });
 
   const tree = renderer.create(
       <Provider store={store}>
-        <VideoPlayerMain
-          onScreenChange={() => {}}
-        />
+        <AddReview />
       </Provider>, {
         createNodeMock: () => {
           return {};

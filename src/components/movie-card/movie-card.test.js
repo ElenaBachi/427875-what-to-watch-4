@@ -32,6 +32,8 @@ const handleMouseEnter = () => {};
 const handleMouseLeave = () => {};
 const handleCardClick = () => {};
 const renderPlayer = () => {};
+const loadReviews = () => {};
+const onScreenChange = () => {};
 
 it(`MovieCard should render correctly`, () => {
   const store = mockStore({});
@@ -45,6 +47,8 @@ it(`MovieCard should render correctly`, () => {
           handleMouseLeave={handleMouseLeave}
           handleCardClick={handleCardClick}
           renderPlayer={renderPlayer}
+          loadReviews={loadReviews}
+          onScreenChange={onScreenChange}
         />
       </Provider>, {
         createNodeMock: () => {

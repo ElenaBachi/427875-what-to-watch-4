@@ -98,22 +98,19 @@ it(`MoviePage should render correctly`, () => {
       films: mock.films,
       activeFilm: mock.film,
     },
-    [NameSpace.FILTER]: {
-      currentFilter: `All genres`,
-    },
     [NameSpace.USER]: {
       authorizationStatus: AuthorizationStatus.NO_AUTH,
-      authorizationErrorMessage: ``,
     },
   });
   const handlePlayButtonClick = () => {};
-  const onPlayButtonClick = () => {};
+  const onScreenChange = () => {};
 
   const tree = renderer.create(
       <Provider store={store}>
         <MoviePage
-          onPlayButtonClick={onPlayButtonClick}
           handlePlayButtonClick={handlePlayButtonClick}
+          authorizationStatus={AuthorizationStatus.NO_AUTH}
+          onScreenChange={onScreenChange}
         />
       </Provider>, {
         createNodeMock: () => {

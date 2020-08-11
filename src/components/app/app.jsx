@@ -1,71 +1,45 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import VideoPlayerMain from "../video-player-main/video-player-main.jsx";
 import SignInScreen from "../sign-in-screen/sign-in-screen.jsx";
+import AddReview from "../add-review/add-review.jsx";
 
-import {PAGES} from "../../consts/consts.js";
+import {Screen} from "../../consts/consts.js";
 
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {AuthorizationStatus, Operation as UserOperation} from "../../reducer/user/user.js";
+import {ActionCreator as ScreenActionCreator} from "../../reducer/screens/screens.js";
+import {getActiveScreen} from "../../reducer/screens/selectors.js";
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedFilm: null,
-      activePage: PAGES.MAIN,
-    };
-
-    this.handleFilmImgClick = this.handleFilmImgClick.bind(this);
-    this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
-  }
-
   _renderApp() {
-    switch (this.state.activePage) {
-      case PAGES.MAIN:
-        return this._renderMain();
-      case PAGES.FILM_PAGE:
-        return this._renderFilmPage();
-      case PAGES.VIDEO_PLAYER:
-        return <VideoPlayerMain/>;
-      default:
-        return this._renderMain();
-    }
-  }
+    const {login, authorizationStatus, currentScreen, onScreenChange} = this.props;
 
-  _renderMain() {
-    const {authorizationStatus, login} = this.props;
+    if (currentScreen === Screen.MAIN) {
+      return <Main onScreenChange={onScreenChange} />;
+    } else if (currentScreen === Screen.FILM_PAGE) {
+      return <MoviePage
+        onScreenChange={onScreenChange}
+        authorizationStatus={authorizationStatus}
+      />;
+    } else if (currentScreen === Screen.VIDEO_PLAYER) {
+      return <VideoPlayerMain onScreenChange={onScreenChange} />;
+    } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      if (authorizationStatus === AuthorizationStatus.AUTH) {
+        return <Redirect to={`/`} />;
+      }
 
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      return (
-        <SignInScreen
-          onSubmit={login}
-        />
-      );
-    } else if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return (
-        <Main
-          onFilmImgClick={this.handleFilmImgClick}
-          onPlayButtonClick={this.handlePlayButtonClick}
-        />
-      );
+      return <SignInScreen onSubmit={login} />;
+    } else if (currentScreen === Screen.ADD_REVIEW) {
+      return <AddReview />;
     }
 
-    return null;
-  }
-
-  _renderFilmPage() {
-    return (
-      <MoviePage
-        onPlayButtonClick={this.handlePlayButtonClick}
-      />
-    );
+    return <Main/>;
   }
 
   render() {
@@ -75,49 +49,46 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderApp()}
           </Route>
+
           <Route exact path="/dev-film">
-            {this._renderFilmPage()}
+            <MoviePage/>;
           </Route>
+
           <Route exact path="/dev-player">
-            <VideoPlayerMain
-            />;
+            <VideoPlayerMain/>;
           </Route>
-          <Route exact path="dev-sign-in">
-            <SignInScreen
-              onSubmit={() => {}}
-            />
+
+          <Route exact path="/dev-sign-in">
+            <SignInScreen/>
+          </Route>
+
+          <Route exact path="/dev-add-review">
+            <AddReview />
           </Route>
         </Switch>
       </BrowserRouter>
     );
-  }
-
-  handleFilmImgClick(film) {
-    this.setState({
-      selectedFilm: film,
-      activePage: PAGES.FILM_PAGE,
-    });
-  }
-
-  handlePlayButtonClick() {
-    this.setState({
-      activePage: PAGES.VIDEO_PLAYER,
-    });
   }
 }
 
 App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
+  currentScreen: PropTypes.string.isRequired,
+  onScreenChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
+  currentScreen: getActiveScreen(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
+  },
+  onScreenChange(screen) {
+    dispatch(ScreenActionCreator.setActiveScreen(screen));
   },
 });
 
