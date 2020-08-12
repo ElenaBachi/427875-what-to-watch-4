@@ -25,9 +25,9 @@ const MovieCard = (props) => {
         history.push(`/films/${film.id}`);
       }}
     >
-      <div className="small-movie-card__image">
-        {renderPlayer(previewVideoSrc, img)}
-      </div>
+
+      {renderPlayer(previewVideoSrc, img)}
+
       <h3 className="small-movie-card__title">
         <a className="small-movie-card__link">{title}</a>
       </h3>

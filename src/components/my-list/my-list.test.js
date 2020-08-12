@@ -74,16 +74,23 @@ const mock = {
 };
 
 it(`MyList should render correctly`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {
+      films: mock.films,
+      favoriteFilms: [],
+    },
+    [NameSpace.FILMS_LOAD_BTN]: {
+      filmCount: mock.filmCount,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: `AUTH`,
+    },
+  });
+
   const tree = renderer.create(
       <Router history={history}>
-        <Provider store={mockStore({
-          [NameSpace.DATA]: {favoriteFilms: mock.films},
-          [NameSpace.FILMS_LOAD_BTN]: {filmCount: mock.filmCount},
-          [NameSpace.USER]: {authorizationStatus: `AUTH`}
-        })}>
-          <MyList
-            favoriteFilms={mock.films}
-          />
+        <Provider store={store}>
+          <MyList />
         </Provider>
       </Router>
   ).toJSON();
