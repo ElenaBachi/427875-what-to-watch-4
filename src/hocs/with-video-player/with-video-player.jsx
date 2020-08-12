@@ -34,8 +34,8 @@ const withActivePlayer = (Component) => {
           renderPlayer={(src, img) => {
             return (
               <VideoPlayer
-                previewVideoSrc={src}
-                poster={img}
+                src={src}
+                img={img}
                 isPlaying={isPlaying}
               />
             );

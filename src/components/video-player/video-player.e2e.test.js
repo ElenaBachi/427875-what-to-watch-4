@@ -16,10 +16,12 @@ describe(`VideoPlayer E2E test`, () => {
 
     const videoPlayer = mount(
         <VideoPlayer
-          previewVideoSrc={mock.previewVideoSrc}
-          poster={mock.img}
-          isPlaying={isPlaying}
-        />
+          src={mock.previewVideoSrc}
+          img={mock.img}
+          isPlaying={false}
+        >
+          <video/>
+        </VideoPlayer>
     );
 
     expect(videoPlayer.props().isPlaying).toBe(isPlaying);
@@ -30,10 +32,12 @@ describe(`VideoPlayer E2E test`, () => {
 
     const videoPlayer = mount(
         <VideoPlayer
-          previewVideoSrc={mock.previewVideoSrc}
-          poster={mock.img}
-          isPlaying={isPlaying}
-        />
+          src={mock.previewVideoSrc}
+          img={mock.img}
+          isPlaying={true}
+        >
+          <video/>
+        </VideoPlayer>
     );
 
     expect(videoPlayer.props().isPlaying).toBe(isPlaying);

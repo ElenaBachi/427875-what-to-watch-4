@@ -10,10 +10,12 @@ const mock = {
 it(`VideoPlayer should render correctly`, () => {
   const tree = renderer.create(
       <VideoPlayer
-        previewVideoSrc={mock.previewVideoSrc}
-        poster={mock.img}
+        src={mock.previewVideoSrc}
+        img={mock.img}
         isPlaying={false}
-      />, {
+      >
+        <video/>
+      </VideoPlayer>, {
         createNodeMock: (element) => {
           if (element.type === `video`) {
             return {

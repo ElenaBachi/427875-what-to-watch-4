@@ -11,10 +11,11 @@ export default class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const {previewVideoSrc} = this.props;
+    const {src, img} = this.props;
     const video = this._videoRef.current;
 
-    video.src = previewVideoSrc;
+    video.src = src;
+    video.poster = img;
     video.muted = true;
   }
 
@@ -22,6 +23,7 @@ export default class VideoPlayer extends PureComponent {
     const video = this._videoRef.current;
 
     video.src = ``;
+    video.poster = ``;
   }
 
   componentDidUpdate() {
@@ -40,23 +42,25 @@ export default class VideoPlayer extends PureComponent {
   }
 
   render() {
-    const {poster} = this.props;
+    const {img} = this.props;
 
     return (
-      <video
-        width="280"
-        height="175"
-        poster={poster}
-        autoPlay={false}
-        loop={true}
-        ref={this._videoRef}
-      />
+      <div className="small-movie-card__image">
+        <video
+          width="280"
+          height="175"
+          autoPlay={false}
+          loop={true}
+          ref={this._videoRef}
+          poster={img}
+        />
+      </div>
     );
   }
 }
 
 VideoPlayer.propTypes = {
-  previewVideoSrc: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
 };
