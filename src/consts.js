@@ -18,7 +18,7 @@ export const ErrorMessage = {
 
 export const Review = {
   length: {
-    MIN: 5,
+    MIN: 50,
     MAX: 400,
   },
   rating: {

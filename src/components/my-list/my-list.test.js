@@ -1,14 +1,14 @@
-import React, {createRef} from "react";
+import React from "react";
 import renderer from "react-test-renderer";
-import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {Router} from "react-router-dom";
+import configureStore from 'redux-mock-store';
+
+import NameSpace from "../../reducer/name-space.js";
 
 import history from "../../history.js";
 
-import VideoPlayerMain from "./video-player-main.jsx";
-
-import NameSpace from "../../reducer/name-space.js";
+import MyList from "./my-list.jsx";
 
 const mockStore = configureStore([]);
 
@@ -70,39 +70,23 @@ const mock = {
       bgColor: `fff`,
     },
   ],
+  filmCount: 8,
 };
 
-it(`videoPlayerMain should render correctly`, () => {
-  const store = mockStore({
-    [NameSpace.DATA]: {
-      films: mock.films,
-    },
-    [NameSpace.USER]: {
-      authorizationStatus: `AUTH`,
-      authorizationErrorMessage: ``,
-    },
-  });
-
+it(`MyList should render correctly`, () => {
   const tree = renderer.create(
       <Router history={history}>
-        <Provider store={store}>
-          <VideoPlayerMain
-            filmId={mock.films[0].id}
-            getActiveFilm={() => mock.films[0]}
-            videoRef={createRef()}
-            duration={0}
-            currentTime={0}
-            isPlaying={true}
-            isFullScreen={false}
-            handlePlayButtonClick={() => {}}
-            handleFullScreen={() => {}}
+        <Provider store={mockStore({
+          [NameSpace.DATA]: {favoriteFilms: mock.films},
+          [NameSpace.FILMS_LOAD_BTN]: {filmCount: mock.filmCount},
+          [NameSpace.USER]: {authorizationStatus: `AUTH`}
+        })}>
+          <MyList
+            favoriteFilms={mock.films}
           />
         </Provider>
-      </Router>, {
-        createNodeMock: () => {
-          return {};
-        }
-      }).toJSON();
+      </Router>
+  ).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

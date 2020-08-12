@@ -32,15 +32,13 @@ exports[`videoPlayerMain should render correctly 1`] = `
         <progress
           className="player__progress"
           max="100"
-          value={[Function]}
+          value="NaN"
         />
         <div
           className="player__toggler"
           style={
             Object {
-              "left": "getTooglerProgress() {
-      return String(this.state.currentTime / this.state.duration * 100);
-    }%",
+              "left": "NaN%",
             }
           }
         >

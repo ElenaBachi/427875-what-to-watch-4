@@ -10,9 +10,16 @@ import {getVideoTimeToLeft} from "../../utils/utils.js";
 
 import withVideoPlayerMain from "../../hocs/with-video-player-main/with-video-player-main.jsx";
 class VideoPlayerMain extends PureComponent {
+  getTooglerProgress() {
+    const {currentTime, duration} = this.props;
+
+    return String((currentTime / duration) * 100);
+  }
 
   render() {
-    const {videoRef, getTooglerProgress, duration, isPlaying, isFullScreen, handlePlayButtonClick, handleFullScreen} = this.props;
+    const {videoRef, duration, isPlaying, isFullScreen, handlePlayButtonClick, handleFullScreen} = this.props;
+
+    const value = this.getTooglerProgress();
 
     return (
       <div className="player">
@@ -32,8 +39,8 @@ class VideoPlayerMain extends PureComponent {
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value={getTooglerProgress} max="100"></progress>
-              <div className="player__toggler" style={{left: `${getTooglerProgress}%`}}>Toggler</div>
+              <progress className="player__progress" value={value} max="100"></progress>
+              <div className="player__toggler" style={{left: `${value}%`}}>Toggler</div>
             </div>
             <div className="player__time-value">{getVideoTimeToLeft(duration)}</div>
           </div>
@@ -80,8 +87,9 @@ class VideoPlayerMain extends PureComponent {
   }
 }
 VideoPlayerMain.propTypes = {
-  videoRef: PropTypes.object.isRequired, getTooglerProgress: PropTypes.func.isRequired,
+  videoRef: PropTypes.object.isRequired,
   duration: PropTypes.number.isRequired,
+  currentTime: PropTypes.number.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   isFullScreen: PropTypes.bool.isRequired,
   handlePlayButtonClick: PropTypes.func.isRequired,

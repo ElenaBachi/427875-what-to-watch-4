@@ -38,10 +38,6 @@ const withVideoPlayerMain = (Component) => {
       });
     }
 
-    getTooglerProgress() {
-      return String((this.state.currentTime / this.state.duration) * 100);
-    }
-
     componentDidMount() {
       const {getActiveFilm, filmId} = this.props;
       const activeFilm = getActiveFilm(filmId);
@@ -49,6 +45,11 @@ const withVideoPlayerMain = (Component) => {
 
       video.src = activeFilm.videoSrc;
       video.poster = activeFilm.poster;
+    }
+
+    componentDidUpdate() {
+      const video = this._videoRef.current;
+      const {isPlaying} = this.state;
 
       video.ontimeupdate = () => {
         this.setState({
@@ -56,11 +57,6 @@ const withVideoPlayerMain = (Component) => {
           currentTime: video.currentTime,
         });
       };
-    }
-
-    componentDidUpdate() {
-      const video = this._videoRef.current;
-      const {isPlaying} = this.state;
 
       if (isPlaying) {
         video.play();
@@ -74,6 +70,15 @@ const withVideoPlayerMain = (Component) => {
 
       video.src = ``;
       video.poster = ``;
+
+      video.ontimeupdate = () => null;
+
+      this.setState({
+        isPlaying: false,
+        isFullScreen: false,
+        duration: 0,
+        currentTime: 0,
+      });
     }
 
     render() {
@@ -87,6 +92,7 @@ const withVideoPlayerMain = (Component) => {
           handleFullScreen={this.handleFullScreen}
           getTooglerProgress={this.getTooglerProgress}
           duration={this.state.duration}
+          currentTime={this.state.currentTime}
         />
       );
     }

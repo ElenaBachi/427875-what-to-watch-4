@@ -13,7 +13,7 @@ import {AuthorizationStatus} from "../../reducer/user/user.js";
 
 const mockStore = configureStore([]);
 
-it(`SignInScreen should render correctly`, () => {
+it(`UserLogo should render correctly`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
       authorizationStatus: AuthorizationStatus.NO_AUTH,
