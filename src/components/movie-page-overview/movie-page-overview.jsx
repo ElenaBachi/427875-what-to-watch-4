@@ -38,7 +38,7 @@ MoviePageOverview.propTypes = {
     score: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
     director: PropTypes.string.isRequired,
-    actorList: PropTypes.array.isRequired,
+    actorList: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
 
